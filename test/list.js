@@ -10,3 +10,12 @@ each(
     })
   },
 )
+
+each(
+  [{ target: {}, query: '.', opts: { inherited: true, classes: false } }],
+  ({ title }, { target, query, opts }) => {
+    test(`list() validates its input | ${title}`, (t) => {
+      t.throws(list.bind(undefined, target, query, opts))
+    })
+  },
+)
