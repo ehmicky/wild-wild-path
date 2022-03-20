@@ -8,9 +8,11 @@ const child = getChild()
 
 each(
   [
+    // Main usage
     { target: { one: 1 }, query: 'one', output: 1 },
     { target: { one: 1, two: 2 }, query: '*', output: 1 },
     { target: { one: 1 }, query: 'two', output: undefined },
+    { target: { one: undefined }, query: 'one', output: undefined },
 
     // `entries` option
     {
