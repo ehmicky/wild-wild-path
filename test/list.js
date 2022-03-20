@@ -2,10 +2,17 @@ import test from 'ava'
 import { each } from 'test-each'
 import { list } from 'wild-wild-path'
 
+const selfObject = { one: 1, two: { three: 3 } }
+// eslint-disable-next-line fp/no-mutation
+selfObject.two.self = selfObject
+
 each(
   [
-    { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
     { target: 1, query: '.', output: [1] },
+    { target: { one: 1 }, query: 'one', output: [1] },
+    { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
+    { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
+    { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
