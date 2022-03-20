@@ -95,12 +95,8 @@ const removeObjectValue = function (target, prop, mutate) {
 // This case can only happen when `mutate` is `true` since shallow copies remove
 // prototypes.
 const removeInheritedValue = function (target, prop, mutate) {
-  if (mutate && prop in target && !hasOwnProperty.call(target, prop)) {
+  if (mutate && prop in target) {
     // eslint-disable-next-line fp/no-mutation, no-param-reassign
     target[prop] = undefined
   }
 }
-
-// TODO: use `Object.hasOwn()` after dropping support for Node <16.9.0
-// eslint-disable-next-line no-shadow
-const { hasOwnProperty } = Object.prototype
