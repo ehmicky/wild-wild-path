@@ -45,6 +45,21 @@ each(
       value: 1,
       output: { one: { two: 1 } },
     },
+
+    // `leaves` option
+    {
+      target: { one: { two: 1 } },
+      query: 'one one.two',
+      value: 2,
+      output: { one: 2 },
+    },
+    {
+      target: { one: { two: 1 } },
+      query: 'one one.two',
+      value: 2,
+      opts: { leaves: true },
+      output: { one: { two: 2 } },
+    },
   ],
   ({ title }, mutate, { target, query, value, opts, output }) => {
     test(`set() output | ${title}`, (t) => {
