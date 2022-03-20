@@ -25,6 +25,16 @@ each(
       output: [{ one: { two: 1 } }, { two: 1 }, 1],
     },
     {
+      target: { one: { two: 1 } },
+      query: '**.*',
+      output: [{ two: 1 }, 1],
+    },
+    {
+      target: { one: { two: 1 } },
+      query: '*.**',
+      output: [{ two: 1 }, 1],
+    },
+    {
       target: { one: { two: 2 }, three: { two: 3 } },
       query: 'one.**',
       output: [2],
