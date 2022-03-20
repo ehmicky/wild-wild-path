@@ -226,6 +226,9 @@ each(
       output: [{ value: 1, path: [0], missing: false }],
       opts: { missing: true, entries: true },
     },
+    { target: { __proto__: {} }, query: '__proto__', output: [] },
+    { target: { prototype: {} }, query: 'prototype', output: [] },
+    { target: { constructor() {} }, query: 'constructor', output: [] },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
