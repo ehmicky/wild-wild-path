@@ -189,10 +189,6 @@ each(
       output: ['ownEnum', 'inheritedEnum'],
       opts: { classes: true, inherited: true },
     },
-
-    // prop tokens
-    { target: { one: 1 }, query: 'one', output: [1] },
-    { target: { one: 1 }, query: ['one'], output: [1] },
   ],
   ({ title }, list, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
