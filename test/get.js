@@ -2,6 +2,10 @@ import test from 'ava'
 import { each } from 'test-each'
 import { get } from 'wild-wild-path'
 
+import { getChild } from './helpers/inherited.js'
+
+const child = getChild()
+
 each(
   [
     { target: { one: 1 }, query: 'one', output: 1 },
@@ -50,6 +54,55 @@ each(
       query: 'two one',
       opts: { sort: true },
       output: 1,
+    },
+
+    // `classes` and `inherited` options
+    {
+      target: child,
+      query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      output: undefined,
+    },
+    {
+      target: child,
+      query: 'inheritedEnum inheritedNonEnum',
+      output: undefined,
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: 'ownEnum',
+      output: 'ownEnum',
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: 'ownNonEnum',
+      output: 'ownNonEnum',
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: 'ownEnum',
+      output: 'ownEnum',
+      opts: { classes: true, inherited: true },
+    },
+    {
+      target: child,
+      query: 'ownNonEnum',
+      output: 'ownNonEnum',
+      opts: { classes: true, inherited: true },
+    },
+    {
+      target: child,
+      query: 'inheritedEnum',
+      output: 'inheritedEnum',
+      opts: { classes: true, inherited: true },
+    },
+    {
+      target: child,
+      query: 'inheritedNonEnum',
+      output: 'inheritedNonEnum',
+      opts: { classes: true, inherited: true },
     },
   ],
   ({ title }, { target, query, opts, output }) => {
