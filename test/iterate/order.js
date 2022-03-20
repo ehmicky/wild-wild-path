@@ -59,7 +59,7 @@ each(
     },
   ],
   ({ title }, list, { target, query, opts, output }) => {
-    test(`list() output | ${title}`, (t) => {
+    test(`list|iterate() output | ${title}`, (t) => {
       t.deepEqual(list(target, query, opts), output)
     })
   },

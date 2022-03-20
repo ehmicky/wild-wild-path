@@ -42,7 +42,7 @@ each(
     { target: { constructor() {} }, query: 'constructor', output: [] },
   ],
   ({ title }, list, { target, query, opts, output }) => {
-    test(`list() output | ${title}`, (t) => {
+    test(`list|iterate() output | ${title}`, (t) => {
       t.deepEqual(list(target, query, opts), output)
     })
   },
@@ -60,7 +60,7 @@ each(
     { target: {}, query: '/[/' },
   ],
   ({ title }, list, { target, query, opts }) => {
-    test(`list() validates its input | ${title}`, (t) => {
+    test(`list|iterate() validates its input | ${title}`, (t) => {
       t.throws(list.bind(undefined, target, query, opts))
     })
   },

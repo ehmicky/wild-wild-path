@@ -10,7 +10,7 @@ each(
     { target: { one: 1 }, query: ['one'], output: [1] },
   ],
   ({ title }, list, { target, query, opts, output }) => {
-    test(`list() output | ${title}`, (t) => {
+    test(`list|iterate() output | ${title}`, (t) => {
       t.deepEqual(list(target, query, opts), output)
     })
   },
