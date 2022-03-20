@@ -20,9 +20,9 @@ export const getMissingValue = function (value, prop, { missing, classes }) {
 
 export const handleMissingValue = function (value, token, classes) {
   const tokenType = getTokenType(token)
-  const { isPresent, defaultValue } = MISSING_HANDLERS[tokenType.valueType]
+  const { isPresent, getDefaultValue } = MISSING_HANDLERS[tokenType.valueType]
   const missing = !isPresent(value, classes)
-  const valueA = missing ? defaultValue : value
+  const valueA = missing ? getDefaultValue() : value
   return { tokenType, missing, value: valueA }
 }
 
@@ -31,17 +31,25 @@ const MISSING_HANDLERS = {
     isPresent(value, classes) {
       return isRecurseObject(value, classes) || Array.isArray(value)
     },
-    defaultValue: {},
+    // New values must always be returned since those might be mutated either
+    // by the `mutate` option or by the consumer
+    getDefaultValue() {
+      return {}
+    },
   },
   array: {
     isPresent: Array.isArray,
-    defaultValue: [],
+    getDefaultValue() {
+      return []
+    },
   },
   object: {
     isPresent(value, classes) {
       return isRecurseObject(value, classes)
     },
-    defaultValue: {},
+    getDefaultValue() {
+      return {}
+    },
   },
 }
 
