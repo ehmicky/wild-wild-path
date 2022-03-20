@@ -184,7 +184,12 @@ each(
     { target: [undefined], query: '0', output: [undefined] },
     { target: { 0: 1 }, query: '0', output: [] },
     { target: [], query: '0:5', output: [] },
-    { target: {}, query: ':', output: [] },
+    {
+      target: {},
+      query: ':',
+      output: [],
+      opts: { missing: true, entries: true },
+    },
     { target: { one: 1 }, query: '/a/', output: [] },
     { target: [], query: '/a/', output: [] },
     { target: {}, query: '*', output: [] },

@@ -1,7 +1,7 @@
 import { getArrayIndex } from './array.js'
 
 // Use the token to list entries against a target value.
-const iterate = function (value, { from, to }) {
+const iterate = function (value, { from, to = -0 }) {
   const fromIndex = getBoundedIndex(value, from)
   const toIndex = Math.max(getBoundedIndex(value, to), fromIndex)
   return new Array(toIndex - fromIndex).fill().map((_, index) => ({
