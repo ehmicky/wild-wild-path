@@ -1,28 +1,10 @@
 import test from 'ava'
 import { each } from 'test-each'
 
+import { getChild } from '../helpers/inherited.js'
 import { listMethods } from '../helpers/list.js'
 
-/* eslint-disable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods */
-class Parent {}
-
-Parent.prototype.inheritedEnum = 'inheritedEnum'
-Object.defineProperty(Parent.prototype, 'inheritedNonEnum', {
-  value: 'inheritedNonEnum',
-})
-
-class Child extends Parent {
-  constructor() {
-    super()
-    this.ownEnum = 'ownEnum'
-    Object.defineProperty(this, 'ownNonEnum', { value: 'ownNonEnum' })
-  }
-}
-/* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods */
-
-const child = new Child()
+const child = getChild()
 
 each(
   listMethods,
