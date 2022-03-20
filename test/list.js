@@ -190,12 +190,42 @@ each(
       output: [],
       opts: { missing: true, entries: true },
     },
-    { target: { one: 1 }, query: '/a/', output: [] },
-    { target: [], query: '/a/', output: [] },
-    { target: {}, query: '*', output: [] },
-    { target: { one: 1 }, query: '*', output: [1] },
-    { target: [], query: '*', output: [] },
-    { target: [1], query: '*', output: [1] },
+    {
+      target: { one: 1 },
+      query: '/a/',
+      output: [],
+      opts: { missing: true, entries: true },
+    },
+    {
+      target: [],
+      query: '/a/',
+      output: [],
+      opts: { missing: true, entries: true },
+    },
+    {
+      target: {},
+      query: '*',
+      output: [],
+      opts: { missing: true, entries: true },
+    },
+    {
+      target: { one: 1 },
+      query: '*',
+      output: [1],
+      opts: { missing: true, entries: true },
+    },
+    {
+      target: [],
+      query: '*',
+      output: [],
+      opts: { missing: true, entries: true },
+    },
+    {
+      target: [1],
+      query: '*',
+      output: [1],
+      opts: { missing: true, entries: true },
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
