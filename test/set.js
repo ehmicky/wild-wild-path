@@ -6,7 +6,7 @@ import { set } from 'wild-wild-path'
 import { getChild } from './helpers/inherited.js'
 
 each(
-  [true, false],
+  [false, true],
   [
     // Main usage
     { target: { one: 1 }, query: 'one', value: 2, output: { one: 2 } },
@@ -23,6 +23,9 @@ each(
       value: 2,
       output: { one: { two: 2 } },
     },
+    { target: [1, 2], query: '-0', value: 3, output: [1, 2, 3] },
+    { target: [1, 2], query: '3', value: 3, output: [1, 2, undefined, 3] },
+    { target: [], query: [0], value: 1, output: [1] },
 
     // No changes
     { target: [], query: '0', value: undefined, output: [undefined] },
@@ -147,7 +150,10 @@ each(
 )
 
 each(
-  [{ target: {}, query: '.', opts: { classes: true } }],
+  [
+    { target: {}, query: '.', opts: { classes: true } },
+    { target: {}, query: [true] },
+  ],
   ({ title }, { target, query, value, opts }) => {
     test(`set() validates its input | ${title}`, (t) => {
       t.throws(set.bind(undefined, target, query, value, opts))

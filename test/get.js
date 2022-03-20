@@ -13,6 +13,7 @@ each(
     { target: { one: 1, two: 2 }, query: '*', output: 1 },
     { target: { one: 1 }, query: 'two', output: undefined },
     { target: { one: undefined }, query: 'one', output: undefined },
+    { target: { one: 1 }, query: [/one/u], output: 1 },
 
     // `entries` option
     {
@@ -113,3 +114,9 @@ each(
     })
   },
 )
+
+each([{ target: {}, query: [true] }], ({ title }, { target, query, opts }) => {
+  test(`get() validates its input | ${title}`, (t) => {
+    t.throws(get.bind(undefined, target, query, opts))
+  })
+})

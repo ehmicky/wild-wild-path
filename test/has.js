@@ -13,6 +13,7 @@ each(
     { target: { one: 1, two: 2 }, query: '*', output: true },
     { target: { one: 1 }, query: 'two', output: false },
     { target: { one: undefined }, query: 'one', output: true },
+    { target: { one: 1 }, query: [/one/u], output: true },
 
     // `classes` and `inherited` options
     {
@@ -64,3 +65,9 @@ each(
     })
   },
 )
+
+each([{ target: {}, query: [true] }], ({ title }, { target, query, opts }) => {
+  test(`has() validates its input | ${title}`, (t) => {
+    t.throws(has.bind(undefined, target, query, opts))
+  })
+})
