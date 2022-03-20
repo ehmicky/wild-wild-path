@@ -19,6 +19,7 @@ const getLastProp = function ({ path }) {
 }
 
 // Group an array of objects into an object of objects based on a property
+// TODO: replace by `Array.groupBy()` once supported by Node.js
 const groupBy = function (array, getGroup) {
   const groups = {}
 
