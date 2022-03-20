@@ -30,9 +30,13 @@ const child = new Child()
 
 each(
   [
-    { target: 1, query: '.', output: [1] },
+    // prop tokens
     { target: { one: 1 }, query: 'one', output: [1] },
+
+    // Deep query
     { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
+
+    // Unions
     { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
     { target: { one: 1 }, query: 'one one', output: [1] },
     { target: { one: { two: 2 } }, query: '*.two one.two', output: [2] },
@@ -41,6 +45,8 @@ each(
       query: '*.two one.two.three',
       output: [{ three: 1 }, 1],
     },
+
+    // anyDeep tokens
     { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
     {
       target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
@@ -93,12 +99,17 @@ each(
       output: [2, 3],
       opts: { leaves: true },
     },
+
+    // Root query
+    { target: 1, query: '.', output: [1] },
     {
       target: {},
       query: '.',
       output: [{ value: {}, path: [], missing: false }],
       opts: { entries: true },
     },
+
+    // `childFirst` option
     {
       target: { one: 1 },
       query: 'one .',
@@ -111,6 +122,8 @@ each(
       output: [1, { one: 1 }],
       opts: { childFirst: true },
     },
+
+    // `leaves` option
     {
       target: { one: { two: 1 } },
       query: 'one . one.two',
@@ -124,12 +137,16 @@ each(
       opts: { leaves: true, childFirst: true },
     },
     { target: {}, query: '. *', output: [{}], opts: { leaves: true } },
+
+    // `roots` option
     {
       target: { one: 1 },
       query: '. one',
       output: [{ one: 1 }],
       opts: { roots: true },
     },
+
+    // `missing` option
     {
       target: { one: 1 },
       query: 'one two',
@@ -158,6 +175,8 @@ each(
       output: [{ value: undefined, path: ['one'], missing: true }],
       opts: { missing: true, entries: true },
     },
+
+    // `classes` and `inherited` options
     {
       target: child,
       query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
@@ -175,6 +194,8 @@ each(
       output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
       opts: { classes: true, inherited: true },
     },
+
+    // Index tokens
     {
       target: [],
       query: '0',
@@ -183,6 +204,8 @@ each(
     },
     { target: [undefined], query: '0', output: [undefined] },
     { target: { 0: 1 }, query: '0', output: [] },
+
+    // Slice tokens
     { target: [], query: '0:5', output: [] },
     {
       target: {},
@@ -190,6 +213,8 @@ each(
       output: [],
       opts: { missing: true, entries: true },
     },
+
+    // RegExp tokens
     {
       target: { one: 1 },
       query: '/a/',
@@ -202,6 +227,8 @@ each(
       output: [],
       opts: { missing: true, entries: true },
     },
+
+    // any tokens
     {
       target: {},
       query: '*',
@@ -226,15 +253,21 @@ each(
       output: [{ value: 1, path: [0], missing: false }],
       opts: { missing: true, entries: true },
     },
+
+    // Forbidden properties
     { target: { __proto__: {} }, query: '__proto__', output: [] },
     { target: { prototype: {} }, query: 'prototype', output: [] },
     { target: { constructor() {} }, query: 'constructor', output: [] },
+
+    // `childFirst` option
     {
       target: { one: { two: { three: 1 } } },
       query: 'one.two *.two.three',
       output: [1, { three: 1 }],
       opts: { childFirst: true },
     },
+
+    // `sort` option
     { target: { two: 2, one: 1 }, query: '*', output: [2, 1] },
     {
       target: { two: 2, one: 1 },
