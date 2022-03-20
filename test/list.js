@@ -155,7 +155,7 @@ each(
     },
     {
       target: child,
-      query: '/.*/',
+      query: '/\\.*/',
       output: ['ownEnum'],
       opts: { classes: true },
     },
