@@ -37,6 +37,12 @@ each(
       opts: { leaves: true },
     },
     {
+      target: { one: { two: { four: 2 } }, three: { two: { four: 3 } } },
+      query: '**.two.**',
+      output: [2, 3],
+      opts: { leaves: true },
+    },
+    {
       target: { one: { two: 2 }, three: { four: 3 } },
       query: '**.**',
       output: [2, 3],
