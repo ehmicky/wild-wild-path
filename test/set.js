@@ -30,6 +30,9 @@ each(
       output: {},
     },
     { target: {}, query: 'one.two', value: 1, output: { one: { two: 1 } } },
+    { target: [], query: '0.0', value: 1, output: [[1]] },
+    { target: {}, query: '0', value: 1, output: [1] },
+    { target: { one: {} }, query: 'one.0', value: 1, output: { one: [1] } },
     {
       target: [],
       query: 'two',
