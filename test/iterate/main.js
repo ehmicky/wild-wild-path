@@ -1,11 +1,15 @@
 import test from 'ava'
 import { each } from 'test-each'
-import { iterate } from 'wild-wild-path'
+import { list, iterate } from 'wild-wild-path'
 
 import { listMethods } from '../helpers/list.js'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
+})
+
+test('list() returns an array', (t) => {
+  t.deepEqual(list(1, '.'), [1])
 })
 
 each(
@@ -46,9 +50,9 @@ each(
     { target: { prototype: {} }, query: 'prototype', output: [] },
     { target: { constructor() {} }, query: 'constructor', output: [] },
   ],
-  ({ title }, list, { target, query, opts, output }) => {
+  ({ title }, listFunc, { target, query, opts, output }) => {
     test(`list|iterate() output | ${title}`, (t) => {
-      t.deepEqual(list(target, query, opts), output)
+      t.deepEqual(listFunc(target, query, opts), output)
     })
   },
 )
@@ -64,9 +68,9 @@ each(
     { target: {}, query: 'a\\b' },
     { target: {}, query: '/[/' },
   ],
-  ({ title }, list, { target, query, opts }) => {
+  ({ title }, listFunc, { target, query, opts }) => {
     test(`list|iterate() validates its input | ${title}`, (t) => {
-      t.throws(list.bind(undefined, target, query, opts))
+      t.throws(listFunc.bind(undefined, target, query, opts))
     })
   },
 )
