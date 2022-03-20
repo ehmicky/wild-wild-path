@@ -12,7 +12,11 @@ each(
 )
 
 each(
-  [{ target: {}, query: '.', opts: { inherited: true, classes: false } }],
+  [
+    { target: {}, query: '.', opts: { inherited: true, classes: false } },
+    { target: {}, query: '.', opts: { missing: true, entries: false } },
+    { target: {}, query: '.', opts: { roots: true, leaves: true } },
+  ],
   ({ title }, { target, query, opts }) => {
     test(`list() validates its input | ${title}`, (t) => {
       t.throws(list.bind(undefined, target, query, opts))
