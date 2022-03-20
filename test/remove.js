@@ -17,6 +17,7 @@ each(
     },
     { target: { one: { two: 1 } }, query: 'one one.two', output: {} },
     { target: [], query: '.', output: undefined },
+    { target: [1], query: [0], output: [] },
 
     // No changes
     { target: [], query: '0', output: [] },
