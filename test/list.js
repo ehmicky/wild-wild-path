@@ -258,27 +258,33 @@ each(
 
     // any tokens
     {
+      target: { one: 1, two: 2 },
+      query: '*',
+      output: [
+        { value: 1, path: ['one'], missing: false },
+        { value: 2, path: ['two'], missing: false },
+      ],
+      opts: { entries: true },
+    },
+    {
+      target: [1, 2],
+      query: '*',
+      output: [
+        { value: 1, path: [0], missing: false },
+        { value: 2, path: [1], missing: false },
+      ],
+      opts: { entries: true },
+    },
+    {
       target: {},
       query: '*',
       output: [],
       opts: { missing: true, entries: true },
     },
     {
-      target: { one: 1 },
-      query: '*',
-      output: [{ value: 1, path: ['one'], missing: false }],
-      opts: { missing: true, entries: true },
-    },
-    {
       target: [],
       query: '*',
       output: [],
-      opts: { missing: true, entries: true },
-    },
-    {
-      target: [1],
-      query: '*',
-      output: [{ value: 1, path: [0], missing: false }],
       opts: { missing: true, entries: true },
     },
 
