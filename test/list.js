@@ -130,6 +130,15 @@ each(
       output: [{ one: 1 }],
       opts: { roots: true },
     },
+    {
+      target: { one: 1 },
+      query: 'one two',
+      output: [
+        { value: 1, path: ['one'], missing: false },
+        { value: undefined, path: ['two'], missing: true },
+      ],
+      opts: { missing: true, entries: true },
+    },
     { target: {}, query: 'one', output: [] },
     { target: { one: undefined }, query: 'one', output: [undefined] },
     { target: [], query: 'one', output: [] },
