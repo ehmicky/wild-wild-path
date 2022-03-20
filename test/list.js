@@ -235,6 +235,13 @@ each(
       output: [1, { three: 1 }],
       opts: { childFirst: true },
     },
+    { target: { two: 2, one: 1 }, query: '*', output: [2, 1] },
+    {
+      target: { two: 2, one: 1 },
+      query: '*',
+      output: [1, 2],
+      opts: { sort: true },
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
