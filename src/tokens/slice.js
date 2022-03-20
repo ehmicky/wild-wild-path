@@ -1,4 +1,4 @@
-import { getArrayIndex } from './array.js'
+import { getArrayIndex } from './indices.js'
 
 // Use the token to list entries against a target value.
 const iterate = function (value, { from, to = -0 }) {
