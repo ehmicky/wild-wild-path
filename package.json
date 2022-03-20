@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.68",
+    "test-each": "^4.0.0",
     "tsd": "^0.19.1"
   },
   "engines": {
