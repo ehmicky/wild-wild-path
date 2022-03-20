@@ -1,7 +1,7 @@
 import test from 'ava'
 import { each } from 'test-each'
 
-import { listMethods } from './helpers/list.js'
+import { listMethods } from '../helpers/list.js'
 
 each(
   listMethods,
