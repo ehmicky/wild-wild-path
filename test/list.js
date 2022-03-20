@@ -113,7 +113,7 @@ each(
     },
     {
       target: { one: { two: 1 } },
-      query: '. one one.two',
+      query: 'one . one.two',
       output: [1],
       opts: { leaves: true },
     },
