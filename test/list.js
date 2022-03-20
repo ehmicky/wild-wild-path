@@ -1,7 +1,8 @@
 /* eslint-disable max-lines */
 import test from 'ava'
 import { each } from 'test-each'
-import { list, iterate } from 'wild-wild-path'
+
+import { listMethods } from './helpers/list.js'
 
 const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
@@ -27,12 +28,6 @@ class Child extends Parent {
    fp/no-mutating-methods */
 
 const child = new Child()
-
-const iterateAll = function (target, query, opts) {
-  return [...iterate(target, query, opts)]
-}
-
-const listMethods = [list, iterateAll]
 
 each(
   listMethods,
