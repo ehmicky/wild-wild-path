@@ -145,7 +145,7 @@ each(
       query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
       output: [],
     },
-    { target: child, query: '/.*/', output: [] },
+    { target: child, query: '/\\.*/', output: [] },
     { target: child, query: '*', output: [] },
     {
       target: child,
