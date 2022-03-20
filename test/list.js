@@ -171,6 +171,18 @@ each(
       output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
       opts: { classes: true, inherited: true },
     },
+    {
+      target: child,
+      query: '/\\.*/',
+      output: ['ownEnum', 'inheritedEnum'],
+      opts: { classes: true, inherited: true },
+    },
+    {
+      target: child,
+      query: '*',
+      output: ['ownEnum', 'inheritedEnum'],
+      opts: { classes: true, inherited: true },
+    },
 
     // prop tokens
     { target: { one: 1 }, query: 'one', output: [1] },
