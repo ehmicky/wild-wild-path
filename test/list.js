@@ -7,6 +7,28 @@ const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
 selfObject.two.self = selfObject
 
+/* eslint-disable fp/no-class, fp/no-this, fp/no-mutation,
+   fp/no-mutating-methods, class-methods-use-this */
+class Parent {
+  // constructor() {
+  //   this.one = 1
+  // }
+
+  inheritedNonEnum() {}
+}
+
+Parent.prototype.inheritedEnum = 1
+
+class Child extends Parent {
+  constructor() {
+    super()
+    this.ownEnum = 2
+    Object.defineProperty(this, 'ownNonEnum', { value: 3 })
+  }
+}
+/* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
+   fp/no-mutating-methods, class-methods-use-this */
+
 each(
   [
     { target: 1, query: '.', output: [1] },
@@ -108,6 +130,12 @@ each(
       query: '. one',
       output: [{ one: 1 }],
       opts: { roots: true },
+    },
+    {
+      target: [],
+      query: 'one',
+      output: [{ value: undefined, path: ['one'], missing: true }],
+      opts: { missing: true, entries: true },
     },
     {
       target: {},
