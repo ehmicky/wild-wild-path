@@ -12,8 +12,13 @@ import { getTokenType } from '../tokens/main.js'
 // Non-enumerable properties:
 //  - Are not listed by token types returning multiple entries like *
 //  - But are handled by the other ones
-// Inherited properties are ignored by all token types if `inherited` is `false`
-//  - This avoids potentially mutating deep properties shared by other instances
+// The same applies to inherited properties if `inherited` is `false`
+//  - This avoids unintentionally mutating deep properties shared by other
+//    instances,
+//  - While still allowing intentionally getting|settting them with `prop` names
+//  - Also, even if they were ignored by the `prop` token type, the current
+//    `set()` logic would set them anyway, since missing entries are set by
+//    default
 export const getMissingValue = function (value, prop, { missing, classes }) {
   return missing ? handleMissingValue(value, prop, classes).value : value
 }

@@ -21,12 +21,6 @@ each(
       query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
       output: false,
     },
-    {
-      target: child,
-      query: 'inheritedEnum inheritedNonEnum',
-      output: false,
-      opts: { classes: true },
-    },
     { target: child, query: 'ownEnum', output: true, opts: { classes: true } },
     {
       target: child,
@@ -36,25 +30,25 @@ each(
     },
     {
       target: child,
-      query: 'ownEnum',
-      output: true,
-      opts: { classes: true, inherited: true },
-    },
-    {
-      target: child,
-      query: 'ownNonEnum',
-      output: true,
-      opts: { classes: true, inherited: true },
-    },
-    {
-      target: child,
       query: 'inheritedEnum',
       output: true,
-      opts: { classes: true, inherited: true },
+      opts: { classes: true },
     },
     {
       target: child,
       query: 'inheritedNonEnum',
+      output: true,
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: '/inherited/',
+      output: false,
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: '/inherited/',
       output: true,
       opts: { classes: true, inherited: true },
     },

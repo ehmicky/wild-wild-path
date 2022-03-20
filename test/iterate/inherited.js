@@ -19,7 +19,7 @@ each(
     {
       target: child,
       query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
-      output: ['ownEnum', 'ownNonEnum'],
+      output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
       opts: { classes: true },
     },
     {
