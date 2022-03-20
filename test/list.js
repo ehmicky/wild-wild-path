@@ -19,6 +19,11 @@ each(
       output: [1, 3, 2, 0],
       opts: { leaves: true },
     },
+    {
+      target: { one: { two: 1 } },
+      query: '**',
+      output: [{ one: { two: 1 } }, { two: 1 }, 1],
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
