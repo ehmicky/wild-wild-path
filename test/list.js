@@ -13,6 +13,12 @@ each(
     { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
     { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
     { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
+    {
+      target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
+      query: '**',
+      output: [1, 3, 2, 0],
+      opts: { leaves: true },
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
