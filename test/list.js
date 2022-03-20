@@ -159,6 +159,17 @@ each(
       output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
       opts: { classes: true, inherited: true },
     },
+    { target: [], query: '0', output: [] },
+    { target: [undefined], query: '0', output: [undefined] },
+    { target: { 0: 1 }, query: '0', output: [] },
+    { target: [], query: '0:5', output: [] },
+    { target: {}, query: ':', output: [] },
+    { target: { one: 1 }, query: '/a/', output: [] },
+    { target: [], query: '/a/', output: [] },
+    { target: {}, query: '*', output: [] },
+    { target: { one: 1 }, query: '*', output: [1] },
+    { target: [], query: '*', output: [] },
+    { target: [1], query: '*', output: [1] },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
