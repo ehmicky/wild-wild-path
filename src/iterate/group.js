@@ -32,8 +32,7 @@ const groupBy = function (array, getGroup) {
 // We directly mutate `groups` for performance reasons
 // eslint-disable-next-line max-params
 const addGroup = function (object, index, groups, getGroup) {
-  const groupValue =
-    typeof getGroup === 'function' ? getGroup(object, index) : object[getGroup]
+  const groupValue = getGroup(object, index)
   const group = String(groupValue)
 
   if (groups[group] === undefined) {
