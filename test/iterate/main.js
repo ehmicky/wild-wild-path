@@ -1,7 +1,12 @@
 import test from 'ava'
 import { each } from 'test-each'
+import { iterate } from 'wild-wild-path'
 
 import { listMethods } from '../helpers/list.js'
+
+test('iterate() returns an iterator', (t) => {
+  t.is(iterate(1, '.').next().value, 1)
+})
 
 each(
   listMethods,
