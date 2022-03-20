@@ -229,6 +229,12 @@ each(
     { target: { __proto__: {} }, query: '__proto__', output: [] },
     { target: { prototype: {} }, query: 'prototype', output: [] },
     { target: { constructor() {} }, query: 'constructor', output: [] },
+    {
+      target: { one: { two: { three: 1 } } },
+      query: 'one.two *.two.three',
+      output: [1, { three: 1 }],
+      opts: { childFirst: true },
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
