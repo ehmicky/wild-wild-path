@@ -162,6 +162,12 @@ each(
     { target: { one: 1 }, query: 'one', output: [1] },
 
     // Index tokens
+    { target: [1, 2, 3], query: '0', output: [1] },
+    { target: [1, 2, 3], query: '1', output: [2] },
+    { target: [1, 2, 3], query: '3', output: [] },
+    { target: [1, 2, 3], query: '-0', output: [] },
+    { target: [1, 2, 3], query: '-1', output: [3] },
+    { target: [1, 2, 3], query: '-3', output: [1] },
     {
       target: [],
       query: '0',
