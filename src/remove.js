@@ -53,14 +53,14 @@ const removeValue = function (target, prop, mutate) {
 }
 
 // We make sure removing out-of-bound does not increase its length
-const removeArrayValue = function (target, prop, mutate) {
-  if (target[prop] === undefined) {
+const removeArrayValue = function (target, index, mutate) {
+  if (target[index] === undefined) {
     return target
   }
 
   const targetA = mutate ? target : [...target]
   // eslint-disable-next-line fp/no-mutation
-  targetA[prop] = undefined
+  targetA[index] = undefined
   return targetA.every(isUndefined) ? [] : targetA
 }
 
