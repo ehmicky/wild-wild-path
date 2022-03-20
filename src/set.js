@@ -6,12 +6,14 @@ import { validateClasses } from './validate.js'
 // Unless `mutate` is `true`, this returns a new copy
 //  - The value is returned in both cases so consumers can forward the `mutate`
 //    option without inspecting it
+// `inherited` is not available for security reasons, to avoid prototype
+// pollution.
 // eslint-disable-next-line max-params
 export const set = function (
   target,
   query,
   value,
-  { mutate = false, missing = true, leaves = false, classes, inherited } = {},
+  { mutate = false, missing = true, leaves = false, classes } = {},
 ) {
   validateClasses(classes, mutate)
   const setFunc = setEntry.bind(undefined, { value, mutate, missing, classes })
@@ -22,7 +24,6 @@ export const set = function (
     missing,
     leaves,
     classes,
-    inherited,
   })
 }
 

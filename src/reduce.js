@@ -8,7 +8,6 @@ export const reduceParents = function ({
   missing,
   leaves,
   classes,
-  inherited,
 }) {
   const entries = list(target, query, {
     childFirst: false,
@@ -18,7 +17,7 @@ export const reduceParents = function ({
     missing,
     entries: true,
     classes,
-    inherited,
+    inherited: false,
   })
   return entries.reduce(
     (targetA, { path }) => setFunc(targetA, path, 0),

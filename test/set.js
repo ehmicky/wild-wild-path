@@ -96,7 +96,7 @@ each(
 
 each(
   [
-    // `classes` and `inherited` options
+    // `classes` option
     {
       target: getChild(),
       query: '*',
@@ -117,18 +117,6 @@ each(
         ownEnum: 2,
         ownNonEnum: 'ownNonEnum',
         inheritedEnum: 'inheritedEnum',
-        inheritedNonEnum: 'inheritedNonEnum',
-      },
-    },
-    {
-      target: getChild(),
-      query: '*',
-      value: 2,
-      opts: { classes: true, inherited: true, mutate: true },
-      output: {
-        ownEnum: 2,
-        ownNonEnum: 'ownNonEnum',
-        inheritedEnum: 2,
         inheritedNonEnum: 'inheritedNonEnum',
       },
     },
