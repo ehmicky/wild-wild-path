@@ -19,12 +19,35 @@ each(
       value: 2,
       output: { one: { two: 2 } },
     },
+
+    // `missing` option
+    { target: {}, query: 'one', value: 1, output: { one: 1 } },
+    {
+      target: {},
+      query: 'one',
+      value: 1,
+      opts: { missing: false },
+      output: {},
+    },
+    { target: {}, query: 'one.two', value: 1, output: { one: { two: 1 } } },
+    {
+      target: [],
+      query: 'two',
+      value: 1,
+      output: { two: 1 },
+    },
+    {
+      target: { one: [] },
+      query: 'one.two',
+      value: 1,
+      output: { one: { two: 1 } },
+    },
   ],
   ({ title }, mutate, { target, query, value, opts, output }) => {
     test(`set() output | ${title}`, (t) => {
       t.deepEqual(set(target, query, value, { mutate, ...opts }), output)
 
-      if (mutate) {
+      if (mutate && Array.isArray(target) === Array.isArray(output)) {
         t.deepEqual(target, output)
       }
     })
