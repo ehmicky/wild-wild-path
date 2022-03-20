@@ -30,8 +30,14 @@ const child = new Child()
 
 each(
   [
-    // prop tokens
-    { target: { one: 1 }, query: 'one', output: [1] },
+    // Root query
+    { target: 1, query: '.', output: [1] },
+    {
+      target: {},
+      query: '.',
+      output: [{ value: {}, path: [], missing: false }],
+      opts: { entries: true },
+    },
 
     // Deep query
     { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
@@ -46,68 +52,10 @@ each(
       output: [{ three: 1 }, 1],
     },
 
-    // anyDeep tokens
-    { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
-    {
-      target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
-      query: '**',
-      output: [1, 3, 2, 0],
-      opts: { leaves: true },
-    },
-    {
-      target: { one: { two: 1 } },
-      query: '**',
-      output: [{ one: { two: 1 } }, { two: 1 }, 1],
-    },
-    {
-      target: { one: { two: 1 } },
-      query: '**.*',
-      output: [{ two: 1 }, 1],
-    },
-    {
-      target: { one: { two: 1 } },
-      query: '*.**',
-      output: [{ two: 1 }, 1],
-    },
-    {
-      target: { one: { two: 2 }, three: { two: 3 } },
-      query: 'one.**',
-      output: [2],
-      opts: { leaves: true },
-    },
-    {
-      target: { one: { two: 2 }, three: { two: 3 } },
-      query: '**.two',
-      output: [2, 3],
-      opts: { leaves: true },
-    },
-    {
-      target: { one: { two: { four: 2 } }, three: { two: { four: 3 } } },
-      query: '**.two.**',
-      output: [2, 3],
-      opts: { leaves: true },
-    },
-    {
-      target: { one: { one: 2 }, two: { one: 3 } },
-      query: '**.one.**',
-      output: [{ one: 2 }, 2, 3],
-    },
-    { target: {}, query: '**', output: [{}] },
-    {
-      target: { one: { two: 2 }, three: { four: 3 } },
-      query: '**.**',
-      output: [2, 3],
-      opts: { leaves: true },
-    },
-
-    // Root query
-    { target: 1, query: '.', output: [1] },
-    {
-      target: {},
-      query: '.',
-      output: [{ value: {}, path: [], missing: false }],
-      opts: { entries: true },
-    },
+    // Forbidden properties
+    { target: { __proto__: {} }, query: '__proto__', output: [] },
+    { target: { prototype: {} }, query: 'prototype', output: [] },
+    { target: { constructor() {} }, query: 'constructor', output: [] },
 
     // `childFirst` option
     {
@@ -120,6 +68,12 @@ each(
       target: { one: 1 },
       query: '. one',
       output: [1, { one: 1 }],
+      opts: { childFirst: true },
+    },
+    {
+      target: { one: { two: { three: 1 } } },
+      query: 'one.two *.two.three',
+      output: [1, { three: 1 }],
       opts: { childFirst: true },
     },
 
@@ -144,6 +98,15 @@ each(
       query: '. one',
       output: [{ one: 1 }],
       opts: { roots: true },
+    },
+
+    // `sort` option
+    { target: { two: 2, one: 1 }, query: '*', output: [2, 1] },
+    {
+      target: { two: 2, one: 1 },
+      query: '*',
+      output: [1, 2],
+      opts: { sort: true },
     },
 
     // `missing` option
@@ -194,6 +157,9 @@ each(
       output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
       opts: { classes: true, inherited: true },
     },
+
+    // prop tokens
+    { target: { one: 1 }, query: 'one', output: [1] },
 
     // Index tokens
     {
@@ -254,26 +220,58 @@ each(
       opts: { missing: true, entries: true },
     },
 
-    // Forbidden properties
-    { target: { __proto__: {} }, query: '__proto__', output: [] },
-    { target: { prototype: {} }, query: 'prototype', output: [] },
-    { target: { constructor() {} }, query: 'constructor', output: [] },
-
-    // `childFirst` option
+    // anyDeep tokens
+    { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
     {
-      target: { one: { two: { three: 1 } } },
-      query: 'one.two *.two.three',
-      output: [1, { three: 1 }],
-      opts: { childFirst: true },
+      target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
+      query: '**',
+      output: [1, 3, 2, 0],
+      opts: { leaves: true },
     },
-
-    // `sort` option
-    { target: { two: 2, one: 1 }, query: '*', output: [2, 1] },
     {
-      target: { two: 2, one: 1 },
-      query: '*',
-      output: [1, 2],
-      opts: { sort: true },
+      target: { one: { two: 1 } },
+      query: '**',
+      output: [{ one: { two: 1 } }, { two: 1 }, 1],
+    },
+    {
+      target: { one: { two: 1 } },
+      query: '**.*',
+      output: [{ two: 1 }, 1],
+    },
+    {
+      target: { one: { two: 1 } },
+      query: '*.**',
+      output: [{ two: 1 }, 1],
+    },
+    {
+      target: { one: { two: 2 }, three: { two: 3 } },
+      query: 'one.**',
+      output: [2],
+      opts: { leaves: true },
+    },
+    {
+      target: { one: { two: 2 }, three: { two: 3 } },
+      query: '**.two',
+      output: [2, 3],
+      opts: { leaves: true },
+    },
+    {
+      target: { one: { two: { four: 2 } }, three: { two: { four: 3 } } },
+      query: '**.two.**',
+      output: [2, 3],
+      opts: { leaves: true },
+    },
+    {
+      target: { one: { one: 2 }, two: { one: 3 } },
+      query: '**.one.**',
+      output: [{ one: 2 }, 2, 3],
+    },
+    { target: {}, query: '**', output: [{}] },
+    {
+      target: { one: { two: 2 }, three: { four: 3 } },
+      query: '**.**',
+      output: [2, 3],
+      opts: { leaves: true },
     },
   ],
   ({ title }, { target, query, opts, output }) => {
