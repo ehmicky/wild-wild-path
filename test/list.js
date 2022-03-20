@@ -211,7 +211,7 @@ each(
     {
       target: { one: 1 },
       query: '*',
-      output: [1],
+      output: [{ value: 1, path: ['one'], missing: false }],
       opts: { missing: true, entries: true },
     },
     {
@@ -223,7 +223,7 @@ each(
     {
       target: [1],
       query: '*',
-      output: [1],
+      output: [{ value: 1, path: [0], missing: false }],
       opts: { missing: true, entries: true },
     },
   ],
