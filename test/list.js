@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import test from 'ava'
 import { each } from 'test-each'
-import { list } from 'wild-wild-path'
+import { list, iterate } from 'wild-wild-path'
 
 const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
@@ -28,7 +28,14 @@ class Child extends Parent {
 
 const child = new Child()
 
+const iterateAll = function (target, query, opts) {
+  return [...iterate(target, query, opts)]
+}
+
+const listMethods = [list, iterateAll]
+
 each(
+  listMethods,
   [
     // Root query
     { target: 1, query: '.', output: [1] },
@@ -373,7 +380,7 @@ each(
       opts: { leaves: true },
     },
   ],
-  ({ title }, { target, query, opts, output }) => {
+  ({ title }, list, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
       t.deepEqual(list(target, query, opts), output)
     })
@@ -381,6 +388,7 @@ each(
 )
 
 each(
+  listMethods,
   [
     { target: {}, query: '.', opts: { inherited: true, classes: false } },
     { target: {}, query: '.', opts: { missing: true, entries: false } },
@@ -390,7 +398,7 @@ each(
     { target: {}, query: 'a\\b' },
     { target: {}, query: '/[/' },
   ],
-  ({ title }, { target, query, opts }) => {
+  ({ title }, list, { target, query, opts }) => {
     test(`list() validates its input | ${title}`, (t) => {
       t.throws(list.bind(undefined, target, query, opts))
     })
