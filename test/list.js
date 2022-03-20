@@ -12,6 +12,13 @@ each(
     { target: { one: 1 }, query: 'one', output: [1] },
     { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
     { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
+    { target: { one: 1 }, query: 'one one', output: [1] },
+    { target: { one: { two: 2 } }, query: '*.two one.two', output: [2] },
+    {
+      target: { one: { two: { three: 1 } } },
+      query: '*.two one.two.three',
+      output: [{ three: 1 }, 1],
+    },
     { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
     {
       target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },

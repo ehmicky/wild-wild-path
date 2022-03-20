@@ -1,4 +1,4 @@
-import { isSamePath, isSameToken } from 'wild-wild-parser'
+import { isSameToken } from 'wild-wild-parser'
 
 // Remove duplicate entries
 export const removeDuplicates = function (entries) {
@@ -11,12 +11,12 @@ const isNotDuplicate = function (entryA, index, entries) {
   )
 }
 
+// `entryA.path` always equals `entryB.path` so we do not need to check
 const isDuplicate = function (
-  { path: pathA, queryArray: queryArrayA },
-  { path: pathB, queryArray: queryArrayB },
+  { queryArray: queryArrayA, path: pathA },
+  { queryArray: queryArrayB },
 ) {
   return (
-    isSamePath(pathA, pathB) &&
     queryArrayA.length === queryArrayB.length &&
     queryArrayA.every(
       (tokenA, index) =>
