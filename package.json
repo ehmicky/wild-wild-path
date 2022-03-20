@@ -1,0 +1,61 @@
+{
+  "name": "wild-wild-path",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": "./build/src/main.js",
+  "main": "./build/src/main.js",
+  "types": "./build/src/main.d.ts",
+  "files": [
+    "build/src/**/*.{js,d.ts,map,json,sh,md}",
+    "examples/**/*.{js,ts,map,json,sh,md}"
+  ],
+  "scripts": {
+    "test": "gulp test"
+  },
+  "description": "🤠 Object property paths with wildcards and regexps",
+  "keywords": [
+    "wildcard",
+    "glob",
+    "globbing",
+    "globstar",
+    "regex",
+    "regexp",
+    "regular-expression",
+    "path",
+    "recursion",
+    "functional-programming",
+    "map",
+    "filter",
+    "algorithm",
+    "data-structures",
+    "javascript",
+    "json",
+    "library",
+    "nodejs",
+    "parsing",
+    "typescript"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://bit.ly/3Le11Q2",
+  "repository": "ehmicky/wild-wild-path",
+  "bugs": {
+    "url": "https://github.com/ehmicky/wild-wild-path/issues"
+  },
+  "author": "ehmicky <ehmicky@gmail.com> (https://github.com/ehmicky)",
+  "directories": {
+    "lib": "src",
+    "test": "test",
+    "example": "examples"
+  },
+  "dependencies": {
+    "is-plain-obj": "^4.0.0",
+    "wild-wild-parser": "^1.0.0"
+  },
+  "devDependencies": {
+    "@ehmicky/dev-tasks": "^1.0.68",
+    "tsd": "^0.19.1"
+  },
+  "engines": {
+    "node": ">=12.20.0"
+  }
+}
