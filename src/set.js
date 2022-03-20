@@ -52,23 +52,32 @@ const setEntry = function (
 
 export const setValue = function ({ target, prop, childValue, mutate }) {
   return Array.isArray(target)
-    ? setArrayValue({ target, prop, childValue, mutate })
+    ? setArrayValue({ target, index: prop, childValue, mutate })
     : setObjectValue({ target, prop, childValue, mutate })
 }
 
-const setArrayValue = function ({ target, prop, childValue, mutate }) {
-  if (target[prop] === childValue) {
+const setArrayValue = function ({ target, index, childValue, mutate }) {
+  if (isSameArrayValue(target, index, childValue)) {
     return target
   }
 
   const targetA = mutate ? target : [...target]
   // eslint-disable-next-line fp/no-mutation
-  targetA[prop] = childValue
+  targetA[index] = childValue
   return targetA
 }
 
+// Setting an `undefined` value out-of-bound changes `Array.length`, i.e. should
+// not be skipped
+const isSameArrayValue = function (target, index, childValue) {
+  return (
+    target[index] === childValue &&
+    (childValue !== undefined || index < target.length)
+  )
+}
+
 const setObjectValue = function ({ target, prop, childValue, mutate }) {
-  if (isNoopSet(target, prop, childValue)) {
+  if (isSameObjectValue(target, prop, childValue)) {
     return target
   }
 
@@ -80,7 +89,7 @@ const setObjectValue = function ({ target, prop, childValue, mutate }) {
 
 // Do not set value if it has not changed.
 // We distinguish between `undefined` values with the property set and unset.
-const isNoopSet = function (target, prop, childValue) {
+const isSameObjectValue = function (target, prop, childValue) {
   return (
     target[prop] === childValue && (childValue !== undefined || prop in target)
   )

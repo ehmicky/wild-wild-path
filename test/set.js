@@ -24,6 +24,21 @@ each(
       output: { one: { two: 2 } },
     },
 
+    // No changes
+    { target: [], query: '0', value: undefined, output: [undefined] },
+    { target: [], query: '0', value: 1, output: [1] },
+    { target: [undefined], query: '0', value: undefined, output: [undefined] },
+    { target: [1], query: '0', value: 1, output: [1] },
+    { target: {}, query: 'one', value: undefined, output: { one: undefined } },
+    { target: {}, query: 'one', value: 1, output: { one: 1 } },
+    {
+      target: { one: undefined },
+      query: 'one',
+      value: undefined,
+      output: { one: undefined },
+    },
+    { target: { one: 1 }, query: 'one', value: 1, output: { one: 1 } },
+
     // `missing` option
     { target: {}, query: 'one', value: 1, output: { one: 1 } },
     {
