@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import test from 'ava'
 import { each } from 'test-each'
 import { list } from 'wild-wild-path'
@@ -89,6 +90,19 @@ each(
       output: [1, { one: 1 }],
       opts: { childFirst: true },
     },
+    {
+      target: { one: { two: 1 } },
+      query: '. one one.two',
+      output: [1],
+      opts: { leaves: true },
+    },
+    {
+      target: { one: { two: 1 } },
+      query: '. one one.two',
+      output: [1],
+      opts: { leaves: true, childFirst: true },
+    },
+    { target: {}, query: '. *', output: [{}], opts: { leaves: true } },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
@@ -112,3 +126,4 @@ each(
     })
   },
 )
+/* eslint-enable max-lines */
