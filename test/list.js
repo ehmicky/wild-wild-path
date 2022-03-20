@@ -103,6 +103,18 @@ each(
       opts: { leaves: true, childFirst: true },
     },
     { target: {}, query: '. *', output: [{}], opts: { leaves: true } },
+    {
+      target: { one: 1 },
+      query: '. one',
+      output: [{ one: 1 }],
+      opts: { roots: true },
+    },
+    {
+      target: {},
+      query: 'one',
+      output: [{ value: undefined, path: ['one'], missing: true }],
+      opts: { missing: true, entries: true },
+    },
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`list() output | ${title}`, (t) => {
