@@ -42,11 +42,11 @@ each(
     // `missing` option
     { target: {}, query: 'one', value: 1, output: { one: 1 } },
     {
-      target: {},
-      query: 'one',
+      target: { two: 2 },
+      query: 'one two',
       value: 1,
       opts: { missing: false },
-      output: {},
+      output: { two: 1 },
     },
     { target: {}, query: 'one.two', value: 1, output: { one: { two: 1 } } },
     { target: [], query: '0.0', value: 1, output: [[1]] },
