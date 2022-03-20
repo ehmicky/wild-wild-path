@@ -56,10 +56,10 @@ const iterateLevel = function* ({
 const iterateToken = function* ({ entries, index, parents, opts }) {
   const entriesA = expandRecursiveTokens(entries, index)
   const entriesB = removeDuplicates(entriesA)
-  const parentEntry = getParentEntry(entriesB, index, opts)
+  const parentEntry = getParentEntry(entriesB, index)
 
   if (shouldYieldParentFirst(parentEntry, opts)) {
-    yield parentEntry
+    yield normalizeEntry(parentEntry, opts)
   }
 
   const hasChildren = yield* iterateChildEntries({
@@ -72,17 +72,12 @@ const iterateToken = function* ({ entries, index, parents, opts }) {
   })
 
   if (shouldYieldParentLast(parentEntry, hasChildren, opts)) {
-    yield parentEntry
+    yield normalizeEntry(parentEntry, opts)
   }
 }
 
-const getParentEntry = function (entries, index, opts) {
-  const parentEntry = entries.find(
-    ({ queryArray }) => queryArray.length === index,
-  )
-  return parentEntry === undefined
-    ? undefined
-    : normalizeEntry(parentEntry, opts)
+const getParentEntry = function (entries, index) {
+  return entries.find(({ queryArray }) => queryArray.length === index)
 }
 
 const normalizeEntry = function ({ value, path, missing }, { entries }) {

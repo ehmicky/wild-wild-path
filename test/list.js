@@ -8,26 +8,25 @@ const selfObject = { one: 1, two: { three: 3 } }
 selfObject.two.self = selfObject
 
 /* eslint-disable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods, class-methods-use-this */
-class Parent {
-  // constructor() {
-  //   this.one = 1
-  // }
+   fp/no-mutating-methods */
+class Parent {}
 
-  inheritedNonEnum() {}
-}
-
-Parent.prototype.inheritedEnum = 1
+Parent.prototype.inheritedEnum = 'inheritedEnum'
+Object.defineProperty(Parent.prototype, 'inheritedNonEnum', {
+  value: 'inheritedNonEnum',
+})
 
 class Child extends Parent {
   constructor() {
     super()
-    this.ownEnum = 2
-    Object.defineProperty(this, 'ownNonEnum', { value: 3 })
+    this.ownEnum = 'ownEnum'
+    Object.defineProperty(this, 'ownNonEnum', { value: 'ownNonEnum' })
   }
 }
 /* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods, class-methods-use-this */
+   fp/no-mutating-methods */
+
+const child = new Child()
 
 each(
   [
@@ -131,17 +130,25 @@ each(
       output: [{ one: 1 }],
       opts: { roots: true },
     },
+    { target: {}, query: 'one', output: [] },
+    { target: { one: undefined }, query: 'one', output: [undefined] },
+    { target: [], query: 'one', output: [] },
     {
-      target: [],
-      query: 'one',
-      output: [{ value: undefined, path: ['one'], missing: true }],
-      opts: { missing: true, entries: true },
+      target: child,
+      query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      output: [],
     },
     {
-      target: {},
-      query: 'one',
-      output: [{ value: undefined, path: ['one'], missing: true }],
-      opts: { missing: true, entries: true },
+      target: child,
+      query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      output: ['ownEnum', 'ownNonEnum'],
+      opts: { classes: true },
+    },
+    {
+      target: child,
+      query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
+      opts: { classes: true, inherited: true },
     },
   ],
   ({ title }, { target, query, opts, output }) => {
