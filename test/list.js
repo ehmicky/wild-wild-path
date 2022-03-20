@@ -32,6 +32,8 @@ each(
   [
     // Root query
     { target: 1, query: '.', output: [1] },
+    { target: 1, query: [], output: [1] },
+    { target: 1, query: [[]], output: [1] },
     {
       target: {},
       query: '.',
@@ -41,9 +43,15 @@ each(
 
     // Deep query
     { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
+    { target: { one: { two: 1 } }, query: ['one', 'two'], output: [1] },
 
     // Unions
     { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
+    {
+      target: { one: 1, two: 2, three: 3 },
+      query: [['one'], ['two']],
+      output: [1, 2],
+    },
     { target: { one: 1 }, query: 'one one', output: [1] },
     { target: { one: { two: 2 } }, query: '*.two one.two', output: [2] },
     {
@@ -186,9 +194,11 @@ each(
 
     // prop tokens
     { target: { one: 1 }, query: 'one', output: [1] },
+    { target: { one: 1 }, query: ['one'], output: [1] },
 
     // Index tokens
     { target: [1, 2, 3], query: '0', output: [1] },
+    { target: [1, 2, 3], query: [0], output: [1] },
     { target: [1, 2, 3], query: '1', output: [2] },
     { target: [1, 2, 3], query: '3', output: [] },
     { target: [1, 2, 3], query: '-0', output: [] },
@@ -211,6 +221,11 @@ each(
 
     // Slice tokens
     { target: [0, 1, 2, 3], query: '1:3', output: [1, 2] },
+    {
+      target: [0, 1, 2, 3],
+      query: [{ type: 'slice', from: 1, to: 3 }],
+      output: [1, 2],
+    },
     { target: [0, 1, 2, 3], query: '1:-1', output: [1, 2] },
     { target: [0, 1, 2, 3], query: '-3:3', output: [1, 2] },
     { target: [0, 1, 2, 3], query: '-5:3', output: [0, 1, 2] },
@@ -241,6 +256,7 @@ each(
 
     // RegExp tokens
     { target: { one: 1, two: 2, three: 3 }, query: '/t/', output: [2, 3] },
+    { target: { one: 1, two: 2, three: 3 }, query: [/t/u], output: [2, 3] },
     { target: { one: 1, two: 2, three: 3 }, query: '/T/', output: [] },
     { target: { one: 1, two: 2, three: 3 }, query: '/T/i', output: [2, 3] },
     {
@@ -260,6 +276,15 @@ each(
     {
       target: { one: 1, two: 2 },
       query: '*',
+      output: [
+        { value: 1, path: ['one'], missing: false },
+        { value: 2, path: ['two'], missing: false },
+      ],
+      opts: { entries: true },
+    },
+    {
+      target: { one: 1, two: 2 },
+      query: [{ type: 'any' }],
       output: [
         { value: 1, path: ['one'], missing: false },
         { value: 2, path: ['two'], missing: false },
@@ -319,6 +344,12 @@ each(
     },
     {
       target: { one: { two: 2 }, three: { two: 3 } },
+      query: ['one', { type: 'anyDeep' }],
+      output: [2],
+      opts: { leaves: true },
+    },
+    {
+      target: { one: { two: 2 }, three: { two: 3 } },
       query: '**.two',
       output: [2, 3],
       opts: { leaves: true },
@@ -357,6 +388,7 @@ each(
     { target: {}, query: true },
     { target: {}, query: [[true]] },
     { target: {}, query: 'a\\b' },
+    { target: {}, query: '/[/' },
   ],
   ({ title }, { target, query, opts }) => {
     test(`list() validates its input | ${title}`, (t) => {
