@@ -80,7 +80,6 @@ each(
         inheritedNonEnum: 'inheritedNonEnum',
       },
     },
-    // TODO: wrong
     {
       target: getChild(),
       query: '*',
@@ -88,7 +87,7 @@ each(
       output: {
         ownEnum: undefined,
         ownNonEnum: 'ownNonEnum',
-        inheritedEnum: 'inheritedEnum',
+        inheritedEnum: undefined,
         inheritedNonEnum: 'inheritedNonEnum',
       },
     },

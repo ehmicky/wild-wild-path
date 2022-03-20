@@ -85,5 +85,22 @@ const removeObjectValue = function (target, prop, mutate) {
   const targetA = mutate ? target : { ...target }
   // eslint-disable-next-line fp/no-delete
   delete targetA[prop]
+  removeInheritedValue(targetA, prop, mutate)
   return targetA
 }
+
+// When the property is inherited and not deep, deleting it does not work, since
+// only the own property is being deleted (whether one exists or not).
+// In this case, we set the value to `undefined` instead.
+// This case can only happen when `mutate` is `true` since shallow copies remove
+// prototypes.
+const removeInheritedValue = function (target, prop, mutate) {
+  if (mutate && prop in target && !hasOwnProperty.call(target, prop)) {
+    // eslint-disable-next-line fp/no-mutation, no-param-reassign
+    target[prop] = undefined
+  }
+}
+
+// TODO: use `Object.hasOwn()` after dropping support for Node <16.9.0
+// eslint-disable-next-line no-shadow
+const { hasOwnProperty } = Object.prototype
