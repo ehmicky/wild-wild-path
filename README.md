@@ -164,6 +164,12 @@ _Return value_: `Target`
 
 Delete all properties matching the query.
 
+# Functional utilities
+
+[`wild-wild-utils`](https://github.com/ehmicky/wild-wild-utils) is a separate
+library which provides with additional, higher-level methods: `merge()`,
+`push()`, `map()`, `find()`, `pick()`, `include()`, `exclude()`.
+
 # Target
 
 The target value must be an object or an array.
@@ -177,6 +183,9 @@ There are two equivalent formats for queries: strings and arrays.
 - Query [arrays](#query-arrays) are friendlier to programmatic usage, and do not
   require escaping. They should be used when the input is dynamic or
   user-provided to prevent injection attacks.
+
+[`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
+convert between both formats, or to compare queries.
 
 ## Query strings
 
