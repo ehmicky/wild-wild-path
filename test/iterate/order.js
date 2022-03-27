@@ -1,6 +1,7 @@
-import { testListIterate } from '../helpers/list.js'
+import { listMethods } from '../helpers/list.js'
+import { testOutput } from '../helpers/output.js'
 
-testListIterate([
+testOutput(listMethods, [
   // `childFirst` option
   {
     input: [{ one: 1 }, 'one .', { childFirst: false }],

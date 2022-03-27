@@ -1,7 +1,8 @@
-import { testListIterate } from '../helpers/list.js'
+import { listMethods } from '../helpers/list.js'
 import { missingOpts } from '../helpers/options.js'
+import { testOutput } from '../helpers/output.js'
 
-testListIterate([
+testOutput(listMethods, [
   {
     input: [{ one: 1 }, 'one two', missingOpts],
     output: [
