@@ -1,6 +1,6 @@
-import isPlainObj from 'is-plain-obj'
-
 import { getTokenType } from '../tokens/main.js'
+
+import { isObject } from './object.js'
 
 // When the value does not exist, we set it deeply with `set()` but not with
 // `list|get|has()`.
@@ -34,7 +34,7 @@ export const handleMissingValue = function (value, token, classes) {
 const MISSING_HANDLERS = {
   any: {
     isPresent(value, classes) {
-      return isRecurseObject(value, classes) || Array.isArray(value)
+      return isObject(value, classes) || Array.isArray(value)
     },
     // New values must always be returned since those might be mutated either
     // by the `mutate` option or by the consumer
@@ -50,38 +50,10 @@ const MISSING_HANDLERS = {
   },
   object: {
     isPresent(value, classes) {
-      return isRecurseObject(value, classes)
+      return isObject(value, classes)
     },
     getDefaultValue() {
       return {}
     },
   },
-}
-
-// Whether a property is considered an object that can:
-//  - Be recursed over
-//  - Be cloned with `{...}`
-//     - Therefore we do not allow class instances
-// Values that are not recursed are considered atomic, like simple types, i.e.:
-//  - Properties, even if they exist, will be considered missing
-//     - With tokens like *, no entries will be returned
-//  - Setting will override the value, not merge it
-// Unlss `classes` is `true`, we only consider plain objects:
-//  - Excluding:
-//     - Class instances, including native ones (RegExp, Error, etc.)
-//     - Function objects
-//     - Arrays used as objects
-//     - `Object.create({})`
-//     - `import * as object from ...` (`Module` instance)
-//  - This is because only plain objects are clonable, i.e. do not require
-//    `mutate` to be `true`
-const isRecurseObject = function (value, classes) {
-  return classes ? isObject(value) : isPlainObj(value)
-}
-
-const isObject = function (value) {
-  const typeofValue = typeof value
-  return (
-    (typeofValue === 'object' || typeofValue === 'function') && value !== null
-  )
 }
