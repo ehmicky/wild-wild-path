@@ -192,11 +192,10 @@ The target value must be an object or an array.
 
 ### Undefined values
 
-Object properties with a key but an `undefined` value are not ignored. This
-differs from object properties without any key.
-
-The [`has`](#hastarget-query-options) method, [`missing`](#missing) option and
-[`entries`](#entries) option are useful when matching `undefined` properties.
+Object properties with a defined key but an `undefined` value are not ignored.
+But object properties without any defined key are ignored. The
+[`has()`](#hastarget-query-options) method, [`missing`](#missing) option and
+[`entries`](#entries) option are useful to distinguish those.
 
 ```js
 const target = { name: undefined }
@@ -205,9 +204,9 @@ has(target, 'name') // true
 has(target, 'colors') // false
 
 get(target, 'name') // undefined
+get(target, 'colors') // undefined
 get(target, 'name', { entries: true, missing: true })
 // { value: undefined, path: ['name'], missing: false }
-get(target, 'colors') // undefined
 get(target, 'colors', { entries: true, missing: true })
 // { value: undefined, path: ['colors'], missing: true }
 
