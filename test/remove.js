@@ -3,10 +3,11 @@ import { each } from 'test-each'
 import { remove } from 'wild-wild-path'
 
 import { getChild, childProps } from './helpers/inherited.js'
-import { testMutate, mutateValues } from './helpers/mutate.js'
+import { testMutate } from './helpers/mutate.js'
 
-each(
-  mutateValues,
+testMutate(
+  'remove()',
+  ({ target, query, opts }) => remove(target, query, opts),
   [
     // Main usage
     { target: { one: 1 }, query: 'one', output: {} },
@@ -46,12 +47,6 @@ each(
       output: { one: {} },
     },
   ],
-  ({ title }, mutate, { target, query, opts, output }) => {
-    test(`remove() output | ${title}`, (t) => {
-      t.deepEqual(remove(target, query, { mutate, ...opts }), output)
-      testMutate({ t, mutate, target, output })
-    })
-  },
 )
 
 each(
@@ -97,4 +92,3 @@ each(
     })
   },
 )
-/* eslint-enable max-lines */

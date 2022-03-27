@@ -4,10 +4,11 @@ import { each } from 'test-each'
 import { set } from 'wild-wild-path'
 
 import { getChild, childProps } from './helpers/inherited.js'
-import { testMutate, mutateValues } from './helpers/mutate.js'
+import { testMutate } from './helpers/mutate.js'
 
-each(
-  mutateValues,
+testMutate(
+  'set()',
+  ({ target, query, value, opts }) => set(target, query, value, opts),
   [
     // Main usage
     { target: { one: 1 }, query: 'one', value: 2, output: { one: 2 } },
@@ -84,12 +85,6 @@ each(
       output: { one: { two: 2 } },
     },
   ],
-  ({ title }, mutate, { target, query, value, opts, output }) => {
-    test(`set() output | ${title}`, (t) => {
-      t.deepEqual(set(target, query, value, { mutate, ...opts }), output)
-      testMutate({ t, mutate, target, output })
-    })
-  },
 )
 
 each(
