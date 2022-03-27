@@ -1,5 +1,5 @@
-import { has, get, Target, Query, Options } from 'wild-wild-path'
-import { expectType, expectError } from 'tsd'
+import { has, get, Target, Query, Options, Entry } from 'wild-wild-path'
+import { expectType, expectNotType, expectError } from 'tsd'
 
 const targetObj: Target = { one: 1 }
 const targetArray: Target = [1]
@@ -17,6 +17,7 @@ const optionsFull: Options = {
   classes: false,
   inherited: false,
 }
+const entry: Entry = { value: 1, path: ['prop'], missing: false }
 
 expectType<boolean>(has({}, 'prop'))
 has({}, 'prop', { sort: true })
@@ -24,7 +25,10 @@ expectError(has(true, 'prop'))
 expectError(has({}, true))
 expectError(has({}, 'prop', true))
 
-expectType<any>(get({}, 'prop'))
+expectType<any | undefined>(get({}, 'prop'))
+expectType<Entry | undefined>(get({}, 'prop', { entries: true }))
+expectNotType<Entry | undefined>(get({}, 'prop', { entries: false }))
+expectNotType<Entry | undefined>(get({}, 'prop', { sort: true }))
 get({}, 'prop', { sort: true })
 expectError(get(true, 'prop'))
 expectError(get({}, true))

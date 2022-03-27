@@ -1,7 +1,8 @@
-import type { Query } from 'wild-wild-parser'
+import type { Query, PathArray } from 'wild-wild-parser'
 
 export type Target = object | any[]
 export type { Query }
+
 export interface Options {
   readonly childFirst?: boolean
   readonly roots?: boolean
@@ -12,10 +13,18 @@ export interface Options {
   readonly classes?: boolean
   readonly inherited?: boolean
 }
+type OptionsWithEntries = Options & { readonly entries: true }
+
+type Value = any
+export interface Entry {
+  value: Value
+  path: PathArray
+  missing: boolean
+}
 
 export function has(target: Target, query: Query, options?: Options): boolean
-export function get(
+export function get<T extends Options>(
   target: Target,
   query: Query,
-  options?: Options,
-): any | undefined
+  options?: T,
+): (T extends OptionsWithEntries ? Entry : Value) | undefined
