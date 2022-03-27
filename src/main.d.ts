@@ -28,3 +28,8 @@ export function get<T extends Options>(
   query: Query,
   options?: T,
 ): (T extends OptionsWithEntries ? Entry : Value) | undefined
+export function list<T extends Options>(
+  target: Target,
+  query: Query,
+  options?: T,
+): (T extends OptionsWithEntries ? Entry : Value)[]
