@@ -1,5 +1,4 @@
 import { testListOutput } from '../helpers/list.js'
-import { missingOpts } from '../helpers/options.js'
 
 testListOutput([
   {
@@ -17,6 +16,6 @@ testListOutput([
       { value: 2, path: [1], missing: false },
     ],
   },
-  { input: [{}, '*', missingOpts], output: [] },
-  { input: [[], '*', missingOpts], output: [] },
+  { input: [{}, '*', { missing: true, entries: true }], output: [] },
+  { input: [[], '*', { missing: true, entries: true }], output: [] },
 ])
