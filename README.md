@@ -286,6 +286,13 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
 
+Instead of being only the matching value, the return value becomes an object
+with the following properties:
+
+- `value` `any`
+- `path` [`Path`](#path): property path
+- `missing` `boolean`: whether the value is defined in the [target](#target)
+
 ## missing
 
 _Methods_: [`list()`](#listtarget-query-options),
@@ -294,6 +301,18 @@ _Methods_: [`list()`](#listtarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
+When `false`, values not defined in the target are ignored.
+
+## sort
+
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
+
+When returning sibling object properties, sort them in lexigographic order.
+
 ## childFirst
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -301,6 +320,12 @@ _Methods_: [`get()`](#gettarget-query-options),
 [`iterate()`](#iteratetarget-query-options)\
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
+
+When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+match both a property and some of its children.
+
+This option decides whether the returned properties should be sorted from
+children to parents, or the reverse.
 
 ## leaves
 
@@ -312,6 +337,12 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
 
+When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+match both a property and some of its children.
+
+When `true`, only leaves are used. In other words, a property is ignored if it
+matches but one of its children also matches.
+
 ## roots
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -320,13 +351,11 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
 
-## sort
+When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+match both a property and some of its children.
 
-_Methods_: [`get()`](#gettarget-query-options),
-[`list()`](#listtarget-query-options),
-[`iterate()`](#iteratetarget-query-options)\
-_Methods_: _Type_: `boolean`\
-_Default_: `false`
+When `true`, only roots are used. In other words, a property is ignored if it
+matches but one of its parents also matches.
 
 ## classes
 
@@ -338,6 +367,10 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
 
+By default, only arrays and plain objects can be parent properties.\
+When `true`, any object can be a parent property, including class instances, `Error`,
+functions, etc.
+
 ## inherited
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -347,6 +380,8 @@ _Methods_: [`get()`](#gettarget-query-options),
 [`remove()`](#removetarget-query-options)\
 _Type_: `boolean`\
 _Default_: `false`
+
+By default (`false`), inherited properties are ignored.
 
 # Support
 
