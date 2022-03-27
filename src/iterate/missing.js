@@ -75,7 +75,12 @@ const MISSING_HANDLERS = {
 //  - This is because only plain objects are clonable, i.e. do not require
 //    `mutate` to be `true`
 const isRecurseObject = function (value, classes) {
-  return classes
-    ? typeof value === 'object' && value !== null
-    : isPlainObj(value)
+  if (!classes) {
+    return isPlainObj(value)
+  }
+
+  const typeofValue = typeof value
+  return (
+    (typeofValue === 'object' || typeofValue === 'function') && value !== null
+  )
 }
