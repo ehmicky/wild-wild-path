@@ -1,10 +1,9 @@
 import { getChild } from '../helpers/inherited.js'
-import { listMethods } from '../helpers/list.js'
-import { testOutput } from '../helpers/output.js'
+import { testListOutput } from '../helpers/list.js'
 
 const child = getChild()
 
-testOutput(listMethods, [
+testListOutput([
   {
     input: [child, 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum'],
     output: [],

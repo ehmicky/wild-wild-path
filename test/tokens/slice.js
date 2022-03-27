@@ -1,8 +1,7 @@
-import { listMethods } from '../helpers/list.js'
+import { testListOutput } from '../helpers/list.js'
 import { missingOpts } from '../helpers/options.js'
-import { testOutput } from '../helpers/output.js'
 
-testOutput(listMethods, [
+testListOutput([
   { input: [[0, 1, 2, 3], '1:3'], output: [1, 2] },
   {
     input: [[0, 1, 2, 3], [{ type: 'slice', from: 1, to: 3 }]],

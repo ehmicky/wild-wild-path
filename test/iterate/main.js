@@ -1,9 +1,7 @@
 import test from 'ava'
 import { list, iterate } from 'wild-wild-path'
 
-import { listMethods } from '../helpers/list.js'
-import { testOutput } from '../helpers/output.js'
-import { testValidation } from '../helpers/validate.js'
+import { testListOutput, testListValidation } from '../helpers/list.js'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
@@ -13,7 +11,7 @@ test('list() returns an array', (t) => {
   t.deepEqual(list(1, '.'), [1])
 })
 
-testOutput(listMethods, [
+testListOutput([
   // Root query
   { input: [1, '.'], output: [1] },
   { input: [1, []], output: [1] },
@@ -43,7 +41,7 @@ testOutput(listMethods, [
   { input: [{ constructor() {} }, 'constructor'], output: [] },
 ])
 
-testValidation(listMethods, [
+testListValidation([
   [{}, '.', { inherited: true, classes: false }],
   [{}, '.', { missing: true, entries: false }],
   [{}, '.', { roots: true, leaves: true }],

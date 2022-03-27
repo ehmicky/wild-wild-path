@@ -1,11 +1,10 @@
-import { listMethods } from '../helpers/list.js'
-import { testOutput } from '../helpers/output.js'
+import { testListOutput } from '../helpers/list.js'
 
 const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
 selfObject.two.self = selfObject
 
-testOutput(listMethods, [
+testListOutput([
   { input: [selfObject, '**', { leaves: true }], output: [1, 3] },
   {
     input: [

@@ -1,8 +1,7 @@
-import { listMethods } from '../helpers/list.js'
+import { testListOutput } from '../helpers/list.js'
 import { missingOpts } from '../helpers/options.js'
-import { testOutput } from '../helpers/output.js'
 
-testOutput(listMethods, [
+testListOutput([
   {
     input: [{ one: 1, two: 2 }, '*', { entries: true }],
     output: [
