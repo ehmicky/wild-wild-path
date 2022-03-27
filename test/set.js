@@ -4,6 +4,7 @@ import { set } from 'wild-wild-path'
 
 import { getChild, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
+import { testValidation } from './helpers/validate.js'
 
 testMutate('set()', set, [
   // Main usage
@@ -76,14 +77,11 @@ each(
   },
 )
 
-each(
+testValidation(
+  'set()',
+  [set],
   [
     [{}, '.', undefined, { classes: true }],
     [{}, [true]],
   ],
-  ({ title }, input) => {
-    test(`set() validates its input | ${title}`, (t) => {
-      t.throws(set.bind(undefined, ...input))
-    })
-  },
 )

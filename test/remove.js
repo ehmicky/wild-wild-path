@@ -4,6 +4,7 @@ import { remove } from 'wild-wild-path'
 
 import { getChild, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
+import { testValidation } from './helpers/validate.js'
 
 testMutate('remove()', remove, [
   // Main usage
@@ -67,14 +68,11 @@ each(
   },
 )
 
-each(
+testValidation(
+  'remove()',
+  [remove],
   [
     [{}, '.', { classes: true }],
     [{}, [true]],
   ],
-  ({ title }, input) => {
-    test(`remove() validates its input | ${title}`, (t) => {
-      t.throws(remove.bind(undefined, ...input))
-    })
-  },
 )

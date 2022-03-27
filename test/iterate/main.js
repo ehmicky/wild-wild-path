@@ -1,8 +1,8 @@
 import test from 'ava'
-import { each } from 'test-each'
 import { list, iterate } from 'wild-wild-path'
 
 import { listMethods, testListIterate } from '../helpers/list.js'
+import { testValidation } from '../helpers/validate.js'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
@@ -42,20 +42,12 @@ testListIterate([
   { input: [{ constructor() {} }, 'constructor'], output: [] },
 ])
 
-each(
-  listMethods,
-  [
-    [{}, '.', { inherited: true, classes: false }],
-    [{}, '.', { missing: true, entries: false }],
-    [{}, '.', { roots: true, leaves: true }],
-    [{}, true],
-    [{}, [[true]]],
-    [{}, 'a\\b'],
-    [{}, '/[/'],
-  ],
-  ({ title }, listFunc, input) => {
-    test(`list|iterate() validates its input | ${title}`, (t) => {
-      t.throws(listFunc.bind(undefined, ...input))
-    })
-  },
-)
+testValidation('list|iterate()', listMethods, [
+  [{}, '.', { inherited: true, classes: false }],
+  [{}, '.', { missing: true, entries: false }],
+  [{}, '.', { roots: true, leaves: true }],
+  [{}, true],
+  [{}, [[true]]],
+  [{}, 'a\\b'],
+  [{}, '/[/'],
+])

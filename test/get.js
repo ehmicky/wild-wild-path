@@ -3,6 +3,7 @@ import { each } from 'test-each'
 import { get } from 'wild-wild-path'
 
 import { getChild } from './helpers/inherited.js'
+import { testValidation } from './helpers/validate.js'
 
 const child = getChild()
 
@@ -73,8 +74,4 @@ each(
   },
 )
 
-each([[{}, [true]]], ({ title }, input) => {
-  test(`get() validates its input | ${title}`, (t) => {
-    t.throws(get.bind(undefined, ...input))
-  })
-})
+testValidation('get()', [get], [[{}, [true]]])
