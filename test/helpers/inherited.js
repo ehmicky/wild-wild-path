@@ -39,23 +39,18 @@ const testInheritedSingle = function (
   { input, output },
 ) {
   test(`${name}() output | ${title}`, (t) => {
-    testChildProps(t, method(...input), output)
+    const { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum } = method(
+      ...input,
+    )
+    t.deepEqual(
+      { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
+      {
+        ownEnum: 'ownEnum',
+        ownNonEnum: 'ownNonEnum',
+        inheritedEnum: 'inheritedEnum',
+        inheritedNonEnum: 'inheritedNonEnum',
+        ...output,
+      },
+    )
   })
-}
-
-const testChildProps = function (
-  t,
-  { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
-  output,
-) {
-  t.deepEqual(
-    { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
-    {
-      ownEnum: 'ownEnum',
-      ownNonEnum: 'ownNonEnum',
-      inheritedEnum: 'inheritedEnum',
-      inheritedNonEnum: 'inheritedNonEnum',
-      ...output,
-    },
-  )
 }
