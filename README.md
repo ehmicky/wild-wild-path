@@ -107,35 +107,35 @@ not `require()`.
 
 ## get(target, query, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `any | undefined`
 
 ## has(target, query, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `boolean`
 
 ## list(target, query, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `any[]`
 
 ## iterate(target, query, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `Iterable<any>`
 
 ## set(target, query, value, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `value`: `any`\
 `options`: [`Options`](#options)\
@@ -143,10 +143,14 @@ _Return value_: `Target`
 
 ## remove(target, query, options?)
 
-`target`: `object | Array`\
+`target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `Target`
+
+# Target
+
+The target value must be an object or an array.
 
 # Queries
 
@@ -267,7 +271,11 @@ Most options can be specified by multiple methods.
 
 ## mutate
 
-_Methods_: [`set()`](#set), [`remove()`](#remove)
+_Methods_: [`set()`](#settarget-query-value-options),
+[`remove()`](#removetarget-query-options)
+
+By default (`false`), the [target](#target) is deeply cloned. When `true`, it is
+directly mutated instead, which is faster.
 
 ## entries
 
