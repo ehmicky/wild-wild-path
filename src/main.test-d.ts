@@ -1,4 +1,4 @@
-import wildWildParser from 'wild-wild-parser'
+import wildWildPath from 'wild-wild-path'
 import { expectType, expectError } from 'tsd'
 
-await wildWildParser()
+await wildWildPath()
