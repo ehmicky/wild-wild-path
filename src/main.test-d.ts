@@ -3,6 +3,7 @@ import {
   get,
   list,
   iterate,
+  remove,
   Target,
   Query,
   Options,
@@ -63,3 +64,9 @@ for (const entry of iterate({}, 'prop', { sort: true })) {
 expectError(iterate(true, 'prop'))
 expectError(iterate({}, true))
 expectError(iterate({}, 'prop', true))
+
+expectType<Target>(remove({}, 'prop'))
+remove({}, 'prop', { mutate: true })
+expectError(remove(true, 'prop'))
+expectError(remove({}, true))
+expectError(remove({}, 'prop', true))

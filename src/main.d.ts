@@ -12,6 +12,7 @@ export interface Options {
   readonly entries?: boolean
   readonly classes?: boolean
   readonly inherited?: boolean
+  readonly mutate?: boolean
 }
 type OptionsWithEntries = Options & { readonly entries: true }
 
@@ -38,3 +39,4 @@ export function iterate<T extends Options>(
   query: Query,
   options?: T,
 ): Generator<T extends OptionsWithEntries ? Entry : Value>
+export function remove(target: Target, query: Query, options?: Options): Target
