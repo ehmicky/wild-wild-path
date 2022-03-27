@@ -4,6 +4,7 @@ import {
   list,
   iterate,
   remove,
+  set,
   Target,
   Query,
   Options,
@@ -70,3 +71,9 @@ remove({}, 'prop', { mutate: true })
 expectError(remove(true, 'prop'))
 expectError(remove({}, true))
 expectError(remove({}, 'prop', true))
+
+expectType<Target>(set({}, 'prop', 1))
+set({}, 'prop', 1, { mutate: true })
+expectError(set(true, 'prop', 1))
+expectError(set({}, true, 1))
+expectError(set({}, 'prop', 1, true))

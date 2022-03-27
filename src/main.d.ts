@@ -40,3 +40,9 @@ export function iterate<T extends Options>(
   options?: T,
 ): Generator<T extends OptionsWithEntries ? Entry : Value>
 export function remove(target: Target, query: Query, options?: Options): Target
+export function set(
+  target: Target,
+  query: Query,
+  value: Value,
+  options?: Options,
+): Target
