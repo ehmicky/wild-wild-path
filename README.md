@@ -6,12 +6,52 @@
 
 🤠 Object property paths with wildcards and regexps.
 
-Work in progress!
+Get/set object properties using dot-delimited paths. Unlike similar libraries,
+wildcards and regular expressions can be used.
 
 # Examples
 
-```js
+<!-- eslint-disable fp/no-loops -->
 
+```js
+import { get, set, remove, has, list, iterate } from 'wild-wild-path'
+
+get({ settings: { colors: ['red', 'blue'] } }, 'settings.colors.0')
+// 'red'
+has({ settings: { colors: ['red', 'blue'] } }, 'settings.name')
+// false
+
+list({ colors: ['red', 'blue'] }, 'colors.*')
+// ['red', 'blue']
+list({ colors: ['red', 'blue', 'yellow'] }, 'colors.0:2')
+// ['red', 'blue']
+list({ user: { name: 'John' }, color: 'red' }, '**', { leaves: true })
+// ['John', 'red']
+list({ user: { name: 'John' }, color: 'red' }, 'user.**')
+// [{ name: 'John' }, 'John']
+list({ user: { name: 'John' }, color: 'red' }, 'user.**', { childFirst: true })
+// ['John', { name: 'John' }]
+list({ user: { name: 'John' }, color: 'red' }, 'user.**', { roots: true })
+// [{ name: 'John' }]
+list({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
+// ['John', 'Doe']
+
+set({ colors: ['red', 'blue'] }, 'colors.0', 'yellow')
+// ['yellow', 'blue']
+set({ colors: ['red', 'blue'] }, 'colors.-1', 'yellow')
+// ['red', 'yellow']
+set({ colors: ['red', 'blue'] }, 'colors.-0', 'yellow')
+// ['red', 'blue', 'yellow']
+set({ colors: ['red', 'blue'] }, 'colors.*', 'yellow')
+// ['yellow', 'yellow']
+remove({ user: { firstName: 'John', lastName: 'Doe' } }, 'user.lastName')
+// { user: { firstName: 'John' } }
+remove({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
+// { user: { age: 72 } }
+
+for (const color of iterate({ settings: { colors: ['red', 'blue'] } })) {
+}
+// 'red', 'blue'
 ```
 
 # Demo
