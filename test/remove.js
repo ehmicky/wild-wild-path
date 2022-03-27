@@ -3,10 +3,10 @@ import { each } from 'test-each'
 import { remove } from 'wild-wild-path'
 
 import { getChild, childProps } from './helpers/inherited.js'
-import { testMutate } from './helpers/mutate.js'
+import { testMutate, mutateValues } from './helpers/mutate.js'
 
 each(
-  [false, true],
+  mutateValues,
   [
     // Main usage
     { target: { one: 1 }, query: 'one', output: {} },

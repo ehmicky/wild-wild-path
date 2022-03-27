@@ -4,3 +4,5 @@ export const testMutate = function ({ t, mutate, target, output }) {
     t.deepEqual(target, output)
   }
 }
+
+export const mutateValues = [false, true]
