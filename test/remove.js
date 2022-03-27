@@ -69,8 +69,7 @@ each(
 )
 
 testValidation(
-  'remove()',
-  [remove],
+  [{ name: 'remove', method: remove }],
   [
     [{}, '.', { classes: true }],
     [{}, [true]],

@@ -74,4 +74,4 @@ each(
   },
 )
 
-testValidation('get()', [get], [[{}, [true]]])
+testValidation([{ name: 'get', method: get }], [[{}, [true]]])

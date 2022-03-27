@@ -38,4 +38,4 @@ each(
   },
 )
 
-testValidation('has()', [has], [[{}, [true]]])
+testValidation([{ name: 'has', method: has }], [[{}, [true]]])

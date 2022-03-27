@@ -10,11 +10,11 @@ export const testListIterate = function (inputs) {
 // Test `list()` and `iterate()` return value
 const testListIterateOutput = function (
   { title },
-  listFunc,
+  { name, method },
   { input, output },
 ) {
-  test(`list|iterate() output | ${title}`, (t) => {
-    t.deepEqual(listFunc(...input), output)
+  test(`${name}() output | ${title}`, (t) => {
+    t.deepEqual(method(...input), output)
   })
 }
 
@@ -23,4 +23,7 @@ const iterateAll = function (target, query, opts) {
   return [...iterate(target, query, opts)]
 }
 
-export const listMethods = [list, iterateAll]
+export const listMethods = [
+  { name: 'list', method: list },
+  { name: 'iterate', method: iterateAll },
+]

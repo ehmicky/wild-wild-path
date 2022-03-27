@@ -78,8 +78,7 @@ each(
 )
 
 testValidation(
-  'set()',
-  [set],
+  [{ name: 'set', method: set }],
   [
     [{}, '.', undefined, { classes: true }],
     [{}, [true]],

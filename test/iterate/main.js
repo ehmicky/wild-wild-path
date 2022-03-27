@@ -42,7 +42,7 @@ testListIterate([
   { input: [{ constructor() {} }, 'constructor'], output: [] },
 ])
 
-testValidation('list|iterate()', listMethods, [
+testValidation(listMethods, [
   [{}, '.', { inherited: true, classes: false }],
   [{}, '.', { missing: true, entries: false }],
   [{}, '.', { roots: true, leaves: true }],
