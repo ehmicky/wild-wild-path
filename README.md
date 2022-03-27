@@ -7,7 +7,7 @@
 🤠 Object property paths with wildcards and regexps.
 
 Get/set object properties using dot-delimited paths. Unlike similar libraries,
-wildcards and regular expressions can be used.
+wildcards and regexps can be used.
 
 # Examples
 
@@ -104,34 +104,53 @@ not `require()`.
 Queries have two available formats: strings and arrays. They are equivalent to
 each other, but:
 
-- Query [strings](#query-strings) are more expressive and easier to serialize.
-- Query [arrays](#query-arrays) are friendlier to programmatic usage. Also, they
-  do not require escaping. They should be used when the input is dynamic or
+- Query [strings](#query-strings) are friendlier to CLI usage, more expressive
+  and easier to serialize.
+- Query [arrays](#query-arrays) are friendlier to programmatic usage, and do not
+  require escaping. They should be used when the input is dynamic or
   user-provided to prevent injection attacks.
 
 ## Query strings
+
+### Deep properties
 
 ```bash
 # Deep properties of objects or arrays.
 # Dots are used for array indices, not brackets.
 user.colors.0
+```
 
+### Unions
+
+```bash
 # Unions ("or") of queries are space-delimited
 colors name age
+```
 
+### Wildcards
+
+```bash
 # Shallow wildcards target all properties/items of a single object/array
 user.*
 # Deep wildcards target all properties/items of 0, 1 or many objects/arrays
 user.**
 **.name
+```
 
-# Regular expressions are matched against property names
+### Regexps
+
+```bash
+# Regexps are matched against property names
 user./name/
 # Flags can be used, e.g. to make it case-insensitive
 user./name/i
 # ^ $ must be used to match from the beginning and end
 user./^name$/i
+```
 
+### Arrays indices and slices
+
+```bash
 # Indices can be negative.
 # -1 is the last item.
 # -0 is the item after it, which can be used to append.
@@ -143,7 +162,11 @@ user.colors.:2
 # The end index defaults to -0, i.e. the end.
 user.colors.0:
 user.colors.:
+```
 
+### Escaping
+
+```bash
 # Dots, spaces and backslashes must be escaped
 name\\ with\\ spaces
 name\\.with\\.dots
@@ -154,7 +177,11 @@ name\\\\with\\\\backslashes
 name.\\0
 #  - Properties that have multiple slashes and start with one
 name.\\/not_a_regexp/
+```
 
+### Root and empty strings
+
+```bash
 # A leading dot can optionally be used
 name
 .name
@@ -173,8 +200,7 @@ user..settings
 ## Paths
 
 A "path" is any [query](#queries) using only property names and array positive
-indices. This excludes negative indices, slices, wildcards and regular
-expressions.
+indices. This excludes negative indices, slices, wildcards and regexps.
 
 # Usage
 
