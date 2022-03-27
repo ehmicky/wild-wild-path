@@ -4,26 +4,16 @@ import { each } from 'test-each'
 
 // Test multiple inputs with the `mutate` option either `true` or `false`
 export const testMutate = function (methods, inputs) {
-  each(
-    [false, true],
-    methods,
-    inputs,
-    // eslint-disable-next-line max-params
-    ({ title }, mutate, { name, method }, { input, opts, output }) =>
-      testMutateInput({ title, mutate, input, opts, output, name, method }),
-  )
+  each([false, true], methods, inputs, testMutateInput)
 }
 
-const testMutateInput = function ({
-  title,
+// eslint-disable-next-line max-params
+const testMutateInput = function (
+  { title },
   mutate,
-  input,
-  input: [target],
-  opts,
-  output,
-  name,
-  method,
-}) {
+  { name, method },
+  { input, input: [target], opts, output },
+) {
   test(`${name}() output | ${title}`, (t) => {
     t.deepEqual(method(...input, { mutate, ...opts }), output)
 
