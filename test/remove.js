@@ -1,8 +1,6 @@
-import test from 'ava'
-import { each } from 'test-each'
 import { remove } from 'wild-wild-path'
 
-import { getChild, testChildProps } from './helpers/inherited.js'
+import { getChild, testInherited } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 import { testValidation } from './helpers/validate.js'
 
@@ -46,29 +44,18 @@ testMutate(methods, [
   },
 ])
 
-each(
-  [
-    // `classes` and `inherited` options
-    { input: [getChild(), '*'], output: {} },
-    {
-      input: [getChild(), '*', { classes: true, mutate: true }],
-      output: { ownEnum: undefined },
-    },
-    {
-      input: [
-        getChild(),
-        '*',
-        { classes: true, inherited: true, mutate: true },
-      ],
-      output: { ownEnum: undefined, inheritedEnum: undefined },
-    },
-  ],
-  ({ title }, { input, output }) => {
-    test(`remove() output | ${title}`, (t) => {
-      testChildProps(t, remove(...input), output)
-    })
+testInherited(methods, [
+  // `classes` and `inherited` options
+  { input: [getChild(), '*'], output: {} },
+  {
+    input: [getChild(), '*', { classes: true, mutate: true }],
+    output: { ownEnum: undefined },
   },
-)
+  {
+    input: [getChild(), '*', { classes: true, inherited: true, mutate: true }],
+    output: { ownEnum: undefined, inheritedEnum: undefined },
+  },
+])
 
 testValidation(methods, [
   [{}, '.', { classes: true }],

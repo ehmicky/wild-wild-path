@@ -1,3 +1,7 @@
+// eslint-disable-next-line ava/no-ignored-test-files
+import test from 'ava'
+import { each } from 'test-each'
+
 // Retrieve objects with both:
 //  - Enumerated and non-enumerated properties
 //  - Own and inherited properties
@@ -25,7 +29,21 @@ class Child extends Parent {
    fp/no-mutating-methods */
 
 // Test those properties
-export const testChildProps = function (
+export const testInherited = function (methods, inputs) {
+  each(methods, inputs, testInheritedSingle)
+}
+
+const testInheritedSingle = function (
+  { title },
+  { name, method },
+  { input, output },
+) {
+  test(`${name}() output | ${title}`, (t) => {
+    testChildProps(t, method(...input), output)
+  })
+}
+
+const testChildProps = function (
   t,
   { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
   output,
