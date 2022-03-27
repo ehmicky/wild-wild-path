@@ -39,7 +39,9 @@ const testInheritedSingle = function (
   { input, output },
 ) {
   test(`${name}() output | ${title}`, (t) => {
+    const child = getChild()
     const { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum } = method(
+      child,
       ...input,
     )
     t.deepEqual(

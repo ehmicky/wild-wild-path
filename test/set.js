@@ -1,6 +1,6 @@
 import { set } from 'wild-wild-path'
 
-import { getChild, testInherited } from './helpers/inherited.js'
+import { testInherited } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 import { testValidation } from './helpers/validate.js'
 
@@ -54,18 +54,10 @@ testMutate(methods, [
 
 testInherited(methods, [
   // `classes` and `inherited` options
-  { input: [getChild(), '*', 2], output: {} },
+  { input: ['*', 2], output: {} },
+  { input: ['*', 2, { classes: true, mutate: true }], output: { ownEnum: 2 } },
   {
-    input: [getChild(), '*', 2, { classes: true, mutate: true }],
-    output: { ownEnum: 2 },
-  },
-  {
-    input: [
-      getChild(),
-      '*',
-      2,
-      { classes: true, inherited: true, mutate: true },
-    ],
+    input: ['*', 2, { classes: true, inherited: true, mutate: true }],
     output: { ownEnum: 2, inheritedEnum: 2 },
   },
 ])
