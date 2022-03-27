@@ -233,7 +233,7 @@ user.*
 
 # Deep wildcards target all properties/items of 0, 1 or many objects/arrays
 user.**
-**.name
+**.colors
 ```
 
 ### Regexps
@@ -245,25 +245,25 @@ user./name/
 # Flags can be used, e.g. to make it case-insensitive
 user./name/i
 
-# ^ $ must be used to match from the beginning and end
+# ^ $ must be used to match from the beginning or until the end
 user./^name$/i
 ```
 
 ### Arrays indices and slices
 
 ```bash
-# Indices can be negative.
+# Array indices can be negative.
 # -1 is the last item.
 # -0 is the item after it, which can be used to append.
-colors.-1
+user.colors.-1
 
 # Array slices. Goes from the start (included) to the end index (excluded).
 user.colors.0:2
 
-# The start index defaults to 0, i.e. the beginning.
+# The start index defaults to 0, i.e. the beginning
 user.colors.:2
 
-# The end index defaults to -0, i.e. the end.
+# The end index defaults to -0, i.e. the end
 user.colors.0:
 user.colors.:
 ```
@@ -277,26 +277,25 @@ name\\.with\\.dots
 name\\\\with\\\\backslashes
 
 # Property names which could be interpreted as tokens must be escaped by
-# using a backslashes at the beginning. This includes:
-#  - Properties that are integers, but are not array elements
+# using a backslash at the beginning. This includes properties that:
+#  - Are integers, but are not array elements
+#  - Have multiple slashes and start with one
 name.\\0
-
-#  - Properties that have multiple slashes and start with one
 name.\\/not_a_regexp/
 ```
 
 ### Root and empty strings
 
 ```bash
-# A leading dot can optionally be used
-name
-.name
+# A leading dot can optionally be used. It is ignored.
+user.colors
+.user.colors
 
 # Root value
 .
 
-# Empty string properties like { user: { "": { settings: {} } } }
-user..settings
+# Empty string properties like { user: { "": { colors: [] } } }
+user..colors
 ```
 
 ## Query arrays
@@ -305,6 +304,8 @@ user..settings
 
 A "path" is any [query](#queries) using only property names and array positive
 indices. This excludes negative indices, slices, wildcards and regexps.
+
+Those are returned by the [`entries`](#entries) option.
 
 ```bash
 # Path string
