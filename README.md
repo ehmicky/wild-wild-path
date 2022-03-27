@@ -274,8 +274,8 @@ Most options can be specified by multiple methods.
 _Methods_: [`set()`](#settarget-query-value-options),
 [`remove()`](#removetarget-query-options)
 
-By default (`false`), the [target](#target) is deeply cloned. When `true`, it is
-directly mutated instead, which is faster.
+By default (`false`), the [target](#target) is deeply cloned.\
+When `true`, it is directly mutated instead, which is faster.
 
 ## entries
 
