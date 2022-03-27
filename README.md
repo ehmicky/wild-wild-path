@@ -158,7 +158,6 @@ _Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/J
 
 Return all properties matching the query, as an
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
-
 This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 
 ### set(target, query, value, options?)
@@ -169,7 +168,8 @@ This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Sets all properties matching the query.
+Sets all properties matching the query. A deep clone is returned unless the
+[mutate](#mutate) option is used.
 
 ### remove(target, query, options?)
 
@@ -178,7 +178,8 @@ Sets all properties matching the query.
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Delete all properties matching the query.
+Delete all properties matching the query. A deep clone is returned unless the
+[mutate](#mutate) option is used.
 
 ## Functional utilities
 
@@ -193,7 +194,7 @@ The target value must be an object or an array.
 ### Undefined values
 
 Object properties with a defined key but an `undefined` value are not ignored.
-But object properties without any defined key are ignored. The
+However, object properties without any defined key are ignored. The
 [`has()`](#hastarget-query-options) method, [`missing`](#missing) option and
 [`entries`](#entries) option are useful to distinguish those.
 
@@ -303,7 +304,7 @@ user.colors.:
 #### Escaping
 
 ```bash
-# Dots, spaces and backslashes must be escaped
+# Dots, spaces and backslashes in property names must be escaped
 name\\ with\\ spaces
 name\\.with\\.dots
 name\\\\with\\\\backslashes
@@ -458,7 +459,7 @@ _Type_: `boolean`\
 _Default_: `false`
 
 By default, the [target](#target) is deeply cloned.\
-When `true`, it is directly mutated instead, which is faster.
+When `true`, it is directly mutated instead, which is faster but has side effects.
 
 ### entries
 
