@@ -78,9 +78,8 @@ remove(target, 'user./Name/') // { user: { age: 72 } }
 const target = { settings: { colors: ['red', 'blue'] } }
 
 for (const color of iterate(target, 'settings.colors.*')) {
-  console.log(color)
+  console.log(color) // 'red', 'blue'
 }
-// 'red', 'blue'
 ```
 
 # Demo
@@ -102,13 +101,15 @@ not `require()`.
 
 # Queries
 
-Queries have two available formats: [string](#query-strings) or
-[array](#query-arrays).
+Queries have two available formats: strings and arrays. They are equivalent to
+each other, but:
+
+- Query [strings](#query-strings) are more expressive and easier to serialize.
+- Query [arrays](#query-arrays) are friendlier to programmatic usage. Also, they
+  do not require escaping. They should be used when the input is dynamic or
+  user-provided to prevent injection attacks.
 
 ## Query strings
-
-Query strings are more expressive and easier to serialize than
-[query arrays](#query-arrays).
 
 ```bash
 # Deep properties of objects or arrays.
@@ -164,12 +165,6 @@ user..settings
 ```
 
 ## Query arrays
-
-Query arrays are friendlier to programmatic usage than
-[query strings](#query-strings). Also, they do not require escaping. They should
-be used when the input is dynamic or user-provided to prevent injection attacks.
-
-Query strings and arrays are otherwise equivalent to each other.
 
 ```js
 
