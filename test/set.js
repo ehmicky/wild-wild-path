@@ -6,7 +6,9 @@ import { getChild, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 import { testValidation } from './helpers/validate.js'
 
-testMutate('set()', set, [
+const methods = [{ name: 'set', method: set }]
+
+testMutate(methods, [
   // Main usage
   { input: [{ one: 1 }, 'one', 2], output: { one: 2 } },
   { input: [{ one: 1 }, 'two', 2], output: { one: 1, two: 2 } },
@@ -77,10 +79,7 @@ each(
   },
 )
 
-testValidation(
-  [{ name: 'set', method: set }],
-  [
-    [{}, '.', undefined, { classes: true }],
-    [{}, [true]],
-  ],
-)
+testValidation(methods, [
+  [{}, '.', undefined, { classes: true }],
+  [{}, [true]],
+])

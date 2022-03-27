@@ -6,7 +6,9 @@ import { getChild, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 import { testValidation } from './helpers/validate.js'
 
-testMutate('remove()', remove, [
+const methods = [{ name: 'remove', method: remove }]
+
+testMutate(methods, [
   // Main usage
   { input: [{ one: 1 }, 'one'], output: {} },
   { input: [{ one: 1 }, 'two'], output: { one: 1 } },
@@ -68,10 +70,7 @@ each(
   },
 )
 
-testValidation(
-  [{ name: 'remove', method: remove }],
-  [
-    [{}, '.', { classes: true }],
-    [{}, [true]],
-  ],
-)
+testValidation(methods, [
+  [{}, '.', { classes: true }],
+  [{}, [true]],
+])
