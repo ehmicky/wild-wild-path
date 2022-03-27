@@ -53,9 +53,9 @@ list(target, ['userOne', /Name/]) // ['John', 'Doe']
 list(target, '**.firstName') // ['John', 'Alice']
 list(target, 'userOne.*', { entries: true })
 // [
-//   { value: 'John', path: ['firstName'], missing: false },
-//   { value: 'Doe', path: ['lastName'], missing: false },
-//   { value: 72, path: ['age'], missing: false },
+//   { value: 'John', path: ['userOne', 'firstName'], missing: false },
+//   { value: 'Doe', path: ['userOne', 'lastName'], missing: false },
+//   { value: 72, path: ['userOne', 'age'], missing: false },
 // ]
 ```
 
@@ -497,7 +497,8 @@ list(target, '*', { entries: true })
 
 ### missing
 
-_Methods_: [`list()`](#listtarget-query-options),
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options),
 [`set()`](#settarget-query-value-options)\
 _Type_: `boolean`\
@@ -513,7 +514,8 @@ set(target, 'name', 'Alice') // { name: 'Alice' }
 set(target, 'name', 'Alice', { missing: false }) // {}
 
 list(target, 'name') // []
-list(target, 'name', { missing: true }) // [undefined]
+list(target, 'name', { missing: true, entries: true })
+// [{ value: undefined, path: ['name'], missing: true }]
 ```
 
 ### sort
