@@ -12,7 +12,7 @@ const testInheritedSingle = function (
   { name, method },
   { input, output },
 ) {
-  test(`${name}() output | ${title}`, (t) => {
+  test(`${name}() handles non-enumerable and inherited properties | ${title}`, (t) => {
     const child = getChild()
     const { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum } = method(
       child,
