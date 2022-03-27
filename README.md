@@ -82,12 +82,16 @@ for (const color of iterate(target, 'settings.colors.*')) {
 }
 ```
 
+<!--
+
 # Demo
 
 You can try this library:
 
 - either directly [in your browser](https://repl.it/@ehmicky/wild-wild-path).
 - or by executing the [`examples` files](examples/README.md) in a terminal.
+
+-->
 
 # Install
 
