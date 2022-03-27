@@ -14,38 +14,33 @@ wildcards and regular expressions can be used.
 ## get()
 
 ```js
-get({ settings: { colors: ['red', 'blue'] } }, 'settings.colors.0')
-// 'red'
+const target = { settings: { colors: ['red', 'blue'] } }
+
+get(target, 'settings.colors.0') // 'red'
 ```
 
 ## has()
 
 ```js
-has({ settings: { colors: ['red', 'blue'] } }, 'settings.name')
-// false
+const target = { settings: { colors: ['red', 'blue'] } }
+
+has(target, 'settings.name') // false
 ```
 
 ## list()
 
 ```js
-list({ user: { name: 'John' }, color: 'red' }, 'user.name color')
-// ['John', 'red']
+const target = {
+  userOne: { firstName: 'John', lastName: 'Doe', age: 72 },
+  userTwo: { firstName: 'Alice', colors: ['red', 'blue', 'yellow'] },
+}
 
-list({ colors: ['red', 'blue'] }, 'colors.*')
-// ['red', 'blue']
-
-list({ colors: ['red', 'blue', 'yellow'] }, 'colors.0:2')
-// ['red', 'blue']
-
-list({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
-// ['John', 'Doe']
-
-list({ userOne: { name: 'John' }, userTwo: { name: 'Alice' } }, '**.name')
-// ['John', 'Alice']
-
-list({ firstName: 'John', lastName: 'Doe', age: 72 }, 'user.*', {
-  entries: true,
-})
+list(target, 'userOne.firstName userName.colors.0') // ['John', 'red']
+list(target, 'userTwo.colors.*') // ['red', 'blue', 'yellow']
+list(target, 'userTwo.colors.0:2') // ['red', 'blue']
+list(target, 'userOne./Name/') // ['John', 'Doe']
+list(target, '**.firstName') // ['John', 'Alice']
+list(target, 'userOne.*', { entries: true })
 // [
 //   { value: 'John', path: ['firstName'], missing: false },
 //   { value: 'Doe', path: ['lastName'], missing: false },
@@ -56,33 +51,23 @@ list({ firstName: 'John', lastName: 'Doe', age: 72 }, 'user.*', {
 ## set()
 
 ```js
-set({ colors: ['red', 'blue'] }, 'colors.0', 'yellow')
-// ['yellow', 'blue']
+const target = { colors: ['red', 'blue'] }
 
-set({ colors: ['red', 'blue'] }, 'colors.-1', 'yellow')
-// ['red', 'yellow']
-
-set({ colors: ['red', 'blue'] }, 'colors.-0', 'yellow')
-// ['red', 'blue', 'yellow']
-
-set({ colors: ['red', 'blue'] }, 'colors.*', 'yellow')
-// ['yellow', 'yellow']
-
-set({}, 'user.0.color', 'red')
-// { user: [{ color: 'red' }] }
-
-set({}, 'user.0.color', 'red', { missing: false })
-// {}
+set(target, 'colors.0', 'yellow') // ['yellow', 'blue']
+set(target, 'colors.-1', 'yellow') // ['red', 'yellow']
+set(target, 'colors.-0', 'yellow') // ['red', 'blue', 'yellow']
+set(target, 'colors.*', 'yellow') // ['yellow', 'yellow']
+set({}, 'user.0.color', 'red') // { user: [{ color: 'red' }] }
+set({}, 'user.0.color', 'red', { missing: false }) // {}
 ```
 
 ## remove()
 
 ```js
-remove({ user: { firstName: 'John', lastName: 'Doe' } }, 'user.lastName')
-// { user: { firstName: 'John' } }
+const target = { user: { firstName: 'John', lastName: 'Doe', age: 72 } }
 
-remove({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
-// { user: { age: 72 } }
+remove(target, 'user.lastName') // { user: { firstName: 'John', age: 72 } }
+remove(target, 'user./Name/') // { user: { age: 72 } }
 ```
 
 ## iterate()
@@ -90,7 +75,9 @@ remove({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
 <!-- eslint-disable fp/no-loops -->
 
 ```js
-for (const color of iterate({ settings: { colors: ['red', 'blue'] } })) {
+const target = { settings: { colors: ['red', 'blue'] } }
+
+for (const color of iterate(target, 'settings.colors.*')) {
   console.log(color)
 }
 // 'red', 'blue'
