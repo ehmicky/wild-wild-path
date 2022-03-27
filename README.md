@@ -126,7 +126,7 @@ not `require()`.
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: `any | undefined`
 
 Return the first property matching the query.
@@ -139,7 +139,7 @@ properties with `undefined` values, the [`entries`](#entries) option or the
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: `boolean`
 
 Return whether the query matches any property.
@@ -148,7 +148,7 @@ Return whether the query matches any property.
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: `any[]`
 
 Return all properties matching the query, as an array.
@@ -157,7 +157,7 @@ Return all properties matching the query, as an array.
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
 
 Return all properties matching the query, as an
@@ -170,7 +170,7 @@ This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `value`: `any`\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: `Target`
 
 Sets all properties matching the query.
@@ -179,7 +179,7 @@ Sets all properties matching the query.
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
-`options`: [`Options`](#options)\
+`options`: [`Options?`](#options)\
 _Return value_: `Target`
 
 Delete all properties matching the query.
@@ -224,7 +224,7 @@ user.colors.0
 
 ```bash
 # Unions ("or") of queries are space-delimited.
-# The string must be empty.
+# The string must not be empty.
 colors name age
 ```
 
@@ -242,7 +242,7 @@ user.**
 #### Regexps
 
 ```bash
-# Regexps are matched against property names
+# Regexps match property names
 user./name/
 
 # Flags can be used, e.g. to make it case-insensitive
@@ -286,8 +286,8 @@ name\\ with\\ spaces
 name\\.with\\.dots
 name\\\\with\\\\backslashes
 
-# Property names which could be interpreted as tokens must be escaped by
-# using a backslash at the beginning. This includes properties that:
+# Ambiguous property names must be escaped with a backslash at the beginning.
+# This includes properties that:
 #  - Are integers but are not array elements
 #  - Have multiple slashes and start with one
 name.\\0
@@ -322,7 +322,7 @@ user..colors
 
 <!-- prettier-ignore -->
 ```es6
-// Unions ("or") of queries are arrays.
+// Unions ("or") of queries are arrays of arrays.
 // There must be at least one item.
 [['colors'], ['name'], ['age']]
 ```
@@ -343,7 +343,7 @@ user..colors
 
 <!-- prettier-ignore -->
 ```es6
-// Regexps are matched against property names
+// Regexps match property names
 ['user', /name/]
 
 // Flags can be used, e.g. to make it case-insensitive
@@ -426,7 +426,7 @@ user.colors.0
 
 ## Options
 
-Options are plain objects.
+Options are optional plain objects.
 
 ### mutate
 
@@ -443,14 +443,14 @@ When `true`, it is directly mutated instead, which is faster.
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
-By default, only the matching value is returned.\
-When `true`, an object with the following properties is returned instead:
+By default, only matching values are returned.\
+When `true`, objects with the following properties are returned instead:
 
-- `value` `any`
-- `path` [`Path`](#paths): property path
+- `value` `any`: property's value
+- `path` [`Path`](#paths): property's full path
 - `missing` `boolean`: whether the property is [missing](#missing) from the
   [target](#target)
 
@@ -459,7 +459,7 @@ When `true`, an object with the following properties is returned instead:
 _Methods_: [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options),
 [`set()`](#settarget-query-value-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
 When `false`, properties not defined in the target are ignored.
@@ -472,7 +472,7 @@ considered defined, i.e. it is never ignored nor considered missing.
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
 When returning sibling object properties, sort them in lexigographic order.
@@ -482,7 +482,7 @@ When returning sibling object properties, sort them in lexigographic order.
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
 When using [unions](#unions) or [deep wildcards](#wildcards), a query might
@@ -498,28 +498,28 @@ _Methods_: [`get()`](#gettarget-query-options),
 [`iterate()`](#iteratetarget-query-options),
 [`set()`](#settarget-query-value-options),
 [`remove()`](#removetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
 When using [unions](#unions) or [deep wildcards](#wildcards), a query might
 match both a property and some of its children.
 
-When `true`, only leaves are matched. In other words, a property is ignored if
-it matches but one of its children also matches.
+When `true`, only leaves are matched. In other words, a matching property is
+ignored if one of its children also matches.
 
 ### roots
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
 When using [unions](#unions) or [deep wildcards](#wildcards), a query might
 match both a property and some of its children.
 
-When `true`, only roots are matched. In other words, a property is ignored if it
-matches but one of its parents also matches.
+When `true`, only roots are matched. In other words, a matching property is
+ignored if one of its parents also matches.
 
 ### classes
 
@@ -528,12 +528,11 @@ _Methods_: [`get()`](#gettarget-query-options),
 [`iterate()`](#iteratetarget-query-options),
 [`set()`](#settarget-query-value-options),
 [`remove()`](#removetarget-query-options)\
-_Methods_: _Type_: `boolean`\
+_Type_: `boolean`\
 _Default_: `false`
 
-By default, only arrays and plain objects can be parent properties.\
-When `true`, any object can be a parent property, including class instances, `Error`,
-functions, etc.
+Unless `true`, child properties of objects that are not plain objects (like
+class instances, errors or functions) are ignored.
 
 ### inherited
 
@@ -546,10 +545,11 @@ _Type_: `boolean`\
 _Default_: `false`
 
 By default, [wildcards](#wildcards) and [regexps](#regexps) ignore properties
-that are either non-enumerable or inherited. Those can still be matched by using
+that are either inherited or not enumerable. Those can still be matched by using
 their [property name](#deep-properties).
 
-When `true`, inherited properties are not ignored, but non-enumerable still are.
+When `true`, inherited properties are not ignored, but not enumerable ones still
+are.
 
 # Support
 
