@@ -112,12 +112,16 @@ not `require()`.
 `options`: [`Options`](#options)\
 _Return value_: `any | undefined`
 
+Return the first property matching the query.
+
 ## has(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `boolean`
+
+Return whether the query matches any property.
 
 ## list(target, query, options?)
 
@@ -126,12 +130,20 @@ _Return value_: `boolean`
 `options`: [`Options`](#options)\
 _Return value_: `any[]`
 
+Return all properties matching the query, as an array.
+
 ## iterate(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
-_Return value_: `Iterable<any>`
+_Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
+
+Return all properties matching the query, as an
+[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
+
+This is slower than [`list()`](#listtarget-query-options) but it uses less
+memory. Also, it is faster when only the first matching property is needed.
 
 ## set(target, query, value, options?)
 
@@ -141,12 +153,16 @@ _Return value_: `Iterable<any>`
 `options`: [`Options`](#options)\
 _Return value_: `Target`
 
+Sets all properties matching the query.
+
 ## remove(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options`](#options)\
 _Return value_: `Target`
+
+Delete all properties matching the query.
 
 # Target
 
@@ -255,14 +271,21 @@ user..settings
 
 ## Query arrays
 
-```js
-
-```
-
 ## Paths
 
 A "path" is any [query](#queries) using only property names and array positive
 indices. This excludes negative indices, slices, wildcards and regexps.
+
+```bash
+# Path string
+user.colors.0
+```
+
+<!-- prettier-ignore -->
+```es6
+// Path array
+['user', 'colors', 0]
+```
 
 # Options
 
