@@ -3,7 +3,7 @@ import test from 'ava'
 import { each } from 'test-each'
 import { set } from 'wild-wild-path'
 
-import { getChild, childProps, testChildProps } from './helpers/inherited.js'
+import { getChild, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 
 testMutate(
@@ -90,20 +90,20 @@ testMutate(
 each(
   [
     // `classes` and `inherited` options
-    { target: getChild(), query: '*', value: 2, output: childProps },
+    { target: getChild(), query: '*', value: 2, output: {} },
     {
       target: getChild(),
       query: '*',
       value: 2,
       opts: { classes: true, mutate: true },
-      output: { ...childProps, ownEnum: 2 },
+      output: { ownEnum: 2 },
     },
     {
       target: getChild(),
       query: '*',
       value: 2,
       opts: { classes: true, inherited: true, mutate: true },
-      output: { ...childProps, ownEnum: 2, inheritedEnum: 2 },
+      output: { ownEnum: 2, inheritedEnum: 2 },
     },
   ],
   ({ title }, { target, query, value, opts, output }) => {

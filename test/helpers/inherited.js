@@ -24,19 +24,22 @@ class Child extends Parent {
 /* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
    fp/no-mutating-methods */
 
-// Properties of the instance returned by `getChild()`
-export const childProps = {
-  ownEnum: 'ownEnum',
-  ownNonEnum: 'ownNonEnum',
-  inheritedEnum: 'inheritedEnum',
-  inheritedNonEnum: 'inheritedNonEnum',
-}
-
 // Test those properties
 export const testChildProps = function (
   t,
   { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
   output,
 ) {
-  t.deepEqual({ ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum }, output)
+  t.deepEqual(
+    { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
+    { ...childProps, ...output },
+  )
+}
+
+// Properties of the instance returned by `getChild()`
+const childProps = {
+  ownEnum: 'ownEnum',
+  ownNonEnum: 'ownNonEnum',
+  inheritedEnum: 'inheritedEnum',
+  inheritedNonEnum: 'inheritedNonEnum',
 }
