@@ -8,7 +8,7 @@ import { isObject } from './object.js'
 // We distinguish between missing properties that are:
 //  - known, i.e. returned: prop|index|slice tokens
 //  - unknown, i.e. not returned: any|regexp tokens
-// Tokens like wildcards cannot do this since there is known property to add.
+// Tokens like wildcards cannot do this since there is no known property to add.
 // Non-enumerable properties:
 //  - Are not listed by token types returning multiple entries like *
 //  - But are handled by the other ones

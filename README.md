@@ -17,6 +17,7 @@ wildcards and regexps can be used.
 const target = { settings: { colors: ['red', 'blue'] } }
 
 get(target, 'settings.colors.0') // 'red'
+get(target, ['settings', 'colors', 0]) // 'red'
 ```
 
 ## has()
@@ -25,9 +26,12 @@ get(target, 'settings.colors.0') // 'red'
 const target = { settings: { colors: ['red', 'blue'] } }
 
 has(target, 'settings.name') // false
+has(target, ['settings', 'name']) // false
 ```
 
 ## list()
+
+<!-- eslint-disable require-unicode-regexp -->
 
 ```js
 const target = {
@@ -36,9 +40,14 @@ const target = {
 }
 
 list(target, 'userOne.firstName userName.colors.0') // ['John', 'red']
+list(target, [
+  ['userOne', 'firstName'],
+  ['userName', 'colors', 0],
+]) // ['John', 'red']
 list(target, 'userTwo.colors.*') // ['red', 'blue', 'yellow']
 list(target, 'userTwo.colors.0:2') // ['red', 'blue']
 list(target, 'userOne./Name/') // ['John', 'Doe']
+list(target, ['userOne', /Name/]) // ['John', 'Doe']
 list(target, '**.firstName') // ['John', 'Alice']
 list(target, 'userOne.*', { entries: true })
 // [
@@ -66,6 +75,7 @@ for (const color of iterate(target, 'settings.colors.*')) {
 const target = { colors: ['red', 'blue'] }
 
 set(target, 'colors.0', 'yellow') // ['yellow', 'blue']
+set(target, ['colors', 0], 'yellow') // ['yellow', 'blue']
 set(target, 'colors.-1', 'yellow') // ['red', 'yellow']
 set(target, 'colors.-0', 'yellow') // ['red', 'blue', 'yellow']
 set(target, 'colors.*', 'yellow') // ['yellow', 'yellow']
@@ -75,11 +85,14 @@ set({}, 'user.0.color', 'red', { missing: false }) // {}
 
 ## remove()
 
+<!-- eslint-disable require-unicode-regexp -->
+
 ```js
 const target = { user: { firstName: 'John', lastName: 'Doe', age: 72 } }
 
 remove(target, 'user.lastName') // { user: { firstName: 'John', age: 72 } }
 remove(target, 'user./Name/') // { user: { age: 72 } }
+remove(target, ['user', /Name/]) // { user: { age: 72 } }
 ```
 
 <!--
@@ -113,6 +126,10 @@ not `require()`.
 _Return value_: `any | undefined`
 
 Return the first property matching the query.
+
+If none matches, `undefined` is returned. To distinguish this with matching
+properties which value is `undefined`, the [`entries`](#entries) option or the
+[`has()`](#hastarget-query-options) method can be used.
 
 ## has(target, query, options?)
 
@@ -174,14 +191,17 @@ library which provides with additional, higher-level methods: `merge()`,
 
 The target value must be an object or an array.
 
+Queries can match object properties with `undefined` values providing they have
+a key. Symbol properties are never matched.
+
 # Queries
 
 There are two equivalent formats for queries: strings and arrays.
 
 - Query [strings](#query-strings) are friendlier to CLI usage, more expressive
   and easier to serialize.
-- Query [arrays](#query-arrays) are friendlier to programmatic usage, and do not
-  require escaping. They should be used when the input is dynamic or
+- Query [arrays](#query-arrays) are friendlier to programmatic usage, faster,
+  and do not require escaping. They should be used when the input is dynamic or
   user-provided to prevent injection attacks.
 
 [`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
@@ -200,7 +220,8 @@ user.colors.0
 ### Unions
 
 ```bash
-# Unions ("or") of queries are space-delimited
+# Unions ("or") of queries are space-delimited.
+# There must be at least one query.
 colors name age
 ```
 
@@ -323,7 +344,7 @@ with the following properties:
 
 - `value` `any`
 - `path` [`Path`](#path): property path
-- `missing` `boolean`: whether the value is defined in the [target](#target)
+- `missing` `boolean`: whether the property is defined in the [target](#target)
 
 ## missing
 
@@ -333,7 +354,10 @@ _Methods_: [`list()`](#listtarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
-When `false`, values not defined in the target are ignored.
+When `false`, properties not defined in the target are ignored.
+
+Please note that a property with a key and an `undefined` value is always
+considered defined, i.e. it is never ignored nor considered missing.
 
 ## sort
 
@@ -413,7 +437,11 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-By default (`false`), inherited properties are ignored.
+By default (`false`), [wildcards](#wildcards) and [regexps](#regexps) ignore
+properties that are either non-enumerable or inherited. Those can still be
+matched by using their property name.
+
+When `true`, inherited properties are not ignored, but non-enumerable still are.
 
 # Support
 
