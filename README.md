@@ -48,6 +48,18 @@ list(target, 'userOne.*', { entries: true })
 // ]
 ```
 
+## iterate()
+
+<!-- eslint-disable fp/no-loops -->
+
+```js
+const target = { settings: { colors: ['red', 'blue'] } }
+
+for (const color of iterate(target, 'settings.colors.*')) {
+  console.log(color) // 'red', 'blue'
+}
+```
+
 ## set()
 
 ```js
@@ -68,18 +80,6 @@ const target = { user: { firstName: 'John', lastName: 'Doe', age: 72 } }
 
 remove(target, 'user.lastName') // { user: { firstName: 'John', age: 72 } }
 remove(target, 'user./Name/') // { user: { age: 72 } }
-```
-
-## iterate()
-
-<!-- eslint-disable fp/no-loops -->
-
-```js
-const target = { settings: { colors: ['red', 'blue'] } }
-
-for (const color of iterate(target, 'settings.colors.*')) {
-  console.log(color) // 'red', 'blue'
-}
 ```
 
 <!--
@@ -112,10 +112,45 @@ not `require()`.
 `options`: [`Options`](#options)\
 _Return value_: `any | undefined`
 
+## has(target, query, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`options`: [`Options`](#options)\
+_Return value_: `boolean`
+
+## list(target, query, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`options`: [`Options`](#options)\
+_Return value_: `any[]`
+
+## iterate(target, query, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`options`: [`Options`](#options)\
+_Return value_: `Iterable<any>`
+
+## set(target, query, value, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`value`: `any`\
+`options`: [`Options`](#options)\
+_Return value_: `Target`
+
+## remove(target, query, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`options`: [`Options`](#options)\
+_Return value_: `Target`
+
 # Queries
 
-Queries have two available formats: strings and arrays. They are equivalent to
-each other, but:
+There are two equivalent formats for queries: strings and arrays.
 
 - Query [strings](#query-strings) are friendlier to CLI usage, more expressive
   and easier to serialize.
