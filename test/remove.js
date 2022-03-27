@@ -2,7 +2,7 @@ import test from 'ava'
 import { each } from 'test-each'
 import { remove } from 'wild-wild-path'
 
-import { getChild, childProps } from './helpers/inherited.js'
+import { getChild, childProps, testChildProps } from './helpers/inherited.js'
 import { testMutate } from './helpers/mutate.js'
 
 testMutate(
@@ -68,15 +68,7 @@ each(
   ],
   ({ title }, { target, query, opts, output }) => {
     test(`remove() output | ${title}`, (t) => {
-      const { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum } = remove(
-        target,
-        query,
-        opts,
-      )
-      t.deepEqual(
-        { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
-        output,
-      )
+      testChildProps(t, remove(target, query, opts), output)
     })
   },
 )

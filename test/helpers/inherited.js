@@ -31,3 +31,12 @@ export const childProps = {
   inheritedEnum: 'inheritedEnum',
   inheritedNonEnum: 'inheritedNonEnum',
 }
+
+// Test those properties
+export const testChildProps = function (
+  t,
+  { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
+  output,
+) {
+  t.deepEqual({ ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum }, output)
+}
