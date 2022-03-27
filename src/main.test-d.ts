@@ -5,6 +5,7 @@ import {
   iterate,
   remove,
   set,
+  isObject,
   Target,
   Query,
   Options,
@@ -77,3 +78,6 @@ set({}, 'prop', 1, { mutate: true })
 expectError(set(true, 'prop', 1))
 expectError(set({}, true, 1))
 expectError(set({}, 'prop', 1, true))
+
+expectType<boolean>(isObject({}, true))
+expectError(isObject({}, {}))

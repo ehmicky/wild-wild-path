@@ -46,3 +46,5 @@ export function set(
   value: Value,
   options?: Options,
 ): Target
+
+export function isObject(value: any, classes: boolean): boolean
