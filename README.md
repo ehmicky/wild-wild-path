@@ -25,6 +25,9 @@ list({ colors: ['red', 'blue'] }, 'colors.*')
 // ['red', 'blue']
 list({ colors: ['red', 'blue', 'yellow'] }, 'colors.0:2')
 // ['red', 'blue']
+list({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
+// ['John', 'Doe']
+
 list({ user: { name: 'John' }, color: 'red' }, '**', { leaves: true })
 // ['John', 'red']
 list({ user: { name: 'John' }, color: 'red' }, 'user.**')
@@ -33,8 +36,19 @@ list({ user: { name: 'John' }, color: 'red' }, 'user.**', { childFirst: true })
 // ['John', { name: 'John' }]
 list({ user: { name: 'John' }, color: 'red' }, 'user.**', { roots: true })
 // [{ name: 'John' }]
-list({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
-// ['John', 'Doe']
+
+list({ firstName: 'John', lastName: 'Doe', age: 72 }, 'user.*', {
+  entries: true,
+})
+// [
+//   { value: 'John', path: ['firstName'], missing: false },
+//   { value: 'Doe', path: ['lastName'], missing: false },
+//   { value: 72, path: ['age'], missing: false },
+// ]
+get({ user: { colors: ['red', 'blue'] } }, 'user.name')
+// undefined
+get({ user: { colors: ['red', 'blue'] } }, 'user.name', { entries: true })
+// { value: undefined, path: ['user', 'name'], missing: true }
 
 set({ colors: ['red', 'blue'] }, 'colors.0', 'yellow')
 // ['yellow', 'blue']
@@ -49,7 +63,13 @@ remove({ user: { firstName: 'John', lastName: 'Doe' } }, 'user.lastName')
 remove({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
 // { user: { age: 72 } }
 
+set({}, 'user.0.color', 'red')
+// { user: [{ color: 'red' }] }
+set({}, 'user.color', 'red', { missing: false })
+// {}
+
 for (const color of iterate({ settings: { colors: ['red', 'blue'] } })) {
+  console.log(color)
 }
 // 'red', 'blue'
 ```
