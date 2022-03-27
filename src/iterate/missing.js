@@ -66,19 +66,20 @@ const MISSING_HANDLERS = {
 //  - Properties, even if they exist, will be considered missing
 //     - With tokens like *, no entries will be returned
 //  - Setting will override the value, not merge it
-// This must return `false` for arrays.
-// By default, we only consider plain objects
+// Unlss `classes` is `true`, we only consider plain objects:
 //  - Excluding:
 //     - Class instances, including native ones (RegExp, Error, etc.)
+//     - Function objects
+//     - Arrays used as objects
 //     - `Object.create({})`
 //     - `import * as object from ...` (`Module` instance)
 //  - This is because only plain objects are clonable, i.e. do not require
 //    `mutate` to be `true`
 const isRecurseObject = function (value, classes) {
-  if (!classes) {
-    return isPlainObj(value)
-  }
+  return classes ? isObject(value) : isPlainObj(value)
+}
 
+const isObject = function (value) {
   const typeofValue = typeof value
   return (
     (typeofValue === 'object' || typeofValue === 'function') && value !== null
