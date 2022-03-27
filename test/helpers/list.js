@@ -1,9 +1,14 @@
 // eslint-disable-next-line ava/no-ignored-test-files
 import test from 'ava'
+import { each } from 'test-each'
 import { list, iterate } from 'wild-wild-path'
 
+export const testListIterate = function (inputs) {
+  each(listMethods, inputs, testListIterateOutput)
+}
+
 // Test `list()` and `iterate()` return value
-export const testListIterateOutput = function (
+const testListIterateOutput = function (
   { title },
   listFunc,
   { target, query, opts, output },
