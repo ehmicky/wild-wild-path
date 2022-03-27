@@ -7,11 +7,12 @@ export const testListIterate = function (inputs) {
 }
 
 // We repeat the same tests for both `list()` and `iterate()`
-const iterateAll = function (target, query, opts) {
-  return [...iterate(target, query, opts)]
-}
-
 export const listMethods = [
   { name: 'list', method: list },
-  { name: 'iterate', method: iterateAll },
+  {
+    name: 'iterate',
+    method(...inputs) {
+      return [...iterate(...inputs)]
+    },
+  },
 ]
