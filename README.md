@@ -223,7 +223,7 @@ user.colors.0
 
 ```bash
 # Unions ("or") of queries are space-delimited.
-# There must be at least one query.
+# The string must be empty.
 colors name age
 ```
 
@@ -308,6 +308,100 @@ user..colors
 ```
 
 ## Query arrays
+
+### Deep properties
+
+<!-- prettier-ignore -->
+```es6
+// Deep properties of objects or arrays.
+['user', 'colors', 0]
+```
+
+### Unions
+
+<!-- prettier-ignore -->
+```es6
+// Unions ("or") of queries are arrays.
+// There must be at least one item.
+[['colors'], ['name'], ['age']]
+```
+
+### Wildcards
+
+<!-- prettier-ignore -->
+```es6
+// Shallow wildcards target all properties/items of a single object/array
+['user', { type: 'any' }]
+
+// Deep wildcards target all properties/items of 0, 1 or many objects/arrays
+['user', { type: 'anyDeep' }]
+[{ type: 'anyDeep' }, 'colors']
+```
+
+### Regexps
+
+<!-- prettier-ignore -->
+```es6
+// Regexps are matched against property names
+['user', /name/]
+
+// Flags can be used, e.g. to make it case-insensitive
+['user', /name/i]
+
+// ^ $ must be used to match from the beginning or until the end
+['user', /^name$/i]
+```
+
+### Arrays indices
+
+<!-- prettier-ignore -->
+```es6
+// Array indices are integers, not strings
+['user', 'colors', 0]
+
+// Array indices can be negative.
+// -1 is the last item.
+// -0 is the item after it, which can be used to append.
+['user', 'colors', -1]
+```
+
+### Array slices
+
+<!-- prettier-ignore -->
+```es6
+// Array slices. Goes from the start (included) to the end index (excluded).
+['user', 'colors', { type: 'slice', from: 0, to: 2 }]
+
+// The start index defaults to 0, i.e. the beginning
+['user', 'colors', { type: 'slice', to: 2 }]
+
+// The end index defaults to -0, i.e. the end
+['user', 'colors', { type: 'slice', from: 0 }]
+['user', 'colors', { type: 'slice' }]
+```
+
+### Escaping
+
+<!-- prettier-ignore -->
+```es6
+// Escaping is not necessary with query arrays
+['name with spaces']
+['name.with.dots']
+['name\\with\\backslashes']
+['name', '0']
+['name', '/not_a_regexp/']
+```
+
+### Root and empty strings
+
+<!-- prettier-ignore -->
+```es6
+// Root value
+[]
+
+// Empty string properties
+['user', '', 'colors']
+```
 
 ## Paths
 
