@@ -5,46 +5,35 @@ const child = getChild()
 
 testListIterate([
   {
-    target: child,
-    query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+    input: [child, 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum'],
     output: [],
   },
-  { target: child, query: '/\\.*/', output: [] },
-  { target: child, query: '*', output: [] },
+  { input: [child, '/\\.*/'], output: [] },
+  { input: [child, '*'], output: [] },
   {
-    target: child,
-    query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+    input: [
+      child,
+      'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      { classes: true },
+    ],
     output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
-    opts: { classes: true },
   },
+  { input: [child, '/\\.*/', { classes: true }], output: ['ownEnum'] },
+  { input: [child, '*', { classes: true }], output: ['ownEnum'] },
   {
-    target: child,
-    query: '/\\.*/',
-    output: ['ownEnum'],
-    opts: { classes: true },
-  },
-  {
-    target: child,
-    query: '*',
-    output: ['ownEnum'],
-    opts: { classes: true },
-  },
-  {
-    target: child,
-    query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+    input: [
+      child,
+      'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      { classes: true, inherited: true },
+    ],
     output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
-    opts: { classes: true, inherited: true },
   },
   {
-    target: child,
-    query: '/\\.*/',
+    input: [child, '/\\.*/', { classes: true, inherited: true }],
     output: ['ownEnum', 'inheritedEnum'],
-    opts: { classes: true, inherited: true },
   },
   {
-    target: child,
-    query: '*',
+    input: [child, '*', { classes: true, inherited: true }],
     output: ['ownEnum', 'inheritedEnum'],
-    opts: { classes: true, inherited: true },
   },
 ])

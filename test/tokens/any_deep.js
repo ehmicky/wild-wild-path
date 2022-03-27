@@ -5,62 +5,52 @@ const selfObject = { one: 1, two: { three: 3 } }
 selfObject.two.self = selfObject
 
 testListIterate([
-  { target: selfObject, query: '**', output: [1, 3], opts: { leaves: true } },
+  { input: [selfObject, '**', { leaves: true }], output: [1, 3] },
   {
-    target: { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
-    query: '**',
+    input: [
+      { one: 1, two: { three: 3, four: [2, { five: 0 }] } },
+      '**',
+      { leaves: true },
+    ],
     output: [1, 3, 2, 0],
-    opts: { leaves: true },
   },
   {
-    target: { one: { two: 1 } },
-    query: '**',
+    input: [{ one: { two: 1 } }, '**'],
     output: [{ one: { two: 1 } }, { two: 1 }, 1],
   },
+  { input: [{ one: { two: 1 } }, '**.*'], output: [{ two: 1 }, 1] },
+  { input: [{ one: { two: 1 } }, '*.**'], output: [{ two: 1 }, 1] },
   {
-    target: { one: { two: 1 } },
-    query: '**.*',
-    output: [{ two: 1 }, 1],
-  },
-  {
-    target: { one: { two: 1 } },
-    query: '*.**',
-    output: [{ two: 1 }, 1],
-  },
-  {
-    target: { one: { two: 2 }, three: { two: 3 } },
-    query: 'one.**',
+    input: [{ one: { two: 2 }, three: { two: 3 } }, 'one.**', { leaves: true }],
     output: [2],
-    opts: { leaves: true },
   },
   {
-    target: { one: { two: 1 }, three: { two: 3 } },
-    query: ['one', { type: 'anyDeep' }],
+    input: [
+      { one: { two: 1 }, three: { two: 3 } },
+      ['one', { type: 'anyDeep' }],
+      { leaves: true },
+    ],
     output: [1],
-    opts: { leaves: true },
   },
   {
-    target: { one: { two: 2 }, three: { two: 3 } },
-    query: '**.two',
+    input: [{ one: { two: 2 }, three: { two: 3 } }, '**.two', { leaves: true }],
     output: [2, 3],
-    opts: { leaves: true },
   },
   {
-    target: { one: { two: { four: 2 } }, three: { two: { four: 3 } } },
-    query: '**.two.**',
+    input: [
+      { one: { two: { four: 2 } }, three: { two: { four: 3 } } },
+      '**.two.**',
+      { leaves: true },
+    ],
     output: [2, 3],
-    opts: { leaves: true },
   },
   {
-    target: { one: { one: 2 }, two: { one: 3 } },
-    query: '**.one.**',
+    input: [{ one: { one: 2 }, two: { one: 3 } }, '**.one.**'],
     output: [{ one: 2 }, 2, 3],
   },
-  { target: {}, query: '**', output: [{}] },
+  { input: [{}, '**'], output: [{}] },
   {
-    target: { one: { two: 2 }, three: { four: 3 } },
-    query: '**.**',
+    input: [{ one: { two: 2 }, three: { four: 3 } }, '**.**', { leaves: true }],
     output: [2, 3],
-    opts: { leaves: true },
   },
 ])

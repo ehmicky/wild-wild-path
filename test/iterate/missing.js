@@ -3,31 +3,23 @@ import { missingOpts } from '../helpers/options.js'
 
 testListIterate([
   {
-    target: { one: 1 },
-    query: 'one two',
+    input: [{ one: 1 }, 'one two', missingOpts],
     output: [
       { value: 1, path: ['one'], missing: false },
       { value: undefined, path: ['two'], missing: true },
     ],
-    opts: missingOpts,
   },
   {
-    target: {},
-    query: 'one',
+    input: [{}, 'one', missingOpts],
     output: [{ value: undefined, path: ['one'], missing: true }],
-    opts: missingOpts,
   },
-  { target: { one: undefined }, query: 'one', output: [undefined] },
+  { input: [{ one: undefined }, 'one'], output: [undefined] },
   {
-    target: { one: undefined },
-    query: 'one',
+    input: [{ one: undefined }, 'one', missingOpts],
     output: [{ value: undefined, path: ['one'], missing: false }],
-    opts: missingOpts,
   },
   {
-    target: [],
-    query: 'one',
+    input: [[], 'one', missingOpts],
     output: [{ value: undefined, path: ['one'], missing: true }],
-    opts: missingOpts,
   },
 ])

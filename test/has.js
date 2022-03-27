@@ -9,59 +9,36 @@ const child = getChild()
 each(
   [
     // Main usage
-    { target: { one: 1 }, query: 'one', output: true },
-    { target: { one: 1, two: 2 }, query: '*', output: true },
-    { target: { one: 1 }, query: 'two', output: false },
-    { target: { one: undefined }, query: 'one', output: true },
-    { target: { one: 1 }, query: [/one/u], output: true },
+    { input: [{ one: 1 }, 'one'], output: true },
+    { input: [{ one: 1, two: 2 }, '*'], output: true },
+    { input: [{ one: 1 }, 'two'], output: false },
+    { input: [{ one: undefined }, 'one'], output: true },
+    { input: [{ one: 1 }, [/one/u]], output: true },
 
     // `classes` and `inherited` options
     {
-      target: child,
-      query: 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum',
+      input: [child, 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum'],
       output: false,
     },
-    { target: child, query: 'ownEnum', output: true, opts: { classes: true } },
+    { input: [child, 'ownEnum', { classes: true }], output: true },
+    { input: [child, 'ownNonEnum', { classes: true }], output: true },
+    { input: [child, 'inheritedEnum', { classes: true }], output: true },
+    { input: [child, 'inheritedNonEnum', { classes: true }], output: true },
+    { input: [child, '/inherited/', { classes: true }], output: false },
     {
-      target: child,
-      query: 'ownNonEnum',
+      input: [child, '/inherited/', { classes: true, inherited: true }],
       output: true,
-      opts: { classes: true },
-    },
-    {
-      target: child,
-      query: 'inheritedEnum',
-      output: true,
-      opts: { classes: true },
-    },
-    {
-      target: child,
-      query: 'inheritedNonEnum',
-      output: true,
-      opts: { classes: true },
-    },
-    {
-      target: child,
-      query: '/inherited/',
-      output: false,
-      opts: { classes: true },
-    },
-    {
-      target: child,
-      query: '/inherited/',
-      output: true,
-      opts: { classes: true, inherited: true },
     },
   ],
-  ({ title }, { target, query, opts, output }) => {
+  ({ title }, { input, output }) => {
     test(`has() output | ${title}`, (t) => {
-      t.deepEqual(has(target, query, opts), output)
+      t.deepEqual(has(...input), output)
     })
   },
 )
 
-each([{ target: {}, query: [true] }], ({ title }, { target, query, opts }) => {
+each([[{}, [true]]], ({ title }, input) => {
   test(`has() validates its input | ${title}`, (t) => {
-    t.throws(has.bind(undefined, target, query, opts))
+    t.throws(has.bind(undefined, ...input))
   })
 })

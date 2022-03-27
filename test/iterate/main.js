@@ -14,55 +14,48 @@ test('list() returns an array', (t) => {
 
 testListIterate([
   // Root query
-  { target: 1, query: '.', output: [1] },
-  { target: 1, query: [], output: [1] },
-  { target: 1, query: [[]], output: [1] },
+  { input: [1, '.'], output: [1] },
+  { input: [1, []], output: [1] },
+  { input: [1, [[]]], output: [1] },
   {
-    target: {},
-    query: '.',
+    input: [{}, '.', { entries: true }],
     output: [{ value: {}, path: [], missing: false }],
-    opts: { entries: true },
   },
 
   // Deep query
-  { target: { one: { two: 1 } }, query: 'one.two', output: [1] },
-  { target: { one: { two: 1 } }, query: ['one', 'two'], output: [1] },
+  { input: [{ one: { two: 1 } }, 'one.two'], output: [1] },
+  { input: [{ one: { two: 1 } }, ['one', 'two']], output: [1] },
 
   // Unions
-  { target: { one: 1, two: 2, three: 3 }, query: 'one two', output: [1, 2] },
+  { input: [{ one: 1, two: 2, three: 3 }, 'one two'], output: [1, 2] },
+  { input: [{ one: 1, two: 2, three: 3 }, [['one'], ['two']]], output: [1, 2] },
+  { input: [{ one: 1 }, 'one one'], output: [1] },
+  { input: [{ one: { two: 2 } }, '*.two one.two'], output: [2] },
   {
-    target: { one: 1, two: 2, three: 3 },
-    query: [['one'], ['two']],
-    output: [1, 2],
-  },
-  { target: { one: 1 }, query: 'one one', output: [1] },
-  { target: { one: { two: 2 } }, query: '*.two one.two', output: [2] },
-  {
-    target: { one: { two: { three: 1 } } },
-    query: '*.two one.two.three',
+    input: [{ one: { two: { three: 1 } } }, '*.two one.two.three'],
     output: [{ three: 1 }, 1],
   },
 
   // Forbidden properties
-  { target: { __proto__: {} }, query: '__proto__', output: [] },
-  { target: { prototype: {} }, query: 'prototype', output: [] },
-  { target: { constructor() {} }, query: 'constructor', output: [] },
+  { input: [{ __proto__: {} }, '__proto__'], output: [] },
+  { input: [{ prototype: {} }, 'prototype'], output: [] },
+  { input: [{ constructor() {} }, 'constructor'], output: [] },
 ])
 
 each(
   listMethods,
   [
-    { target: {}, query: '.', opts: { inherited: true, classes: false } },
-    { target: {}, query: '.', opts: { missing: true, entries: false } },
-    { target: {}, query: '.', opts: { roots: true, leaves: true } },
-    { target: {}, query: true },
-    { target: {}, query: [[true]] },
-    { target: {}, query: 'a\\b' },
-    { target: {}, query: '/[/' },
+    [{}, '.', { inherited: true, classes: false }],
+    [{}, '.', { missing: true, entries: false }],
+    [{}, '.', { roots: true, leaves: true }],
+    [{}, true],
+    [{}, [[true]]],
+    [{}, 'a\\b'],
+    [{}, '/[/'],
   ],
-  ({ title }, listFunc, { target, query, opts }) => {
+  ({ title }, listFunc, input) => {
     test(`list|iterate() validates its input | ${title}`, (t) => {
-      t.throws(listFunc.bind(undefined, target, query, opts))
+      t.throws(listFunc.bind(undefined, ...input))
     })
   },
 )

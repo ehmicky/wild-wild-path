@@ -11,10 +11,10 @@ export const testListIterate = function (inputs) {
 const testListIterateOutput = function (
   { title },
   listFunc,
-  { target, query, opts, output },
+  { input, output },
 ) {
   test(`list|iterate() output | ${title}`, (t) => {
-    t.deepEqual(listFunc(target, query, opts), output)
+    t.deepEqual(listFunc(...input), output)
   })
 }
 

@@ -3,53 +3,41 @@ import { testListIterate } from '../helpers/list.js'
 testListIterate([
   // `childFirst` option
   {
-    target: { one: 1 },
-    query: 'one .',
+    input: [{ one: 1 }, 'one .', { childFirst: false }],
     output: [{ one: 1 }, 1],
-    opts: { childFirst: false },
   },
   {
-    target: { one: 1 },
-    query: '. one',
+    input: [{ one: 1 }, '. one', { childFirst: true }],
     output: [1, { one: 1 }],
-    opts: { childFirst: true },
   },
   {
-    target: { one: { two: { three: 1 } } },
-    query: 'one.two *.two.three',
+    input: [
+      { one: { two: { three: 1 } } },
+      'one.two *.two.three',
+      { childFirst: true },
+    ],
     output: [1, { three: 1 }],
-    opts: { childFirst: true },
   },
 
   // `leaves` option
   {
-    target: { one: { two: 1 } },
-    query: 'one . one.two',
+    input: [{ one: { two: 1 } }, 'one . one.two', { leaves: true }],
     output: [1],
-    opts: { leaves: true },
   },
   {
-    target: { one: { two: 1 } },
-    query: '. one one.two',
+    input: [
+      { one: { two: 1 } },
+      '. one one.two',
+      { leaves: true, childFirst: true },
+    ],
     output: [1],
-    opts: { leaves: true, childFirst: true },
   },
-  { target: {}, query: '. *', output: [{}], opts: { leaves: true } },
+  { input: [{}, '. *', { leaves: true }], output: [{}] },
 
   // `roots` option
-  {
-    target: { one: 1 },
-    query: '. one',
-    output: [{ one: 1 }],
-    opts: { roots: true },
-  },
+  { input: [{ one: 1 }, '. one', { roots: true }], output: [{ one: 1 }] },
 
   // `sort` option
-  { target: { two: 2, one: 1 }, query: '*', output: [2, 1] },
-  {
-    target: { two: 2, one: 1 },
-    query: '*',
-    output: [1, 2],
-    opts: { sort: true },
-  },
+  { input: [{ two: 2, one: 1 }, '*'], output: [2, 1] },
+  { input: [{ two: 2, one: 1 }, '*', { sort: true }], output: [1, 2] },
 ])
