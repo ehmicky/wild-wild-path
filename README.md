@@ -266,15 +266,16 @@ indices. This excludes negative indices, slices, wildcards and regexps.
 
 # Options
 
-Options are plain objects. Each option is a boolean value defaulting to `false`.
-Most options can be specified by multiple methods.
+Options are plain objects.
 
 ## mutate
 
 _Methods_: [`set()`](#settarget-query-value-options),
-[`remove()`](#removetarget-query-options)
+[`remove()`](#removetarget-query-options)\
+_Type_: `boolean`\
+_Default_: `false`
 
-By default (`false`), the [target](#target) is deeply cloned.\
+By default, the [target](#target) is deeply cloned.\
 When `true`, it is directly mutated instead, which is faster.
 
 ## entries
