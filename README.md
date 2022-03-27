@@ -131,10 +131,6 @@ _Return value_: `any | undefined`
 
 Return the first property matching the query.
 
-If none matches, `undefined` is returned. To distinguish this from matching
-properties with `undefined` values, the [`entries`](#entries) option or the
-[`has()`](#hastarget-query-options) method can be used.
-
 ### has(target, query, options?)
 
 `target`: [`Target`](#target)\
@@ -194,8 +190,35 @@ library which provides with additional, higher-level methods: `merge()`,
 
 The target value must be an object or an array.
 
-Queries can match object properties with `undefined` values providing they have
-a key. Symbol properties are never matched.
+### undefined values
+
+Object properties with a key but an `undefined` value are not ignored. This
+differs from object properties without any key.
+
+The [`has`](#hastarget-query-options) method, [`missing`](#missing) option and
+[`entries`](#entries) option are useful when matching `undefined` properties.
+
+```js
+const target = { name: undefined }
+
+has(target, 'name') // true
+has(target, 'colors') // false
+
+get(target, 'name') // undefined
+get(target, 'name', { entries: true, missing: true })
+// { value: undefined, path: ['name'], missing: false }
+get(target, 'colors') // undefined
+get(target, 'colors', { entries: true, missing: true })
+// { value: undefined, path: ['colors'], missing: true }
+
+list(target, '*') // [undefined]
+list(target, '*', { entries: true })
+// { value: undefined, path: ['name'], missing: false }
+```
+
+### Symbols
+
+Symbol properties are always ignored.
 
 ## Queries
 
@@ -463,9 +486,6 @@ _Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
 When `false`, properties not defined in the target are ignored.
-
-Please note that a property with a key and an `undefined` value is always
-considered defined, i.e. it is never ignored nor considered missing.
 
 ### sort
 
