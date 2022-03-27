@@ -4,11 +4,11 @@ import { each } from 'test-each'
 
 // Test multiple inputs with the `mutate` option either `true` or `false`
 export const testMutate = function (methods, inputs) {
-  each([false, true], methods, inputs, testMutateInput)
+  each([false, true], methods, inputs, testMutateSingle)
 }
 
 // eslint-disable-next-line max-params
-const testMutateInput = function (
+const testMutateSingle = function (
   { title },
   mutate,
   { name, method },

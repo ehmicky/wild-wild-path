@@ -4,12 +4,10 @@ import { each } from 'test-each'
 
 // Test that a given method throws on invalid input
 export const testValidation = function (methods, inputs) {
-  each(methods, inputs, ({ title }, { name, method }, input) =>
-    testValidationInput({ name, method, title, input }),
-  )
+  each(methods, inputs, testValidationSingle)
 }
 
-const testValidationInput = function ({ name, method, title, input }) {
+const testValidationSingle = function ({ title }, { name, method }, input) {
   test(`${name}() validates its input | ${title}`, (t) => {
     t.throws(method.bind(undefined, ...input))
   })

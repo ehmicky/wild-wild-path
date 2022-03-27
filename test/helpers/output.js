@@ -4,10 +4,10 @@ import { each } from 'test-each'
 
 // Test the output of a specific method based on its input
 export const testOutput = function (methods, inputs) {
-  each(methods, inputs, testSingleOutput)
+  each(methods, inputs, testOutputSingle)
 }
 
-const testSingleOutput = function (
+const testOutputSingle = function (
   { title },
   { name, method },
   { input, output },
