@@ -30,14 +30,19 @@ has({ settings: { colors: ['red', 'blue'] } }, 'settings.name')
 ```js
 list({ user: { name: 'John' }, color: 'red' }, 'user.name color')
 // ['John', 'red']
+
 list({ colors: ['red', 'blue'] }, 'colors.*')
 // ['red', 'blue']
+
 list({ colors: ['red', 'blue', 'yellow'] }, 'colors.0:2')
 // ['red', 'blue']
+
 list({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
 // ['John', 'Doe']
+
 list({ userOne: { name: 'John' }, userTwo: { name: 'Alice' } }, '**.name')
 // ['John', 'Alice']
+
 list({ firstName: 'John', lastName: 'Doe', age: 72 }, 'user.*', {
   entries: true,
 })
@@ -53,14 +58,19 @@ list({ firstName: 'John', lastName: 'Doe', age: 72 }, 'user.*', {
 ```js
 set({ colors: ['red', 'blue'] }, 'colors.0', 'yellow')
 // ['yellow', 'blue']
+
 set({ colors: ['red', 'blue'] }, 'colors.-1', 'yellow')
 // ['red', 'yellow']
+
 set({ colors: ['red', 'blue'] }, 'colors.-0', 'yellow')
 // ['red', 'blue', 'yellow']
+
 set({ colors: ['red', 'blue'] }, 'colors.*', 'yellow')
 // ['yellow', 'yellow']
+
 set({}, 'user.0.color', 'red')
 // { user: [{ color: 'red' }] }
+
 set({}, 'user.0.color', 'red', { missing: false })
 // {}
 ```
@@ -70,6 +80,7 @@ set({}, 'user.0.color', 'red', { missing: false })
 ```js
 remove({ user: { firstName: 'John', lastName: 'Doe' } }, 'user.lastName')
 // { user: { firstName: 'John' } }
+
 remove({ user: { firstName: 'John', lastName: 'Doe', age: 72 } }, 'user./Name/')
 // { user: { age: 72 } }
 ```
