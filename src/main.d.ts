@@ -1,6 +1,6 @@
 import type { Query, PathArray } from 'wild-wild-parser'
 
-export type Target = object | any[]
+export type Target = object | Array<any>
 export type { Query }
 
 export interface Options {
