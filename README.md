@@ -312,10 +312,11 @@ user..colors
 ## Paths
 
 A "path" is any [query](#queries) using only [property names](#deep-properties)
-and array positive indices. This excludes negative indices, slices, wildcards
-and regexps.
+and positive [array indices](#arrays-indices). This excludes
+[negative indices](#arrays-indices), [slices](#array-slices),
+[wildcards](#wildcards), [regexps](#regexps) and [unions](#unions).
 
-Those are returned by the [`entries`](#entries) option.
+Paths are returned by the [`entries`](#entries) option.
 
 ```bash
 # Path string
@@ -350,12 +351,13 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Methods_: _Type_: `boolean`\
 _Default_: `false`
 
-Instead of being only the matching value, the return value becomes an object
-with the following properties:
+By default, only the matching value is returned.\
+When `true`, an object with the following properties is returned instead:
 
 - `value` `any`
-- `path` [`Path`](#path): property path
-- `missing` `boolean`: whether the property is defined in the [target](#target)
+- `path` [`Path`](#paths): property path
+- `missing` `boolean`: whether the property is [missing](#missing) from the
+  [target](#target)
 
 ## missing
 
@@ -407,8 +409,8 @@ _Default_: `false`
 When using [unions](#unions) or [deep wildcards](#wildcards), a query might
 match both a property and some of its children.
 
-When `true`, only leaves are used. In other words, a property is ignored if it
-matches but one of its children also matches.
+When `true`, only leaves are matched. In other words, a property is ignored if
+it matches but one of its children also matches.
 
 ## roots
 
@@ -421,7 +423,7 @@ _Default_: `false`
 When using [unions](#unions) or [deep wildcards](#wildcards), a query might
 match both a property and some of its children.
 
-When `true`, only roots are used. In other words, a property is ignored if it
+When `true`, only roots are matched. In other words, a property is ignored if it
 matches but one of its parents also matches.
 
 ## classes
@@ -448,9 +450,9 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-By default (`false`), [wildcards](#wildcards) and [regexps](#regexps) ignore
-properties that are either non-enumerable or inherited. Those can still be
-matched by using their property name.
+By default, [wildcards](#wildcards) and [regexps](#regexps) ignore properties
+that are either non-enumerable or inherited. Those can still be matched by using
+their [property name](#deep-properties).
 
 When `true`, inherited properties are not ignored, but non-enumerable still are.
 
