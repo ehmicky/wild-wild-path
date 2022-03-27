@@ -99,6 +99,15 @@ This package is an ES module and must be loaded using
 [an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
 not `require()`.
 
+# API
+
+## get(target, query, options?)
+
+`target`: `object | Array`\
+`query`: [`Query`](#queries)\
+`options`: [`Options`](#options)\
+_Return value_: `any | undefined`
+
 # Queries
 
 Queries have two available formats: strings and arrays. They are equivalent to
@@ -212,15 +221,30 @@ user..settings
 A "path" is any [query](#queries) using only property names and array positive
 indices. This excludes negative indices, slices, wildcards and regexps.
 
-# Usage
+# Options
 
-```js
+Options are plain objects. Each option is a boolean value defaulting to `false`.
+Most options can be specified by multiple methods.
 
-```
+## mutate
 
-# API
+_Methods_: [`set()`](#set), [`remove()`](#remove)
 
-## exampleMethod
+## entries
+
+## missing
+
+## childFirst
+
+## leaves
+
+## roots
+
+## sort
+
+## classes
+
+## inherited
 
 # Support
 
