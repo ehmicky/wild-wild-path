@@ -32,14 +32,12 @@ export const testChildProps = function (
 ) {
   t.deepEqual(
     { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum },
-    { ...childProps, ...output },
+    {
+      ownEnum: 'ownEnum',
+      ownNonEnum: 'ownNonEnum',
+      inheritedEnum: 'inheritedEnum',
+      inheritedNonEnum: 'inheritedNonEnum',
+      ...output,
+    },
   )
-}
-
-// Properties of the instance returned by `getChild()`
-const childProps = {
-  ownEnum: 'ownEnum',
-  ownNonEnum: 'ownNonEnum',
-  inheritedEnum: 'inheritedEnum',
-  inheritedNonEnum: 'inheritedNonEnum',
 }
