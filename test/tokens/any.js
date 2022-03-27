@@ -14,11 +14,7 @@ testListIterate([
   {
     target: { one: 1, two: 2 },
     query: [{ type: 'any' }],
-    output: [
-      { value: 1, path: ['one'], missing: false },
-      { value: 2, path: ['two'], missing: false },
-    ],
-    opts: { entries: true },
+    output: [1, 2],
   },
   {
     target: [1, 2],

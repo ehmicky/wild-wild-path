@@ -34,9 +34,9 @@ testListIterate([
     opts: { leaves: true },
   },
   {
-    target: { one: { two: 2 }, three: { two: 3 } },
+    target: { one: { two: 1 }, three: { two: 3 } },
     query: ['one', { type: 'anyDeep' }],
-    output: [2],
+    output: [1],
     opts: { leaves: true },
   },
   {
