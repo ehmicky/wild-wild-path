@@ -33,3 +33,8 @@ export function list<T extends Options>(
   query: Query,
   options?: T,
 ): (T extends OptionsWithEntries ? Entry : Value)[]
+export function iterate<T extends Options>(
+  target: Target,
+  query: Query,
+  options?: T,
+): Generator<T extends OptionsWithEntries ? Entry : Value>

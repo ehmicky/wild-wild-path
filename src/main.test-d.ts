@@ -1,4 +1,13 @@
-import { has, get, list, Target, Query, Options, Entry } from 'wild-wild-path'
+import {
+  has,
+  get,
+  list,
+  iterate,
+  Target,
+  Query,
+  Options,
+  Entry,
+} from 'wild-wild-path'
 import { expectType, expectNotType, expectError } from 'tsd'
 
 const targetObj: Target = { one: 1 }
@@ -29,7 +38,6 @@ expectType<any | undefined>(get({}, 'prop'))
 expectType<Entry | undefined>(get({}, 'prop', { entries: true }))
 expectNotType<Entry | undefined>(get({}, 'prop', { entries: false }))
 expectNotType<Entry | undefined>(get({}, 'prop', { sort: true }))
-get({}, 'prop', { sort: true })
 expectError(get(true, 'prop'))
 expectError(get({}, true))
 expectError(get({}, 'prop', true))
@@ -38,7 +46,20 @@ expectType<any[]>(list({}, 'prop'))
 expectType<Entry[]>(list({}, 'prop', { entries: true }))
 expectNotType<Entry[]>(list({}, 'prop', { entries: false }))
 expectNotType<Entry[]>(list({}, 'prop', { sort: true }))
-list({}, 'prop', { sort: true })
 expectError(list(true, 'prop'))
 expectError(list({}, true))
 expectError(list({}, 'prop', true))
+
+expectType<Generator<any>>(iterate({}, 'prop'))
+for (const entry of iterate({}, 'prop', { entries: true })) {
+  expectType<Entry>(entry)
+}
+for (const entry of iterate({}, 'prop', { entries: false })) {
+  expectNotType<Entry>(entry)
+}
+for (const entry of iterate({}, 'prop', { sort: true })) {
+  expectNotType<Entry>(entry)
+}
+expectError(iterate(true, 'prop'))
+expectError(iterate({}, true))
+expectError(iterate({}, 'prop', true))
