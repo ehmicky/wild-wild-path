@@ -461,6 +461,14 @@ _Default_: `false`
 By default, the [target](#target) is deeply cloned.\
 When `true`, it is directly mutated instead, which is faster but has side effects.
 
+```js
+const target = {}
+console.log(set(target, 'name', 'Alice')) // { name: 'Alice' }
+console.log(target) // {}
+console.log(set(target, 'name', 'Alice', { mutate: true })) // { name: 'Alice' }
+console.log(target) // { name: 'Alice' }
+```
+
 ### entries
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -477,6 +485,16 @@ When `true`, objects with the following properties are returned instead:
 - `missing` `boolean`: whether the property is [missing](#missing) from the
   [target](#target)
 
+```js
+const target = { firstName: 'Alice', lastName: 'Smith' }
+list(target, '*') // ['Alice', 'Smith']
+list(target, '*', { entries: true })
+// [
+//   { value: 'Alice', path: ['firstName'], missing: false },
+//   { value: 'Smith', path: ['lastName'], missing: false },
+// ]
+```
+
 ### missing
 
 _Methods_: [`list()`](#listtarget-query-options),
@@ -488,6 +506,16 @@ _Default_: `false` with `list|iterate()`, `true` with `set()`
 When `false`, properties [not defined in the target](#undefined-values) are
 ignored.
 
+```js
+const target = {}
+
+set(target, 'name', 'Alice') // { name: 'Alice' }
+set(target, 'name', 'Alice', { missing: false }) // {}
+
+list(target, 'name') // []
+list(target, 'name', { missing: true }) // [undefined]
+```
+
 ### sort
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -496,7 +524,14 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-When returning sibling object properties, sort them in lexigographic order.
+When returning sibling object properties, sort them by the lexigographic order
+of their names (not values).
+
+```js
+const target = { lastName: 'Doe', firstName: 'John' }
+list(target, '*') // ['Doe', 'John']
+list(target, '*', { sort: true }) // ['John', 'Doe']
+```
 
 ### childFirst
 
@@ -511,6 +546,12 @@ match both a property and some of its children.
 
 This option decides whether the returned properties should be sorted from
 children to parents, or the reverse.
+
+```js
+const target = { user: { name: 'Alice' } }
+list(target, 'user.**') // [{ name: 'Alice' }, 'Alice']
+list(target, 'user.**', { childFirst: true }) // ['Alice', { name: 'Alice' }]
+```
 
 ### leaves
 
@@ -528,6 +569,12 @@ match both a property and some of its children.
 When `true`, only leaves are matched. In other words, a matching property is
 ignored if one of its children also matches.
 
+```js
+const target = { user: { name: 'Alice' } }
+list(target, 'user.**') // [{ name: 'Alice' }, 'Alice']
+list(target, 'user.**', { leaves: true }) // ['Alice']
+```
+
 ### roots
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -542,6 +589,12 @@ match both a property and some of its children.
 When `true`, only roots are matched. In other words, a matching property is
 ignored if one of its parents also matches.
 
+```js
+const target = { user: { name: 'Alice' } }
+list(target, 'user.**') // [{ name: 'Alice' }, 'Alice']
+list(target, 'user.**', { roots: true }) // [{ name: 'Alice' }]
+```
+
 ### classes
 
 _Methods_: [`get()`](#gettarget-query-options),
@@ -554,6 +607,12 @@ _Default_: `false`
 
 Unless `true`, child properties of objects that are not plain objects (like
 class instances, errors or functions) are ignored.
+
+```js
+const target = { user: new User({ name: 'Alice' }) }
+list(target, 'user.*') // []
+list(target, 'user.*', { classes: true }) // ['Alice']
+```
 
 ### inherited
 
