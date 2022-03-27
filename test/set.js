@@ -3,7 +3,7 @@ import test from 'ava'
 import { each } from 'test-each'
 import { set } from 'wild-wild-path'
 
-import { getChild } from './helpers/inherited.js'
+import { getChild, childProps } from './helpers/inherited.js'
 
 each(
   [false, true],
@@ -97,40 +97,20 @@ each(
 each(
   [
     // `classes` and `inherited` options
-    {
-      target: getChild(),
-      query: '*',
-      value: 2,
-      output: {
-        ownEnum: 'ownEnum',
-        ownNonEnum: 'ownNonEnum',
-        inheritedEnum: 'inheritedEnum',
-        inheritedNonEnum: 'inheritedNonEnum',
-      },
-    },
+    { target: getChild(), query: '*', value: 2, output: childProps },
     {
       target: getChild(),
       query: '*',
       value: 2,
       opts: { classes: true, mutate: true },
-      output: {
-        ownEnum: 2,
-        ownNonEnum: 'ownNonEnum',
-        inheritedEnum: 'inheritedEnum',
-        inheritedNonEnum: 'inheritedNonEnum',
-      },
+      output: { ...childProps, ownEnum: 2 },
     },
     {
       target: getChild(),
       query: '*',
       value: 2,
       opts: { classes: true, inherited: true, mutate: true },
-      output: {
-        ownEnum: 2,
-        ownNonEnum: 'ownNonEnum',
-        inheritedEnum: 2,
-        inheritedNonEnum: 'inheritedNonEnum',
-      },
+      output: { ...childProps, ownEnum: 2, inheritedEnum: 2 },
     },
   ],
   ({ title }, { target, query, value, opts, output }) => {

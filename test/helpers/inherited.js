@@ -23,3 +23,11 @@ class Child extends Parent {
 }
 /* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
    fp/no-mutating-methods */
+
+// Properties of the instance returned by `getChild()`
+export const childProps = {
+  ownEnum: 'ownEnum',
+  ownNonEnum: 'ownNonEnum',
+  inheritedEnum: 'inheritedEnum',
+  inheritedNonEnum: 'inheritedNonEnum',
+}
