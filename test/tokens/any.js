@@ -1,4 +1,5 @@
 import { testListIterate } from '../helpers/list.js'
+import { missingOpts } from '../helpers/options.js'
 
 testListIterate([
   {
@@ -28,16 +29,6 @@ testListIterate([
     ],
     opts: { entries: true },
   },
-  {
-    target: {},
-    query: '*',
-    output: [],
-    opts: { missing: true, entries: true },
-  },
-  {
-    target: [],
-    query: '*',
-    output: [],
-    opts: { missing: true, entries: true },
-  },
+  { target: {}, query: '*', output: [], opts: missingOpts },
+  { target: [], query: '*', output: [], opts: missingOpts },
 ])

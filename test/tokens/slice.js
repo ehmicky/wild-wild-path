@@ -1,6 +1,5 @@
 import { testListIterate } from '../helpers/list.js'
-
-const missingOpts = { missing: true, entries: true }
+import { missingOpts } from '../helpers/options.js'
 
 testListIterate([
   { target: [0, 1, 2, 3], query: '1:3', output: [1, 2] },
