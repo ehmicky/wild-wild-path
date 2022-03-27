@@ -1,13 +1,13 @@
-import test from 'ava'
-import { each } from 'test-each'
 import { get } from 'wild-wild-path'
 
 import { getChild } from './helpers/inherited.js'
+import { testOutput } from './helpers/output.js'
 import { testValidation } from './helpers/validate.js'
 
 const child = getChild()
 
-each(
+testOutput(
+  [{ name: 'get', method: get }],
   [
     // Main usage
     { input: [{ one: 1 }, 'one'], output: 1 },
@@ -67,11 +67,6 @@ each(
       output: 'inheritedEnum',
     },
   ],
-  ({ title }, { input, output }) => {
-    test(`get() output | ${title}`, (t) => {
-      t.deepEqual(get(...input), output)
-    })
-  },
 )
 
 testValidation([{ name: 'get', method: get }], [[{}, [true]]])

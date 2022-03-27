@@ -1,13 +1,13 @@
-import test from 'ava'
-import { each } from 'test-each'
 import { has } from 'wild-wild-path'
 
 import { getChild } from './helpers/inherited.js'
+import { testOutput } from './helpers/output.js'
 import { testValidation } from './helpers/validate.js'
 
 const child = getChild()
 
-each(
+testOutput(
+  [{ name: 'has', method: has }],
   [
     // Main usage
     { input: [{ one: 1 }, 'one'], output: true },
@@ -31,11 +31,6 @@ each(
       output: true,
     },
   ],
-  ({ title }, { input, output }) => {
-    test(`has() output | ${title}`, (t) => {
-      t.deepEqual(has(...input), output)
-    })
-  },
 )
 
 testValidation([{ name: 'has', method: has }], [[{}, [true]]])
