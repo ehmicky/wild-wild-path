@@ -7,8 +7,8 @@
 🤠 Object property paths with wildcards and regexps.
 
 Get/set object properties using [dot-delimited paths](#deep-properties). Unlike
-similar libraries, [wildcards](#wildcards), [regexps](#regexps) and
-[unions](#unions) can be used.
+similar libraries, [wildcards](#wildcards), [regexps](#regexps),
+[slices](#array-slices) and [unions](#unions) can be used.
 
 # Examples
 
@@ -120,7 +120,9 @@ not `require()`.
 
 # API
 
-## get(target, query, options?)
+## Methods
+
+### get(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -133,7 +135,7 @@ If none matches, `undefined` is returned. To distinguish this from matching
 properties with `undefined` values, the [`entries`](#entries) option or the
 [`has()`](#hastarget-query-options) method can be used.
 
-## has(target, query, options?)
+### has(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -142,7 +144,7 @@ _Return value_: `boolean`
 
 Return whether the query matches any property.
 
-## list(target, query, options?)
+### list(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -151,7 +153,7 @@ _Return value_: `any[]`
 
 Return all properties matching the query, as an array.
 
-## iterate(target, query, options?)
+### iterate(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -162,9 +164,8 @@ Return all properties matching the query, as an
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
 
 This is slower than [`list()`](#listtarget-query-options) but uses less memory.
-This is also faster when only the first matching property is needed.
 
-## set(target, query, value, options?)
+### set(target, query, value, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -174,7 +175,7 @@ _Return value_: `Target`
 
 Sets all properties matching the query.
 
-## remove(target, query, options?)
+### remove(target, query, options?)
 
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
@@ -183,20 +184,20 @@ _Return value_: `Target`
 
 Delete all properties matching the query.
 
-# Functional utilities
+## Functional utilities
 
 [`wild-wild-utils`](https://github.com/ehmicky/wild-wild-utils) is a separate
 library which provides with additional, higher-level methods: `merge()`,
 `push()`, `map()`, `find()`, `pick()`, `include()`, `exclude()`.
 
-# Target
+## Target
 
 The target value must be an object or an array.
 
 Queries can match object properties with `undefined` values providing they have
 a key. Symbol properties are never matched.
 
-# Queries
+## Queries
 
 There are two equivalent formats for queries: strings and arrays.
 
@@ -209,9 +210,9 @@ There are two equivalent formats for queries: strings and arrays.
 [`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
 convert between both formats, or to compare queries.
 
-## Query strings
+### Query strings
 
-### Deep properties
+#### Deep properties
 
 ```bash
 # Deep properties of objects or arrays.
@@ -219,7 +220,7 @@ convert between both formats, or to compare queries.
 user.colors.0
 ```
 
-### Unions
+#### Unions
 
 ```bash
 # Unions ("or") of queries are space-delimited.
@@ -227,7 +228,7 @@ user.colors.0
 colors name age
 ```
 
-### Wildcards
+#### Wildcards
 
 ```bash
 # Shallow wildcards target all properties/items of a single object/array
@@ -238,7 +239,7 @@ user.**
 **.colors
 ```
 
-### Regexps
+#### Regexps
 
 ```bash
 # Regexps are matched against property names
@@ -251,7 +252,7 @@ user./name/i
 user./^name$/i
 ```
 
-### Arrays indices
+#### Arrays indices
 
 ```bash
 # Array indices are integers
@@ -263,7 +264,7 @@ user.colors.0
 user.colors.-1
 ```
 
-### Array slices
+#### Array slices
 
 ```bash
 # Array slices. Goes from the start (included) to the end index (excluded).
@@ -277,7 +278,7 @@ user.colors.0:
 user.colors.:
 ```
 
-### Escaping
+#### Escaping
 
 ```bash
 # Dots, spaces and backslashes must be escaped
@@ -293,7 +294,7 @@ name.\\0
 name.\\/not_a_regexp/
 ```
 
-### Root and empty strings
+#### Root and empty strings
 
 ```bash
 # A leading dot can optionally be used. It is ignored.
@@ -307,9 +308,9 @@ user.colors
 user..colors
 ```
 
-## Query arrays
+### Query arrays
 
-### Deep properties
+#### Deep properties
 
 <!-- prettier-ignore -->
 ```es6
@@ -317,7 +318,7 @@ user..colors
 ['user', 'colors', 0]
 ```
 
-### Unions
+#### Unions
 
 <!-- prettier-ignore -->
 ```es6
@@ -326,7 +327,7 @@ user..colors
 [['colors'], ['name'], ['age']]
 ```
 
-### Wildcards
+#### Wildcards
 
 <!-- prettier-ignore -->
 ```es6
@@ -338,7 +339,7 @@ user..colors
 [{ type: 'anyDeep' }, 'colors']
 ```
 
-### Regexps
+#### Regexps
 
 <!-- prettier-ignore -->
 ```es6
@@ -352,7 +353,7 @@ user..colors
 ['user', /^name$/i]
 ```
 
-### Arrays indices
+#### Arrays indices
 
 <!-- prettier-ignore -->
 ```es6
@@ -365,7 +366,7 @@ user..colors
 ['user', 'colors', -1]
 ```
 
-### Array slices
+#### Array slices
 
 <!-- prettier-ignore -->
 ```es6
@@ -380,7 +381,7 @@ user..colors
 ['user', 'colors', { type: 'slice' }]
 ```
 
-### Escaping
+#### Escaping
 
 <!-- prettier-ignore -->
 ```es6
@@ -392,7 +393,7 @@ user..colors
 ['name', '/not_a_regexp/']
 ```
 
-### Root and empty strings
+#### Root and empty strings
 
 <!-- prettier-ignore -->
 ```es6
@@ -403,7 +404,7 @@ user..colors
 ['user', '', 'colors']
 ```
 
-## Paths
+### Paths
 
 A "path" is any [query](#queries) using only [property names](#deep-properties)
 and positive [array indices](#arrays-indices). This excludes
@@ -423,11 +424,11 @@ user.colors.0
 ['user', 'colors', 0]
 ```
 
-# Options
+## Options
 
 Options are plain objects.
 
-## mutate
+### mutate
 
 _Methods_: [`set()`](#settarget-query-value-options),
 [`remove()`](#removetarget-query-options)\
@@ -437,7 +438,7 @@ _Default_: `false`
 By default, the [target](#target) is deeply cloned.\
 When `true`, it is directly mutated instead, which is faster.
 
-## entries
+### entries
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
@@ -453,7 +454,7 @@ When `true`, an object with the following properties is returned instead:
 - `missing` `boolean`: whether the property is [missing](#missing) from the
   [target](#target)
 
-## missing
+### missing
 
 _Methods_: [`list()`](#listtarget-query-options),
 [`iterate()`](#iteratetarget-query-options),
@@ -466,7 +467,7 @@ When `false`, properties not defined in the target are ignored.
 Please note that a property with a key and an `undefined` value is always
 considered defined, i.e. it is never ignored nor considered missing.
 
-## sort
+### sort
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
@@ -476,7 +477,7 @@ _Default_: `false`
 
 When returning sibling object properties, sort them in lexigographic order.
 
-## childFirst
+### childFirst
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
@@ -490,7 +491,7 @@ match both a property and some of its children.
 This option decides whether the returned properties should be sorted from
 children to parents, or the reverse.
 
-## leaves
+### leaves
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
@@ -506,7 +507,7 @@ match both a property and some of its children.
 When `true`, only leaves are matched. In other words, a property is ignored if
 it matches but one of its children also matches.
 
-## roots
+### roots
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`list()`](#listtarget-query-options),
@@ -520,7 +521,7 @@ match both a property and some of its children.
 When `true`, only roots are matched. In other words, a property is ignored if it
 matches but one of its parents also matches.
 
-## classes
+### classes
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
@@ -534,7 +535,7 @@ By default, only arrays and plain objects can be parent properties.\
 When `true`, any object can be a parent property, including class instances, `Error`,
 functions, etc.
 
-## inherited
+### inherited
 
 _Methods_: [`get()`](#gettarget-query-options),
 [`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
