@@ -16,6 +16,23 @@ testOutput(
     { input: [{ one: undefined }, 'one'], output: undefined },
     { input: [{ one: 1 }, [/one/u]], output: 1 },
 
+    // `missing` option
+    { input: [{}, 'one'], output: undefined },
+    { input: [{}, 'one', { entries: true }], output: undefined },
+    {
+      input: [{}, 'one', { missing: true, entries: true }],
+      output: { value: undefined, path: ['one'], missing: true },
+    },
+    { input: [{ one: undefined }, 'one'], output: undefined },
+    {
+      input: [{ one: undefined }, 'one', { missing: true, entries: true }],
+      output: { value: undefined, path: ['one'], missing: false },
+    },
+    {
+      input: [[], 'two', { missing: true, entries: true }],
+      output: { value: undefined, path: ['two'], missing: true },
+    },
+
     // `entries` option
     { input: [{ one: 1 }, 'two', { entries: true }], output: undefined },
     {

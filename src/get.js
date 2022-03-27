@@ -36,7 +36,16 @@ export const list = function (
 export const get = function (
   target,
   query,
-  { childFirst, roots, leaves, sort, entries, classes, inherited } = {},
+  {
+    childFirst,
+    roots,
+    leaves,
+    sort,
+    missing,
+    entries,
+    classes,
+    inherited,
+  } = {},
 ) {
   return iterate(target, query, {
     childFirst,
@@ -44,7 +53,7 @@ export const get = function (
     leaves,
     sort,
     entries,
-    missing: false,
+    missing,
     classes,
     inherited,
   }).next().value
