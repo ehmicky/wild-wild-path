@@ -280,19 +280,73 @@ When `true`, it is directly mutated instead, which is faster.
 
 ## entries
 
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
+
 ## missing
+
+_Methods_: [`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options),
+[`set()`](#settarget-query-value-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false` with `list|iterate()`, `true` with `set()`
 
 ## childFirst
 
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
+
 ## leaves
+
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options),
+[`set()`](#settarget-query-value-options),
+[`remove()`](#removetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
 
 ## roots
 
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
+
 ## sort
+
+_Methods_: [`get()`](#gettarget-query-options),
+[`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
 
 ## classes
 
+_Methods_: [`get()`](#gettarget-query-options),
+[`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options),
+[`set()`](#settarget-query-value-options),
+[`remove()`](#removetarget-query-options)\
+_Methods_: _Type_: `boolean`\
+_Default_: `false`
+
 ## inherited
+
+_Methods_: [`get()`](#gettarget-query-options),
+[`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
+[`iterate()`](#iteratetarget-query-options),
+[`set()`](#settarget-query-value-options),
+[`remove()`](#removetarget-query-options)\
+_Type_: `boolean`\
+_Default_: `false`
 
 # Support
 
