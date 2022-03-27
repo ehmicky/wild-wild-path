@@ -6,8 +6,9 @@
 
 🤠 Object property paths with wildcards and regexps.
 
-Get/set object properties using dot-delimited paths. Unlike similar libraries,
-wildcards and regexps can be used.
+Get/set object properties using [dot-delimited paths](#deep-properties). Unlike
+similar libraries, [wildcards](#wildcards), [regexps](#regexps) and
+[unions](#unions) can be used.
 
 # Examples
 
@@ -23,10 +24,11 @@ get(target, ['settings', 'colors', 0]) // 'red'
 ## has()
 
 ```js
-const target = { settings: { colors: ['red', 'blue'] } }
+const target = { settings: { lastName: undefined, colors: ['red', 'blue'] } }
 
-has(target, 'settings.name') // false
-has(target, ['settings', 'name']) // false
+has(target, 'settings.firstName') // false
+has(target, ['settings', 'firstName']) // false
+has(target, 'settings.lastName') // true
 ```
 
 ## list()
@@ -39,10 +41,10 @@ const target = {
   userTwo: { firstName: 'Alice', colors: ['red', 'blue', 'yellow'] },
 }
 
-list(target, 'userOne.firstName userName.colors.0') // ['John', 'red']
+list(target, 'userOne.firstName userTwo.colors.0') // ['John', 'red']
 list(target, [
   ['userOne', 'firstName'],
-  ['userName', 'colors', 0],
+  ['userTwo', 'colors', 0],
 ]) // ['John', 'red']
 list(target, 'userTwo.colors.*') // ['red', 'blue', 'yellow']
 list(target, 'userTwo.colors.0:2') // ['red', 'blue']
@@ -127,8 +129,8 @@ _Return value_: `any | undefined`
 
 Return the first property matching the query.
 
-If none matches, `undefined` is returned. To distinguish this with matching
-properties which value is `undefined`, the [`entries`](#entries) option or the
+If none matches, `undefined` is returned. To distinguish this from matching
+properties with `undefined` values, the [`entries`](#entries) option or the
 [`has()`](#hastarget-query-options) method can be used.
 
 ## has(target, query, options?)
@@ -159,8 +161,8 @@ _Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/J
 Return all properties matching the query, as an
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
 
-This is slower than [`list()`](#listtarget-query-options) but it uses less
-memory. Also, it is faster when only the first matching property is needed.
+This is slower than [`list()`](#listtarget-query-options) but uses less memory.
+This is also faster when only the first matching property is needed.
 
 ## set(target, query, value, options?)
 
@@ -198,11 +200,11 @@ a key. Symbol properties are never matched.
 
 There are two equivalent formats for queries: strings and arrays.
 
-- Query [strings](#query-strings) are friendlier to CLI usage, more expressive
+- Query [strings](#query-strings) are friendlier to CLI usage, more expressive,
   and easier to serialize.
-- Query [arrays](#query-arrays) are friendlier to programmatic usage, faster,
-  and do not require escaping. They should be used when the input is dynamic or
-  user-provided to prevent injection attacks.
+- Query [arrays](#query-arrays) are friendlier to programmatic usage, and
+  faster. Also, they do not require escaping, so they should be used when the
+  input is dynamic or user-provided to prevent injection attacks.
 
 [`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
 convert between both formats, or to compare queries.
@@ -249,14 +251,21 @@ user./name/i
 user./^name$/i
 ```
 
-### Arrays indices and slices
+### Arrays indices
 
 ```bash
+# Array indices are integers
+user.colors.0
+
 # Array indices can be negative.
 # -1 is the last item.
 # -0 is the item after it, which can be used to append.
 user.colors.-1
+```
 
+### Array slices
+
+```bash
 # Array slices. Goes from the start (included) to the end index (excluded).
 user.colors.0:2
 
@@ -278,7 +287,7 @@ name\\\\with\\\\backslashes
 
 # Property names which could be interpreted as tokens must be escaped by
 # using a backslash at the beginning. This includes properties that:
-#  - Are integers, but are not array elements
+#  - Are integers but are not array elements
 #  - Have multiple slashes and start with one
 name.\\0
 name.\\/not_a_regexp/
@@ -294,7 +303,7 @@ user.colors
 # Root value
 .
 
-# Empty string properties like { user: { "": { colors: [] } } }
+# Empty string properties
 user..colors
 ```
 
@@ -302,8 +311,9 @@ user..colors
 
 ## Paths
 
-A "path" is any [query](#queries) using only property names and array positive
-indices. This excludes negative indices, slices, wildcards and regexps.
+A "path" is any [query](#queries) using only [property names](#deep-properties)
+and array positive indices. This excludes negative indices, slices, wildcards
+and regexps.
 
 Those are returned by the [`entries`](#entries) option.
 
