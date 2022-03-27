@@ -190,7 +190,7 @@ library which provides with additional, higher-level methods: `merge()`,
 
 The target value must be an object or an array.
 
-### undefined values
+### Undefined values
 
 Object properties with a key but an `undefined` value are not ignored. This
 differs from object properties without any key.
@@ -485,7 +485,8 @@ _Methods_: [`list()`](#listtarget-query-options),
 _Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
-When `false`, properties not defined in the target are ignored.
+When `false`, properties [not defined in the target](#undefined-values) are
+ignored.
 
 ### sort
 
