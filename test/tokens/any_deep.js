@@ -1,7 +1,6 @@
-import test from 'ava'
 import { each } from 'test-each'
 
-import { listMethods } from '../helpers/list.js'
+import { listMethods, testListIterateOutput } from '../helpers/list.js'
 
 const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
@@ -69,9 +68,5 @@ each(
       opts: { leaves: true },
     },
   ],
-  ({ title }, list, { target, query, opts, output }) => {
-    test(`list|iterate() output | ${title}`, (t) => {
-      t.deepEqual(list(target, query, opts), output)
-    })
-  },
+  testListIterateOutput,
 )

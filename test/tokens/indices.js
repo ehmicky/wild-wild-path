@@ -1,7 +1,6 @@
-import test from 'ava'
 import { each } from 'test-each'
 
-import { listMethods } from '../helpers/list.js'
+import { listMethods, testListIterateOutput } from '../helpers/list.js'
 
 each(
   listMethods,
@@ -28,9 +27,5 @@ each(
     { target: [undefined], query: '0', output: [undefined] },
     { target: { 0: 1 }, query: '0', output: [] },
   ],
-  ({ title }, list, { target, query, opts, output }) => {
-    test(`list|iterate() output | ${title}`, (t) => {
-      t.deepEqual(list(target, query, opts), output)
-    })
-  },
+  testListIterateOutput,
 )

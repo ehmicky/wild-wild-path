@@ -2,7 +2,7 @@ import test from 'ava'
 import { each } from 'test-each'
 import { list, iterate } from 'wild-wild-path'
 
-import { listMethods } from '../helpers/list.js'
+import { listMethods, testListIterateOutput } from '../helpers/list.js'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
@@ -50,11 +50,7 @@ each(
     { target: { prototype: {} }, query: 'prototype', output: [] },
     { target: { constructor() {} }, query: 'constructor', output: [] },
   ],
-  ({ title }, listFunc, { target, query, opts, output }) => {
-    test(`list|iterate() output | ${title}`, (t) => {
-      t.deepEqual(listFunc(target, query, opts), output)
-    })
-  },
+  testListIterateOutput,
 )
 
 each(
