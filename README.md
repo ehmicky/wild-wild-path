@@ -132,6 +132,7 @@ colors name age
 ```bash
 # Shallow wildcards target all properties/items of a single object/array
 user.*
+
 # Deep wildcards target all properties/items of 0, 1 or many objects/arrays
 user.**
 **.name
@@ -142,8 +143,10 @@ user.**
 ```bash
 # Regexps are matched against property names
 user./name/
+
 # Flags can be used, e.g. to make it case-insensitive
 user./name/i
+
 # ^ $ must be used to match from the beginning and end
 user./^name$/i
 ```
@@ -155,10 +158,13 @@ user./^name$/i
 # -1 is the last item.
 # -0 is the item after it, which can be used to append.
 colors.-1
+
 # Array slices. Goes from the start (included) to the end index (excluded).
 user.colors.0:2
+
 # The start index defaults to 0, i.e. the beginning.
 user.colors.:2
+
 # The end index defaults to -0, i.e. the end.
 user.colors.0:
 user.colors.:
@@ -171,10 +177,12 @@ user.colors.:
 name\\ with\\ spaces
 name\\.with\\.dots
 name\\\\with\\\\backslashes
+
 # Property names which could be interpreted as tokens must be escaped by
 # using a backslashes at the beginning. This includes:
 #  - Properties that are integers, but are not array elements
 name.\\0
+
 #  - Properties that have multiple slashes and start with one
 name.\\/not_a_regexp/
 ```
@@ -185,8 +193,10 @@ name.\\/not_a_regexp/
 # A leading dot can optionally be used
 name
 .name
+
 # Root value
 .
+
 # Empty string properties like { user: { "": { settings: {} } } }
 user..settings
 ```
