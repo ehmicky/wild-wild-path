@@ -3,6 +3,7 @@ import { each } from 'test-each'
 import { remove } from 'wild-wild-path'
 
 import { getChild, childProps } from './helpers/inherited.js'
+import { testMutate } from './helpers/mutate.js'
 
 each(
   [false, true],
@@ -48,10 +49,7 @@ each(
   ({ title }, mutate, { target, query, opts, output }) => {
     test(`remove() output | ${title}`, (t) => {
       t.deepEqual(remove(target, query, { mutate, ...opts }), output)
-
-      if (mutate && Array.isArray(target) === Array.isArray(output)) {
-        t.deepEqual(target, output)
-      }
+      testMutate({ t, mutate, target, output })
     })
   },
 )

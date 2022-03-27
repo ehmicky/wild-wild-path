@@ -4,6 +4,7 @@ import { each } from 'test-each'
 import { set } from 'wild-wild-path'
 
 import { getChild, childProps } from './helpers/inherited.js'
+import { testMutate } from './helpers/mutate.js'
 
 each(
   [false, true],
@@ -86,10 +87,7 @@ each(
   ({ title }, mutate, { target, query, value, opts, output }) => {
     test(`set() output | ${title}`, (t) => {
       t.deepEqual(set(target, query, value, { mutate, ...opts }), output)
-
-      if (mutate && Array.isArray(target) === Array.isArray(output)) {
-        t.deepEqual(target, output)
-      }
+      testMutate({ t, mutate, target, output })
     })
   },
 )
