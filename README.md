@@ -99,11 +99,13 @@ not `require()`.
 
 # Queries
 
-Queries have two available formats: string or array.
+Queries have two available formats: [string](#query-strings) or
+[array](#query-arrays).
 
 ## Query strings
 
-Query strings are simple and easy to serialize.
+Query strings are more expressive and easier to serialize than
+[query arrays](#query-arrays).
 
 ```bash
 # Deep properties of objects or arrays.
@@ -160,9 +162,9 @@ user..settings
 
 ## Query arrays
 
-Query arrays are friendlier to programmatic usage. Unlike
-[query strings](#query-strings), they do not require escaping. They should be
-used when the input is dynamic or user-provided to prevent injection attacks.
+Query arrays are friendlier to programmatic usage than
+[query strings](#query-strings). Also, they do not require escaping. They should
+be used when the input is dynamic or user-provided to prevent injection attacks.
 
 Query strings and arrays are otherwise equivalent to each other.
 
@@ -172,8 +174,9 @@ Query strings and arrays are otherwise equivalent to each other.
 
 ## Paths
 
-A "path" is any query using only property names and array positive indices. This
-excludes negative indices, slices, wildcards and regular expressions.
+A "path" is any [query](#queries) using only property names and array positive
+indices. This excludes negative indices, slices, wildcards and regular
+expressions.
 
 # Usage
 
