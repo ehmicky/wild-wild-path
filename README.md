@@ -10,11 +10,11 @@
 
 Get/set object properties using:
 
-- ⛏️ [dot-delimited paths](#deep-properties)
-- ⭐ [wildcards](#wildcards)
-- 🗺️ [regexps](#regexps)
-- 🏜️ [slices](#array-slices)
-- 🚂 [unions](#unions)
+- ⛏️ [Dot-delimited paths](#deep-properties)
+- ⭐ [Wildcards](#wildcards)
+- 🗺️ [Regexps](#regexps)
+- 🏜️ [Slices](#array-slices)
+- 🚂 [Unions](#unions)
 
 # Install
 
