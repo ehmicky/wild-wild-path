@@ -219,7 +219,7 @@ convert between both formats, or to compare queries.
 
 ### Query strings
 
-#### Deep properties
+#### ⛏️ Deep properties
 
 ```bash
 # Deep properties of objects or arrays.
@@ -227,7 +227,7 @@ convert between both formats, or to compare queries.
 user.colors.0
 ```
 
-#### Unions
+#### 🚂 Unions
 
 ```bash
 # Unions ("or") of queries are space-delimited.
@@ -235,7 +235,7 @@ user.colors.0
 colors name age
 ```
 
-#### Wildcards
+#### ⭐ Wildcards
 
 ```bash
 # Shallow wildcards target all properties/items of a single object/array
@@ -246,7 +246,7 @@ user.**
 **.colors
 ```
 
-#### Regexps
+#### 🍂 Regexps
 
 ```bash
 # Regexps match property names
@@ -259,7 +259,7 @@ user./name/i
 user./^name$/i
 ```
 
-#### Arrays indices
+#### 🌵 Arrays indices
 
 ```bash
 # Array indices are integers
@@ -271,7 +271,7 @@ user.colors.0
 user.colors.-1
 ```
 
-#### Array slices
+#### 🏜️ Array slices
 
 ```bash
 # Array slices. Goes from the start (included) to the end index (excluded).
@@ -285,7 +285,7 @@ user.colors.0:
 user.colors.:
 ```
 
-#### Escaping
+#### 🪨 Escaping
 
 ```bash
 # Dots, spaces and backslashes in property names must be escaped
@@ -301,7 +301,7 @@ name.\\0
 name.\\/not_a_regexp/
 ```
 
-#### Root and empty strings
+#### 🏨 Root and empty strings
 
 ```bash
 # A leading dot can optionally be used. It is ignored.
