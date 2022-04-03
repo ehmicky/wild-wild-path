@@ -13,9 +13,17 @@ import { iterateQuery } from './query.js'
 export const iterate = function* (target, query, opts) {
   const optsA = getOptions(opts)
   const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
-  yield* pathArray === undefined
-    ? iterateQuery(target, queryArrays, optsA)
-    : iteratePath(target, pathArray, optsA)
+
+  if (pathArray === undefined) {
+    yield* iterateQuery(target, queryArrays, optsA)
+    return
+  }
+
+  const { entry, matches } = getPathValue(target, pathArray, optsA)
+
+  if (matches) {
+    yield entry
+  }
 }
 
 // Same but returned as an array.
@@ -24,9 +32,13 @@ export const iterate = function* (target, query, opts) {
 export const list = function (target, query, opts) {
   const optsA = getOptions(opts)
   const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
-  return pathArray === undefined
-    ? [...iterateQuery(target, queryArrays, optsA)]
-    : listPath(target, pathArray, optsA)
+
+  if (pathArray === undefined) {
+    return [...iterateQuery(target, queryArrays, optsA)]
+  }
+
+  const { entry, matches } = getPathValue(target, pathArray, optsA)
+  return matches ? [entry] : []
 }
 
 // Same but only the first item.
@@ -35,9 +47,13 @@ export const list = function (target, query, opts) {
 export const get = function (target, query, opts) {
   const optsA = getOptions(opts)
   const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
-  return pathArray === undefined
-    ? iterateQuery(target, queryArrays, optsA).next().value
-    : listPath(target, pathArray, optsA)[0]
+
+  if (pathArray === undefined) {
+    return iterateQuery(target, queryArrays, optsA).next().value
+  }
+
+  const { entry, matches } = getPathValue(target, pathArray, optsA)
+  return matches ? entry : undefined
 }
 
 // Distinguish between queries that are paths or not
@@ -51,16 +67,3 @@ const normalizePathOrQuery = function (query) {
 
 // Due to memoization, `entry.path[*]` items should not be mutated by consumers
 const mNormalizePathOrQuery = moize(normalizePathOrQuery, { maxSize: 1e3 })
-
-const iteratePath = function* (target, pathArray, opts) {
-  const { entry, matches } = getPathValue(target, pathArray, opts)
-
-  if (matches) {
-    yield entry
-  }
-}
-
-const listPath = function (target, pathArray, opts) {
-  const { entry, matches } = getPathValue(target, pathArray, opts)
-  return matches ? [entry] : []
-}
