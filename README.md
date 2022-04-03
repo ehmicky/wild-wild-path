@@ -85,10 +85,12 @@ list(target, [
   ['userOne', 'firstName'],
   ['userTwo', 'colors', 0],
 ]) // ['John', 'red']
-list(target, 'userTwo.colors.*') // ['red', 'blue', 'yellow']
-list(target, 'userTwo.colors.0:2') // ['red', 'blue']
+
 list(target, 'userOne./Name/') // ['John', 'Doe']
 list(target, ['userOne', /Name/]) // ['John', 'Doe']
+
+list(target, 'userTwo.colors.*') // ['red', 'blue', 'yellow']
+list(target, 'userTwo.colors.0:2') // ['red', 'blue']
 list(target, '**.firstName') // ['John', 'Alice']
 list(target, 'userOne.*', { entries: true })
 // [
@@ -177,8 +179,7 @@ library which provides with additional, higher-level methods:
 
 ## Target
 
-The target value must be an object or an array.\
-Symbol properties are always ignored.
+The target value must be an object or an array.
 
 ## Queries
 
@@ -197,6 +198,7 @@ There are two equivalent formats for queries: strings and arrays.
 ```bash
 # Deep properties of objects or arrays.
 # Dots are used for array indices, not brackets.
+# Symbol properties are always ignored.
 user.colors.0
 ```
 
@@ -295,6 +297,7 @@ user..colors
 <!-- prettier-ignore -->
 ```es6
 // Deep properties of objects or arrays.
+// Symbol properties are always ignored.
 ['user', 'colors', 0]
 ```
 
