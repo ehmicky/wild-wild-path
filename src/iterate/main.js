@@ -11,8 +11,7 @@ import { iterateQuery } from './query.js'
 //  - To allow consumers to return only the first matching entry quickly
 //  - To keep memory consumption low even on big queries
 export const iterate = function* (target, query, opts) {
-  const optsA = getOptions(opts)
-  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  const { opts: optsA, pathArray, queryArrays } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
     yield* iterateQuery(target, queryArrays, optsA)
@@ -30,8 +29,7 @@ export const iterate = function* (target, query, opts) {
 // We do not just use [...iterate(...)] to optimize for performance when
 // `query` is a path.
 export const list = function (target, query, opts) {
-  const optsA = getOptions(opts)
-  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  const { opts: optsA, pathArray, queryArrays } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
     return [...iterateQuery(target, queryArrays, optsA)]
@@ -45,8 +43,7 @@ export const list = function (target, query, opts) {
 // We do not just use iterate(...).next().value to optimize for performance when
 // `query` is a path.
 export const get = function (target, query, opts) {
-  const optsA = getOptions(opts)
-  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  const { opts: optsA, pathArray, queryArrays } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
     return iterateQuery(target, queryArrays, optsA).next().value
@@ -54,6 +51,12 @@ export const get = function (target, query, opts) {
 
   const { entry, matches } = getPathValue(target, pathArray, optsA)
   return matches ? entry : undefined
+}
+
+const normalizeArgs = function (query, opts) {
+  const optsA = getOptions(opts)
+  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  return { opts: optsA, pathArray, queryArrays }
 }
 
 // Distinguish between queries that are paths or not
