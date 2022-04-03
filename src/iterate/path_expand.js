@@ -4,21 +4,20 @@ import { handleMissingValue } from './path_missing.js'
 // indices for a given value
 export const expandTokens = function (entries, index, opts) {
   return entries
-    .filter(({ queryArray }) => queryArray.length !== index)
+    .filter(({ pathArray }) => pathArray.length !== index)
     .flatMap((entry) => expandToken(entry, index, opts))
 }
 
 // Use the token to list entries against a target value.
-const expandToken = function ({ queryArray, value, path }, index, opts) {
-  const token = queryArray[index]
+const expandToken = function ({ pathArray, value }, index, opts) {
+  const token = pathArray[index]
   const missingReturn = handleMissingValue(value, token, opts.classes)
   const childEntriesA = iterateToken(token, missingReturn, opts)
   return childEntriesA
     .filter(isAllowedProp)
-    .map(({ value: childValue, prop, missing: missingEntry }) => ({
-      queryArray,
+    .map(({ value: childValue, missing: missingEntry }) => ({
+      pathArray,
       value: childValue,
-      path: [...path, prop],
       missing: missingReturn.missing || missingEntry,
     }))
 }

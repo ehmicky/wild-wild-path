@@ -7,7 +7,7 @@ export const iteratePath = function* (target, pathArray, opts) {
 }
 
 const getRootEntries = function (target, pathArray) {
-  return [{ queryArray: pathArray, value: target, path: [], missing: false }]
+  return [{ pathArray, value: target, missing: false }]
 }
 
 // The `roots` option can be used to only include the highest ancestors.
@@ -34,11 +34,11 @@ const iterateLevel = function* (entries, index, opts) {
 }
 
 const getParentEntry = function (entries, index) {
-  return entries.find(({ queryArray }) => queryArray.length === index)
+  return entries.find(({ pathArray }) => pathArray.length === index)
 }
 
-const normalizeEntry = function ({ value, path, missing }, { entries }) {
-  return entries ? { value, path, missing } : value
+const normalizeEntry = function ({ value, pathArray, missing }, { entries }) {
+  return entries ? { value, path: pathArray, missing } : value
 }
 
 const shouldYieldParentFirst = function (parentEntry, { childFirst }) {
