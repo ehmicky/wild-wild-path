@@ -10,9 +10,28 @@ Get/set object properties using [dot-delimited paths](#deep-properties),
 [wildcards](#wildcards), [regexps](#regexps), [slices](#array-slices) and
 [unions](#unions).
 
-# Examples
+# Install
 
-## get()
+```bash
+npm install wild-wild-path
+```
+
+This package is an ES module and must be loaded using
+[an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
+not `require()`.
+
+# API
+
+## Methods
+
+### get(target, query, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`options`: [`Options?`](#options)\
+_Return value_: `any | undefined`
+
+Return the first property matching the query.
 
 ```js
 const target = { settings: { colors: ['red', 'blue'] } }
@@ -21,7 +40,14 @@ get(target, 'settings.colors.0') // 'red'
 get(target, ['settings', 'colors', 0]) // 'red'
 ```
 
-## has()
+### has(target, query, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`options`: [`Options?`](#options)\
+_Return value_: `boolean`
+
+Return whether the query matches any property.
 
 ```js
 const target = { settings: { lastName: undefined, colors: ['red', 'blue'] } }
@@ -31,7 +57,14 @@ has(target, ['settings', 'firstName']) // false
 has(target, 'settings.lastName') // true
 ```
 
-## list()
+### list(target, query, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`options`: [`Options?`](#options)\
+_Return value_: `any[]`
+
+Return all properties matching the query, as an array.
 
 <!-- eslint-disable require-unicode-regexp -->
 
@@ -59,7 +92,16 @@ list(target, 'userOne.*', { entries: true })
 // ]
 ```
 
-## iterate()
+### iterate(target, query, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`options`: [`Options?`](#options)\
+_Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
+
+Return all properties matching the query, as an
+[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
+This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 
 <!-- eslint-disable fp/no-loops -->
 
@@ -71,7 +113,16 @@ for (const color of iterate(target, 'settings.colors.*')) {
 }
 ```
 
-## set()
+### set(target, query, value, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`value`: `any`\
+`options`: [`Options?`](#options)\
+_Return value_: `Target`
+
+Sets all properties matching the query. The return value is a deep clone unless
+the [mutate](#mutate) option is used.
 
 ```js
 const target = { colors: ['red', 'blue'] }
@@ -85,7 +136,15 @@ set({}, 'user.0.color', 'red') // { user: [{ color: 'red' }] }
 set({}, 'user.0.color', 'red', { missing: false }) // {}
 ```
 
-## remove()
+### remove(target, query, options?)
+
+`target`: [`Target`](#target)\
+`query`: [`Query`](#queries)\
+`options`: [`Options?`](#options)\
+_Return value_: `Target`
+
+Delete all properties matching the query. The return value is a deep clone
+unless the [mutate](#mutate) option is used.
 
 <!-- eslint-disable require-unicode-regexp -->
 
@@ -96,79 +155,6 @@ remove(target, 'user.lastName') // { user: { firstName: 'John', age: 72 } }
 remove(target, 'user./Name/') // { user: { age: 72 } }
 remove(target, ['user', /Name/]) // { user: { age: 72 } }
 ```
-
-# Install
-
-```bash
-npm install wild-wild-path
-```
-
-This package is an ES module and must be loaded using
-[an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
-not `require()`.
-
-# API
-
-## Methods
-
-### get(target, query, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`options`: [`Options?`](#options)\
-_Return value_: `any | undefined`
-
-Return the first property matching the query.
-
-### has(target, query, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`options`: [`Options?`](#options)\
-_Return value_: `boolean`
-
-Return whether the query matches any property.
-
-### list(target, query, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`options`: [`Options?`](#options)\
-_Return value_: `any[]`
-
-Return all properties matching the query, as an array.
-
-### iterate(target, query, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`options`: [`Options?`](#options)\
-_Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
-
-Return all properties matching the query, as an
-[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
-This is slower than [`list()`](#listtarget-query-options) but uses less memory.
-
-### set(target, query, value, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`value`: `any`\
-`options`: [`Options?`](#options)\
-_Return value_: `Target`
-
-Sets all properties matching the query. The return value is a deep clone unless
-the [mutate](#mutate) option is used.
-
-### remove(target, query, options?)
-
-`target`: [`Target`](#target)\
-`query`: [`Query`](#queries)\
-`options`: [`Options?`](#options)\
-_Return value_: `Target`
-
-Delete all properties matching the query. The return value is a deep clone
-unless the [mutate](#mutate) option is used.
 
 ## Functional utilities
 
