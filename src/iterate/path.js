@@ -1,7 +1,7 @@
 import { isAllowedProp } from './expand.js'
 import { isWeakObject } from './object.js'
 
-// Performance-optimized `iterate()` logic when the query is path.
+// Performance-optimized `iterate()` logic when the query is a path
 export const iteratePath = function* (
   target,
   pathArray,
