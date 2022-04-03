@@ -11,7 +11,7 @@
   "scripts": {
     "test": "gulp test"
   },
-  "description": "🤠 Object property paths with wildcards and regexps",
+  "description": "🤠 Object property paths with wildcards and regexps 🌵",
   "keywords": [
     "wildcard",
     "glob",

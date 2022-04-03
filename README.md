@@ -6,7 +6,7 @@
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-4cc61e.svg?logo=medium)](https://medium.com/@ehmicky)
 
-🤠 Object property paths with wildcards and regexps.
+🤠 Object property paths with wildcards and regexps. 🌵
 
 Get/set object properties using [dot-delimited paths](#deep-properties),
 [wildcards](#wildcards), [regexps](#regexps), [slices](#array-slices) and
@@ -246,7 +246,7 @@ user.**
 **.colors
 ```
 
-#### 🍂 Regexps
+#### 🤠 Regexps
 
 ```bash
 # Regexps match property names
@@ -317,7 +317,7 @@ user..colors
 
 ### Query arrays
 
-#### Deep properties
+#### ⛏️ Deep properties
 
 <!-- prettier-ignore -->
 ```es6
@@ -325,7 +325,7 @@ user..colors
 ['user', 'colors', 0]
 ```
 
-#### Unions
+#### 🚂 Unions
 
 <!-- prettier-ignore -->
 ```es6
@@ -334,7 +334,7 @@ user..colors
 [['colors'], ['name'], ['age']]
 ```
 
-#### Wildcards
+#### ⭐ Wildcards
 
 <!-- prettier-ignore -->
 ```es6
@@ -346,7 +346,7 @@ user..colors
 [{ type: 'anyDeep' }, 'colors']
 ```
 
-#### Regexps
+#### 🤠 Regexps
 
 <!-- prettier-ignore -->
 ```es6
@@ -360,7 +360,7 @@ user..colors
 ['user', /^name$/i]
 ```
 
-#### Arrays indices
+#### 🌵 Arrays indices
 
 <!-- prettier-ignore -->
 ```es6
@@ -373,7 +373,7 @@ user..colors
 ['user', 'colors', -1]
 ```
 
-#### Array slices
+#### 🏜️ Array slices
 
 <!-- prettier-ignore -->
 ```es6
@@ -388,7 +388,7 @@ user..colors
 ['user', 'colors', { type: 'slice' }]
 ```
 
-#### Escaping
+#### 🪨 Escaping
 
 <!-- prettier-ignore -->
 ```es6
@@ -400,7 +400,7 @@ user..colors
 ['name', '/not_a_regexp/']
 ```
 
-#### Root and empty strings
+#### 🏨 Root and empty strings
 
 <!-- prettier-ignore -->
 ```es6
