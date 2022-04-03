@@ -15,7 +15,7 @@ import { isObject, isWeakObject } from './object.js'
 // The same applies to inherited properties if `inherited` is `false`
 //  - This avoids unintentionally mutating deep properties shared by other
 //    instances,
-//  - While still allowing intentionally getting|settting them with `prop` names
+//  - While still allowing intentionally getting|setting them with `prop` names
 //  - Also, even if they were ignored by the `prop` token type, the current
 //    `set()` logic would set them anyway, since missing entries are set by
 //    default
