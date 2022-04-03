@@ -31,7 +31,7 @@ not `require()`.
 `options`: [`Options?`](#options)\
 _Return value_: `any | undefined`
 
-Return the first property matching the query.
+Return the first property matching the `query`.
 
 ```js
 const target = { settings: { colors: ['red', 'blue'] } }
@@ -47,7 +47,7 @@ get(target, ['settings', 'colors', 0]) // 'red'
 `options`: [`Options?`](#options)\
 _Return value_: `boolean`
 
-Return whether the query matches any property.
+Return whether the `query` matches any property.
 
 ```js
 const target = { settings: { lastName: undefined, colors: ['red', 'blue'] } }
@@ -64,7 +64,7 @@ has(target, 'settings.lastName') // true
 `options`: [`Options?`](#options)\
 _Return value_: `any[]`
 
-Return all properties matching the query, as an array.
+Return all properties matching the `query`, as an array.
 
 <!-- eslint-disable require-unicode-regexp -->
 
@@ -99,7 +99,7 @@ list(target, 'userOne.*', { entries: true })
 `options`: [`Options?`](#options)\
 _Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
 
-Return all properties matching the query, as an
+Return all properties matching the `query`, as an
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
 This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 
@@ -121,8 +121,8 @@ for (const color of iterate(target, 'settings.colors.*')) {
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Sets all properties matching the query. The return value is a deep clone unless
-the [mutate](#mutate) option is used.
+Sets all properties matching the `query`. The return value is a deep clone
+unless the [`mutate`](#mutate) option is used.
 
 ```js
 const target = { colors: ['red', 'blue'] }
@@ -143,8 +143,8 @@ set({}, 'user.0.color', 'red', { missing: false }) // {}
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Delete all properties matching the query. The return value is a deep clone
-unless the [mutate](#mutate) option is used.
+Delete all properties matching the `query`. The return value is a deep clone
+unless the [`mutate`](#mutate) option is used.
 
 <!-- eslint-disable require-unicode-regexp -->
 
