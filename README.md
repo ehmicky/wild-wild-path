@@ -486,10 +486,8 @@ list(target, '*', { entries: true })
 
 ### missing
 
-_Methods_: [`get()`](#gettarget-query-options),
-[`list()`](#listtarget-query-options),
-[`iterate()`](#iteratetarget-query-options),
-[`set()`](#settarget-query-value-options)\
+_Methods_: all except [`has()`](#hastarget-query-options) and
+[`remove()`](#removetarget-query-options)\
 _Type_: `boolean`\
 _Default_: `false` with `list|iterate()`, `true` with `set()`
 
@@ -546,11 +544,7 @@ list(target, 'user.**', { childFirst: true }) // ['Alice', { name: 'Alice' }]
 
 ### leaves
 
-_Methods_: [`get()`](#gettarget-query-options),
-[`list()`](#listtarget-query-options),
-[`iterate()`](#iteratetarget-query-options),
-[`set()`](#settarget-query-value-options),
-[`remove()`](#removetarget-query-options)\
+_Methods_: all except [`has()`](#hastarget-query-options)\
 _Type_: `boolean`\
 _Default_: `false`
 
@@ -588,11 +582,7 @@ list(target, 'user.**', { roots: true }) // [{ name: 'Alice' }]
 
 ### classes
 
-_Methods_: [`get()`](#gettarget-query-options),
-[`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
-[`iterate()`](#iteratetarget-query-options),
-[`set()`](#settarget-query-value-options),
-[`remove()`](#removetarget-query-options)\
+_Methods_: all\
 _Type_: `boolean`\
 _Default_: `false`
 
@@ -607,11 +597,7 @@ list(target, 'user.*', { classes: true }) // ['Alice']
 
 ### inherited
 
-_Methods_: [`get()`](#gettarget-query-options),
-[`has()`](#hastarget-query-options), [`list()`](#listtarget-query-options),
-[`iterate()`](#iteratetarget-query-options),
-[`set()`](#settarget-query-value-options),
-[`remove()`](#removetarget-query-options)\
+_Methods_: all\
 _Type_: `boolean`\
 _Default_: `false`
 
