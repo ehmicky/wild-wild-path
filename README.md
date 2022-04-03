@@ -177,35 +177,7 @@ library which provides with additional, higher-level methods:
 
 ## Target
 
-The target value must be an object or an array.
-
-### Undefined values
-
-Object properties with a defined key but an `undefined` value are not ignored.
-However, object properties without any defined key are ignored. The
-[`has()`](#hastarget-query-options) method, [`missing`](#missing) option and
-[`entries`](#entries) option can be used to distinguish those.
-
-```js
-const target = { name: undefined }
-
-has(target, 'name') // true
-has(target, 'colors') // false
-
-get(target, 'name') // undefined
-get(target, 'colors') // undefined
-get(target, 'name', { entries: true, missing: true })
-// { value: undefined, path: ['name'], missing: false }
-get(target, 'colors', { entries: true, missing: true })
-// { value: undefined, path: ['colors'], missing: true }
-
-list(target, '*') // [undefined]
-list(target, '*', { entries: true })
-// { value: undefined, path: ['name'], missing: false }
-```
-
-### Symbols
-
+The target value must be an object or an array.\
 Symbol properties are always ignored.
 
 ## Queries
@@ -437,6 +409,31 @@ user.colors.0
 
 [`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
 convert between both formats, or to compare queries.
+
+### Undefined values
+
+Object properties with a defined key but an `undefined` value are not ignored.
+However, object properties without any defined key are ignored. The
+[`has()`](#hastarget-query-options) method, [`missing`](#missing) option and
+[`entries`](#entries) option can be used to distinguish those.
+
+```js
+const target = { name: undefined }
+
+has(target, 'name') // true
+has(target, 'colors') // false
+
+get(target, 'name') // undefined
+get(target, 'colors') // undefined
+get(target, 'name', { entries: true, missing: true })
+// { value: undefined, path: ['name'], missing: false }
+get(target, 'colors', { entries: true, missing: true })
+// { value: undefined, path: ['colors'], missing: true }
+
+list(target, '*') // [undefined]
+list(target, '*', { entries: true })
+// { value: undefined, path: ['name'], missing: false }
+```
 
 ## Options
 
