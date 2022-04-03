@@ -1,4 +1,4 @@
-import { list } from './get.js'
+import { list } from './iterate/main.js'
 
 // Modify a target object multiple times for each matched property.
 export const reduceParents = function ({

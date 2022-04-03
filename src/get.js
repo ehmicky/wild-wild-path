@@ -1,36 +1,5 @@
 import { iterate } from './iterate/main.js'
 
-// Retrieve all properties in `target` matching a query string.
-// Unlike `get|has()` it also return missing entries, letting consumers filter
-// them or not.
-export const list = function (
-  target,
-  query,
-  {
-    childFirst,
-    roots,
-    leaves,
-    sort,
-    missing,
-    entries,
-    classes,
-    inherited,
-  } = {},
-) {
-  return [
-    ...iterate(target, query, {
-      childFirst,
-      roots,
-      leaves,
-      sort,
-      missing,
-      entries,
-      classes,
-      inherited,
-    }),
-  ]
-}
-
 // Retrieve a single property's value in `target` matching a query string.
 // Wildcards can be used, but only the first value is returned.
 export const get = function (

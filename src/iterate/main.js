@@ -2,7 +2,7 @@ import moize from 'moize'
 import { normalizePath, normalizeQuery } from 'wild-wild-parser'
 
 import { getOptions } from './options.js'
-import { iteratePath } from './path.js'
+import { getPathValue } from './path.js'
 import { iterateQuery } from './query.js'
 
 // Iterate over all values (and their associated path) matching a specific
@@ -18,6 +18,17 @@ export const iterate = function* (target, query, opts) {
     : iteratePath(target, pathArray, optsA)
 }
 
+// Same but returned as an array.
+// We do not just use [...iterate(...)] to optimize for performance when
+// `query` is a path.
+export const list = function (target, query, opts) {
+  const optsA = getOptions(opts)
+  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  return pathArray === undefined
+    ? [...iterateQuery(target, queryArrays, optsA)]
+    : listPath(target, pathArray, optsA)
+}
+
 // Distinguish between queries that are paths or not
 const normalizePathOrQuery = function (query) {
   try {
@@ -29,3 +40,16 @@ const normalizePathOrQuery = function (query) {
 
 // Due to memoization, `entry.path[*]` items should not be mutated by consumers
 const mNormalizePathOrQuery = moize(normalizePathOrQuery, { maxSize: 1e3 })
+
+const iteratePath = function* (target, pathArray, opts) {
+  const { entry, matches } = getPathValue(target, pathArray, opts)
+
+  if (matches) {
+    yield entry
+  }
+}
+
+const listPath = function (target, pathArray, opts) {
+  const { entry, matches } = getPathValue(target, pathArray, opts)
+  return matches ? [entry] : []
+}
