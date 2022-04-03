@@ -97,17 +97,6 @@ remove(target, 'user./Name/') // { user: { age: 72 } }
 remove(target, ['user', /Name/]) // { user: { age: 72 } }
 ```
 
-<!--
-
-# Demo
-
-You can try this library:
-
-- either directly [in your browser](https://repl.it/@ehmicky/wild-wild-path).
-- or by executing the [`examples` files](examples/README.md) in a terminal.
-
--->
-
 # Install
 
 ```bash
