@@ -10,11 +10,11 @@
 
 Get/set object properties using:
 
-- ⛏️ [Dot-delimited paths](#deep-properties)
-- ⭐ [Wildcards](#wildcards)
-- 🗺️ [Regexps](#regexps)
-- 🏜️ [Slices](#array-slices)
-- 🚂 [Unions](#unions)
+- ⛏️ [Dot-delimited paths](#%EF%B8%8F-deep-properties)
+- ⭐ [Wildcards](#-wildcards)
+- 🗺️ [Regexps](#%EF%B8%8F-regexps)
+- 🏜️ [Slices](#%EF%B8%8F-array-slices)
+- 🚂 [Unions](#-unions)
 
 # Install
 
@@ -417,10 +417,11 @@ user..colors
 
 ### Paths
 
-A "path" is any [query](#queries) using only [property names](#deep-properties)
-and positive [array indices](#arrays-indices). This excludes
-[negative indices](#arrays-indices), [slices](#array-slices),
-[wildcards](#wildcards), [regexps](#regexps) and [unions](#unions).
+A "path" is any [query](#queries) using only
+[property names](#%EF%B8%8F-deep-properties) and positive
+[array indices](#-arrays-indices). This excludes
+[negative indices](#-arrays-indices), [slices](#%EF%B8%8F-array-slices),
+[wildcards](#-wildcards), [regexps](#%EF%B8%8F-regexps) and [unions](#-unions).
 
 Paths are returned by the [`entries`](#entries) option.
 
@@ -529,7 +530,7 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+When using [unions](#-unions) or [deep wildcards](#-wildcards), a query might
 match both a property and some of its children.
 
 This option decides whether the returned properties should be sorted from
@@ -547,7 +548,7 @@ _Methods_: all except [`has()`](#hastarget-query-options)\
 _Type_: `boolean`\
 _Default_: `false`
 
-When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+When using [unions](#-unions) or [deep wildcards](#-wildcards), a query might
 match both a property and some of its children.
 
 When `true`, only leaves are matched. In other words, a matching property is
@@ -567,7 +568,7 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-When using [unions](#unions) or [deep wildcards](#wildcards), a query might
+When using [unions](#-unions) or [deep wildcards](#-wildcards), a query might
 match both a property and some of its children.
 
 When `true`, only roots are matched. In other words, a matching property is
@@ -600,12 +601,13 @@ _Methods_: all\
 _Type_: `boolean`\
 _Default_: `false`
 
-By default, [wildcards](#wildcards) and [regexps](#regexps) ignore properties
-that are either
+By default, [wildcards](#-wildcards) and [regexps](#%EF%B8%8F-regexps) ignore
+properties that are either
 [inherited](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
 or
 [not enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties).
-Those can still be matched by using their [property name](#deep-properties).
+Those can still be matched by using their
+[property name](#%EF%B8%8F-deep-properties).
 
 When `true`, inherited properties are not ignored, but not enumerable ones still
 are.
