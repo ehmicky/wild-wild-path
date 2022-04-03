@@ -1,5 +1,5 @@
 import moize from 'moize'
-import { normalizeQuery } from 'wild-wild-parser'
+import { normalizePath, normalizeQuery } from 'wild-wild-parser'
 
 import { iterateChildEntries } from './children.js'
 import { removeDuplicates } from './duplicate.js'
@@ -13,13 +13,35 @@ import { expandRecursiveTokens } from './recurse.js'
 //  - To keep memory consumption low even on big queries
 export const iterate = function* (target, query, opts) {
   const optsA = getOptions(opts)
-  const parents = new Set([])
-  const entries = getRootEntries(target, query)
-  yield* iterateLevel({ entries, index: 0, parents, opts: optsA })
+  const { queryArrays, pathArray } = mNormalizePathOrQuery(query)
+  yield* pathArray === undefined
+    ? iterateQuery(target, queryArrays, optsA)
+    : iteratePath(target, pathArray, optsA)
 }
 
-const getRootEntries = function (target, query) {
-  const queryArrays = mNormalizeQuery(query)
+// Distinguish between queries that are paths or not
+const normalizePathOrQuery = function (query) {
+  try {
+    return { pathArray: normalizePath(query) }
+  } catch {
+    return { queryArrays: normalizeQuery(query) }
+  }
+}
+
+// Due to memoization, `entry.path[*]` items should not be mutated by consumers
+const mNormalizePathOrQuery = moize(normalizePathOrQuery, { maxSize: 1e3 })
+
+const iteratePath = function* (target, pathArray, opts) {
+  yield* iterateQuery(target, [pathArray], opts)
+}
+
+const iterateQuery = function* (target, queryArrays, opts) {
+  const parents = new Set([])
+  const entries = getRootEntries(target, queryArrays)
+  yield* iterateLevel({ entries, index: 0, parents, opts })
+}
+
+const getRootEntries = function (target, queryArrays) {
   return queryArrays.map((queryArray) => ({
     queryArray,
     value: target,
@@ -27,9 +49,6 @@ const getRootEntries = function (target, query) {
     missing: false,
   }))
 }
-
-// Due to memoization, `entry.path[*]` items should not be mutated by consumers
-const mNormalizeQuery = moize(normalizeQuery, { maxSize: 1e3 })
 
 // `parents` is used to prevent infinite recursions when using ** together with
 // a value that includes references to itself
