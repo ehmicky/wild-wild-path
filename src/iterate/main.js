@@ -29,6 +29,17 @@ export const list = function (target, query, opts) {
     : listPath(target, pathArray, optsA)
 }
 
+// Same but only the first item.
+// We do not just use iterate(...).next().value to optimize for performance when
+// `query` is a path.
+export const get = function (target, query, opts) {
+  const optsA = getOptions(opts)
+  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  return pathArray === undefined
+    ? iterateQuery(target, queryArrays, optsA).next().value
+    : listPath(target, pathArray, optsA)[0]
+}
+
 // Distinguish between queries that are paths or not
 const normalizePathOrQuery = function (query) {
   try {

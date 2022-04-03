@@ -1,5 +1,5 @@
-export { get, has } from './get.js'
-export { iterate, list } from './iterate/main.js'
+export { has } from './get.js'
+export { iterate, list, get } from './iterate/main.js'
 export { remove } from './remove.js'
 export { set } from './set.js'
 
