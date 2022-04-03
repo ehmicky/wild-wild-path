@@ -10,11 +10,11 @@
 
 Get/set object properties using:
 
-- ⛏️ [Dot-delimited paths](#%EF%B8%8F-deep-properties)
-- ⭐ [Wildcards](#-wildcards)
-- 🗺️ [Regexps](#%EF%B8%8F-regexps)
-- 🏜️ [Slices](#%EF%B8%8F-array-slices)
-- 🚂 [Unions](#-unions)
+- ⛏️ [Dot-delimited paths](#%EF%B8%8F-deep-properties): `foo.bar.0.baz`
+- ⭐ [Wildcards](#-wildcards): `foo.*`, `**.bar`
+- 🗺️ [Regexps](#%EF%B8%8F-regexps): `foo./ba?/`
+- 🏜️ [Slices](#%EF%B8%8F-array-slices): `foo.0:2`
+- 🚂 [Unions](#-unions): `foo bar baz`
 
 # Install
 
