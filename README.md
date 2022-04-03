@@ -128,7 +128,7 @@ for (const color of iterate(target, 'settings.colors.*')) {
 _Return value_: `Target`
 
 Sets all properties matching the `query`. The return value is a deep clone
-unless the [`mutate`](#mutate) option is used.
+unless the [`mutate`](#mutate) option is `true`.
 
 ```js
 const target = { colors: ['red', 'blue'] }
@@ -150,7 +150,7 @@ set({}, 'user.0.color', 'red', { missing: false }) // {}
 _Return value_: `Target`
 
 Delete all properties matching the `query`. The return value is a deep clone
-unless the [`mutate`](#mutate) option is used.
+unless the [`mutate`](#mutate) option is `true`.
 
 <!-- eslint-disable require-unicode-regexp -->
 
@@ -184,7 +184,7 @@ The target value must be an object or an array.
 Object properties with a defined key but an `undefined` value are not ignored.
 However, object properties without any defined key are ignored. The
 [`has()`](#hastarget-query-options) method, [`missing`](#missing) option and
-[`entries`](#entries) option are useful to distinguish those.
+[`entries`](#entries) option can be used to distinguish those.
 
 ```js
 const target = { name: undefined }
@@ -217,9 +217,6 @@ There are two equivalent formats for queries: strings and arrays.
 - Query [arrays](#query-arrays) are friendlier to programmatic usage, and
   faster. Also, they do not require escaping, so they should be used when the
   input is dynamic or user-provided to prevent injection attacks.
-
-[`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
-convert between both formats, or to compare queries.
 
 ### Query strings
 
@@ -435,6 +432,11 @@ user.colors.0
 // Path array
 ['user', 'colors', 0]
 ```
+
+### Conversions and comparisons
+
+[`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser) can be used to
+convert between both formats, or to compare queries.
 
 ## Options
 
