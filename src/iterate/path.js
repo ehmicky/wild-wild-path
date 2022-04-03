@@ -1,5 +1,5 @@
 import { isAllowedProp } from './expand.js'
-import { isWeakObject } from './object.js'
+import { MISSING_HANDLERS } from './missing.js'
 
 // Performance-optimized `iterate()` logic when the query is a path
 export const iteratePath = function* (
@@ -28,8 +28,13 @@ const iterateLevel = function (value, pathArray, index) {
 
 const isPresent = function (value, prop) {
   if (typeof prop === 'string') {
-    return isWeakObject(value) && prop in value
+    return isPresentProp(value) && prop in value
   }
 
-  return Array.isArray(value) && prop < value.length
+  return isPresentIndex(value) && prop < value.length
 }
+
+const {
+  array: { isPresent: isPresentIndex },
+  weakObject: { isPresent: isPresentProp },
+} = MISSING_HANDLERS

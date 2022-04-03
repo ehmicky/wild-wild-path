@@ -41,7 +41,7 @@ const getDefaultArray = function () {
   return []
 }
 
-const MISSING_HANDLERS = {
+export const MISSING_HANDLERS = {
   objectArray: {
     isPresent(value, classes) {
       return isObject(value, classes) || Array.isArray(value)
