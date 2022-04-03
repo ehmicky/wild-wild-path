@@ -7,6 +7,6 @@ const iterate = function (value, token) {
 
 export const PROP_TOKEN = {
   name: 'prop',
-  valueType: 'object',
+  valueType: 'weakObject',
   iterate,
 }

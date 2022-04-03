@@ -18,7 +18,7 @@ arrayObject.one = 1
 testListOutput([
   {
     input: [child, 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum'],
-    output: [],
+    output: ['ownEnum', 'ownNonEnum', 'inheritedEnum', 'inheritedNonEnum'],
   },
   { input: [child, '/\\.*/'], output: [] },
   { input: [child, '*'], output: [] },
@@ -52,6 +52,6 @@ testListOutput([
   { input: [functionObject, '*', { classes: true }], output: [1] },
   { input: [nullObject, '*'], output: [1] },
   { input: [nullObject, '*', { classes: true }], output: [1] },
-  { input: [arrayObject, 'one'], output: [] },
-  { input: [arrayObject, 'one', { classes: true }], output: [1] },
+  { input: [arrayObject, '/one/'], output: [] },
+  { input: [arrayObject, '/one/', { classes: true }], output: [1] },
 ])

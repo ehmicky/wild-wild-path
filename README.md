@@ -588,8 +588,10 @@ _Methods_: all\
 _Type_: `boolean`\
 _Default_: `false`
 
-Unless `true`, child properties of objects that are not plain objects (like
-class instances, errors or functions) are ignored.
+Unless `true`, [wildcards](#-wildcards) and [regexps](#%EF%B8%8F-regexps) ignore
+properties of objects that are not plain objects (like class instances, errors
+or functions). Those can still be matched by using their
+[property name](#%EF%B8%8F-deep-properties).
 
 ```js
 const target = { user: new User({ name: 'Alice' }) }

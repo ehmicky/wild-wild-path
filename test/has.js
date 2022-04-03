@@ -17,18 +17,25 @@ testOutput(
     { input: [{ one: 1 }, [/one/u]], output: true },
 
     // `classes` and `inherited` options
+    { input: [child, 'ownEnum'], output: true },
+    { input: [child, 'ownNonEnum'], output: true },
+    { input: [child, 'inheritedEnum'], output: true },
+    { input: [child, 'inheritedNonEnum'], output: true },
+    { input: [child, '/ownEnum/'], output: false },
+    { input: [child, '/ownNonEnum/'], output: false },
+    { input: [child, '/inheritedEnum/'], output: false },
+    { input: [child, '/inheritedNonEnum/'], output: false },
+    { input: [child, '/ownEnum/', { classes: true }], output: true },
+    { input: [child, '/ownNonEnum/', { classes: true }], output: false },
+    { input: [child, '/inheritedEnum/', { classes: true }], output: false },
+    { input: [child, '/inheritedNonEnum/', { classes: true }], output: false },
     {
-      input: [child, 'ownEnum ownNonEnum inheritedEnum inheritedNonEnum'],
-      output: false,
-    },
-    { input: [child, 'ownEnum', { classes: true }], output: true },
-    { input: [child, 'ownNonEnum', { classes: true }], output: true },
-    { input: [child, 'inheritedEnum', { classes: true }], output: true },
-    { input: [child, 'inheritedNonEnum', { classes: true }], output: true },
-    { input: [child, '/inherited/', { classes: true }], output: false },
-    {
-      input: [child, '/inherited/', { classes: true, inherited: true }],
+      input: [child, '/inheritedEnum/', { classes: true, inherited: true }],
       output: true,
+    },
+    {
+      input: [child, '/inheritedNonEnum/', { classes: true, inherited: true }],
+      output: false,
     },
   ],
 )

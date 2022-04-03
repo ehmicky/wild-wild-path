@@ -1,13 +1,11 @@
 import isPlainObj from 'is-plain-obj'
 
-// Whether a property is considered an object that can:
-//  - Be recursed over
-//  - Be cloned with `{...}`
-//     - Therefore we do not allow class instances
+// Whether a property is considered an object that can be returned by token
+// types returning multiple entries like *
+//  - Similarly to how enumerable and inherited properties are handled
+//  - This ensures using property names still works, since users would expect it
 // Values that are not recursed are considered atomic, like simple types, i.e.:
-//  - Properties, even if they exist, will be considered missing
-//     - With tokens like *, no entries will be returned
-//  - Setting will override the value, not merge it
+//  - Properties, even if they exist, will not be returned
 // Unless `classes` is `true`, we only consider plain objects:
 //  - Excluding:
 //     - Class instances, including native ones (RegExp, Error, etc.)
@@ -21,10 +19,10 @@ import isPlainObj from 'is-plain-obj'
 // recurse on the input|output and still be consistent with the `classes`
 // option.
 export const isObject = function (value, classes) {
-  return classes ? isAnyObj(value) : isPlainObj(value)
+  return classes ? isWeakObject(value) : isPlainObj(value)
 }
 
-const isAnyObj = function (value) {
+export const isWeakObject = function (value) {
   const typeofValue = typeof value
   return (
     (typeofValue === 'object' || typeofValue === 'function') && value !== null

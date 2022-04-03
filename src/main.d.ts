@@ -100,8 +100,9 @@ export interface Options {
   readonly entries?: boolean
 
   /**
-   * Unless `true`, child properties of objects that are not plain objects
-   * (like class instances, errors or functions) are ignored.
+   * Unless `true`, wildcards and regexps ignore properties of objects that are
+   * not plain objects (like class instances, errors or functions).
+   * Those can still be matched by using their property name.
    *
    * @example
    * ```js

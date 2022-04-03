@@ -12,6 +12,6 @@ const iterate = function (value, token, inherited) {
 
 export const REGEXP_TOKEN = {
   name: 'regExp',
-  valueType: 'object',
+  valueType: 'strictObject',
   iterate,
 }

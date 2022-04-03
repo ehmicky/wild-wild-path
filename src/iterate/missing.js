@@ -1,6 +1,6 @@
 import { getTokenType } from '../tokens/main.js'
 
-import { isObject } from './object.js'
+import { isObject, isWeakObject } from './object.js'
 
 // When the value does not exist, we set it deeply with `set()` but not with
 // `list|get|has()`.
@@ -31,29 +31,35 @@ export const handleMissingValue = function (value, token, classes) {
   return { tokenType, missing, value: valueA }
 }
 
+// New values must always be returned since those might be mutated either
+// by the `mutate` option or by the consumer
+const getDefaultObject = function () {
+  return {}
+}
+
+const getDefaultArray = function () {
+  return []
+}
+
 const MISSING_HANDLERS = {
-  any: {
+  objectArray: {
     isPresent(value, classes) {
       return isObject(value, classes) || Array.isArray(value)
     },
-    // New values must always be returned since those might be mutated either
-    // by the `mutate` option or by the consumer
-    getDefaultValue() {
-      return {}
-    },
+    getDefaultValue: getDefaultObject,
   },
   array: {
     isPresent: Array.isArray,
-    getDefaultValue() {
-      return []
-    },
+    getDefaultValue: getDefaultArray,
   },
-  object: {
+  strictObject: {
     isPresent(value, classes) {
       return isObject(value, classes)
     },
-    getDefaultValue() {
-      return {}
-    },
+    getDefaultValue: getDefaultObject,
+  },
+  weakObject: {
+    isPresent: isWeakObject,
+    getDefaultValue: getDefaultObject,
   },
 }

@@ -6,6 +6,12 @@ import { testValidation } from './helpers/validate.js'
 
 const methods = [{ name: 'set', method: set }]
 
+const setArray = function (array, name, value) {
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  array[name] = value
+  return array
+}
+
 testMutate(methods, [
   // Main usage
   { input: [{ one: 1 }, 'one', 2], output: { one: 2 } },
@@ -40,8 +46,11 @@ testMutate(methods, [
   { input: [[], '0.0', 1], output: [[1]] },
   { input: [{}, '0', 1], output: [1] },
   { input: [{ one: {} }, 'one.0', 1], output: { one: [1] } },
-  { input: [[], 'two', 1], output: { two: 1 } },
-  { input: [{ one: [] }, 'one.two', 1], output: { one: { two: 1 } } },
+  { input: [[], 'two', 1], output: setArray([], 'two', 1) },
+  {
+    input: [{ one: [] }, 'one.two', 1],
+    output: { one: setArray([], 'two', 1) },
+  },
 
   // `leaves` option
   { input: [{ one: { two: 1 } }, 'one one.two', 2], output: { one: 2 } },
