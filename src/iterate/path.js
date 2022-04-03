@@ -7,23 +7,26 @@ export const iteratePath = function* (
   pathArray,
   { missing: missingOpt, entries },
 ) {
-  const { value, missing } = iterateLevel(target, pathArray, 0)
+  const { value, missing } = getDeepValue(target, pathArray)
 
   if (!missing || missingOpt) {
     yield entries ? { value, path: pathArray, missing } : value
   }
 }
 
-const iterateLevel = function (value, pathArray, index) {
-  const prop = pathArray[index]
+const getDeepValue = function (value, pathArray) {
+  // eslint-disable-next-line fp/no-loops
+  for (const prop of pathArray) {
+    // eslint-disable-next-line max-depth
+    if (!isPresent(value, prop) || !isAllowedProp(prop)) {
+      return { value: undefined, missing: true }
+    }
 
-  if (prop === undefined) {
-    return { value, missing: false }
+    // eslint-disable-next-line no-param-reassign, fp/no-mutation
+    value = value[prop]
   }
 
-  return isPresent(value, prop) && isAllowedProp(prop)
-    ? iterateLevel(value[prop], pathArray, index + 1)
-    : { value: undefined, missing: true }
+  return { value, missing: false }
 }
 
 const isPresent = function (value, prop) {
