@@ -8,9 +8,13 @@
 
 🤠 Object property paths with wildcards and regexps. 🌵
 
-Get/set object properties using [dot-delimited paths](#deep-properties),
-[wildcards](#wildcards), [regexps](#regexps), [slices](#array-slices) and
-[unions](#unions).
+Get/set object properties using:
+
+- ⛏️ [dot-delimited paths](#deep-properties)
+- ⭐ [wildcards](#wildcards)
+- 🗺️ [regexps](#regexps)
+- 🏜️ [slices](#array-slices)
+- 🚂 [unions](#unions)
 
 # Install
 
@@ -246,7 +250,7 @@ user.**
 **.colors
 ```
 
-#### 🤠 Regexps
+#### 🗺️ Regexps
 
 ```bash
 # Regexps match property names
