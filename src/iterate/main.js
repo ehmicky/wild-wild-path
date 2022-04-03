@@ -12,7 +12,7 @@ import { iterateQuery } from './query.js'
 //  - To keep memory consumption low even on big queries
 export const iterate = function* (target, query, opts) {
   const optsA = getOptions(opts)
-  const { queryArrays, pathArray } = mNormalizePathOrQuery(query)
+  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
   yield* pathArray === undefined
     ? iterateQuery(target, queryArrays, optsA)
     : iteratePath(target, pathArray, optsA)

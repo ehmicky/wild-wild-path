@@ -1,54 +1,35 @@
-import { iterateChildEntries } from './path_children.js'
+import { isAllowedProp } from './expand.js'
+import { isWeakObject } from './object.js'
 
-// `iterate()` logic when the query is path
-export const iteratePath = function* (target, pathArray, opts) {
-  const entries = getRootEntries(target, pathArray)
-  yield* iterateLevel(entries, 0, opts)
-}
-
-const getRootEntries = function (target, pathArray) {
-  return [{ pathArray, value: target, missing: false }]
-}
-
-// The `roots` option can be used to only include the highest ancestors.
-// The `leaves` option can be used to only include the lowest descendants.
-// Neither option includes the values in-between.
-const iterateLevel = function* (entries, index, opts) {
-  const parentEntry = getParentEntry(entries, index)
-
-  if (shouldYieldParentFirst(parentEntry, opts)) {
-    yield normalizeEntry(parentEntry, opts)
-  }
-
-  const hasChildren = yield* iterateChildEntries({
-    entries,
-    parentEntry,
-    index,
-    opts,
-    iterateLevel,
-  })
-
-  if (shouldYieldParentLast(parentEntry, hasChildren, opts)) {
-    yield normalizeEntry(parentEntry, opts)
-  }
-}
-
-const getParentEntry = function (entries, index) {
-  return entries.find(({ pathArray }) => pathArray.length === index)
-}
-
-const normalizeEntry = function ({ value, pathArray, missing }, { entries }) {
-  return entries ? { value, path: pathArray, missing } : value
-}
-
-const shouldYieldParentFirst = function (parentEntry, { childFirst }) {
-  return parentEntry !== undefined && !childFirst
-}
-
-const shouldYieldParentLast = function (
-  parentEntry,
-  hasChildren,
-  { childFirst, leaves },
+// Performance-optimized `iterate()` logic when the query is path.
+export const iteratePath = function* (
+  target,
+  pathArray,
+  { missing: missingOpt, entries },
 ) {
-  return parentEntry !== undefined && childFirst && !(leaves && hasChildren)
+  const { value, missing } = iterateLevel(target, pathArray, 0)
+
+  if (!missing || missingOpt) {
+    yield entries ? { value, path: pathArray, missing } : value
+  }
+}
+
+const iterateLevel = function (value, pathArray, index) {
+  const prop = pathArray[index]
+
+  if (prop === undefined) {
+    return { value, missing: false }
+  }
+
+  return isPresent(value, prop) && isAllowedProp(prop)
+    ? iterateLevel(value[prop], pathArray, index + 1)
+    : { value: undefined, missing: true }
+}
+
+const isPresent = function (value, prop) {
+  if (typeof prop === 'string') {
+    return isWeakObject(value) && prop in value
+  }
+
+  return Array.isArray(value) && prop < value.length
 }

@@ -14,7 +14,7 @@ const expandToken = function ({ queryArray, value, path }, index, opts) {
   const missingReturn = handleMissingValue(value, token, opts.classes)
   const childEntriesA = iterateToken(token, missingReturn, opts)
   return childEntriesA
-    .filter(isAllowedProp)
+    .filter(isAllowedEntry)
     .map(({ value: childValue, prop, missing: missingEntry }) => ({
       queryArray,
       value: childValue,
@@ -23,11 +23,15 @@ const expandToken = function ({ queryArray, value, path }, index, opts) {
     }))
 }
 
-const isAllowedProp = function ({ prop }) {
-  return !FORBIDDEN_PROPS.has(prop)
+const isAllowedEntry = function ({ prop }) {
+  return isAllowedProp(prop)
 }
 
 // Forbidden to avoid prototype pollution attacks
+export const isAllowedProp = function (prop) {
+  return !FORBIDDEN_PROPS.has(prop)
+}
+
 const FORBIDDEN_PROPS = new Set(['__proto__', 'prototype', 'constructor'])
 
 const iterateToken = function (
