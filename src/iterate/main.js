@@ -1,3 +1,4 @@
+import moize from 'moize'
 import { normalizeQuery } from 'wild-wild-parser'
 
 import { iterateChildEntries } from './children.js'
@@ -18,7 +19,7 @@ export const iterate = function* (target, query, opts) {
 }
 
 const getRootEntries = function (target, query) {
-  const queryArrays = normalizeQuery(query)
+  const queryArrays = mNormalizeQuery(query)
   return queryArrays.map((queryArray) => ({
     queryArray,
     value: target,
@@ -26,6 +27,9 @@ const getRootEntries = function (target, query) {
     missing: false,
   }))
 }
+
+// Due to memoization, `entry.path[*]` items should not be mutated by consumers
+const mNormalizeQuery = moize(normalizeQuery, { maxSize: 1e3 })
 
 // `parents` is used to prevent infinite recursions when using ** together with
 // a value that includes references to itself
