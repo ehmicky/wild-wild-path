@@ -157,8 +157,8 @@ This is slower than [`list()`](#listtarget-query-options) but uses less memory.
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Sets all properties matching the query. A deep clone is returned unless the
-[mutate](#mutate) option is used.
+Sets all properties matching the query. The return value is a deep clone unless
+the [mutate](#mutate) option is used.
 
 ### remove(target, query, options?)
 
@@ -167,8 +167,8 @@ Sets all properties matching the query. A deep clone is returned unless the
 `options`: [`Options?`](#options)\
 _Return value_: `Target`
 
-Delete all properties matching the query. A deep clone is returned unless the
-[mutate](#mutate) option is used.
+Delete all properties matching the query. The return value is a deep clone
+unless the [mutate](#mutate) option is used.
 
 ## Functional utilities
 
@@ -466,8 +466,8 @@ _Methods_: [`get()`](#gettarget-query-options),
 _Type_: `boolean`\
 _Default_: `false`
 
-By default, only matching values are returned.\
-When `true`, objects with the following properties are returned instead:
+By default, properties' values are returned.\
+When `true`, objects with the following shape are returned instead:
 
 - `value` `any`: property's value
 - `path` [`Path`](#paths): property's full path
