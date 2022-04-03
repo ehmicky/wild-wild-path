@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/ehmicky/design/main/wild-wild-path/wild-wild-path.svg?sanitize=true" width="500"/>
+<img src="https://raw.githubusercontent.com/ehmicky/design/main/wild-wild-path/wild-wild-path.svg?sanitize=true" width="700"/>
 
 [![Codecov](https://img.shields.io/codecov/c/github/ehmicky/wild-wild-path.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/wild-wild-path)
 [![Build](https://github.com/ehmicky/wild-wild-path/workflows/Build/badge.svg)](https://github.com/ehmicky/wild-wild-path/actions)
