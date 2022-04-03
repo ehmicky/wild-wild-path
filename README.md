@@ -159,8 +159,15 @@ remove(target, ['user', /Name/]) // { user: { age: 72 } }
 ## Functional utilities
 
 [`wild-wild-utils`](https://github.com/ehmicky/wild-wild-utils) is a separate
-library which provides with additional, higher-level methods: `merge()`,
-`push()`, `map()`, `find()`, `pick()`, `include()`, `exclude()`.
+library which provides with additional, higher-level methods:
+[`map()`](https://github.com/ehmicky/wild-wild-utils#maptarget-query-mapfunction-options),
+[`merge()`](https://github.com/ehmicky/wild-wild-utils#mergetarget-query-value-options),
+[`push()`](https://github.com/ehmicky/wild-wild-utils#pushtarget-query-values-options),
+[`unshift()`](https://github.com/ehmicky/wild-wild-utils#unshifttarget-query-values-options),
+[`find()`](https://github.com/ehmicky/wild-wild-utils#findtarget-query-testfunction-options),
+[`pick()`](https://github.com/ehmicky/wild-wild-utils#picktarget-query-options),
+[`include()`](https://github.com/ehmicky/wild-wild-utils#includetarget-query-testfunction-options),
+[`exclude()`](https://github.com/ehmicky/wild-wild-utils#excludetarget-query-testfunction-options).
 
 ## Target
 
