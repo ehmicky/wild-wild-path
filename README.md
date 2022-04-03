@@ -588,8 +588,11 @@ _Type_: `boolean`\
 _Default_: `false`
 
 By default, [wildcards](#wildcards) and [regexps](#regexps) ignore properties
-that are either inherited or not enumerable. Those can still be matched by using
-their [property name](#deep-properties).
+that are either
+[inherited](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+or
+[not enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties).
+Those can still be matched by using their [property name](#deep-properties).
 
 When `true`, inherited properties are not ignored, but not enumerable ones still
 are.
