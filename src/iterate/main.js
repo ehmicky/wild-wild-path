@@ -43,7 +43,7 @@ export const list = function (target, query, opts) {
 // We do not just use iterate(...).next().value to optimize for performance when
 // `query` is a path.
 export const get = function (target, query, opts) {
-  const { opts: optsA, pathArray, queryArrays } = normalizeArgs(query, opts)
+  const { opts: optsA, queryArrays, pathArray } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
     return iterateQuery(target, queryArrays, optsA).next().value
