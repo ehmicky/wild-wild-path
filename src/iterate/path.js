@@ -2,16 +2,27 @@ import { isAllowedProp } from './expand.js'
 import { MISSING_HANDLERS } from './missing.js'
 
 // Performance-optimized `iterate()` logic when the query is a path
-export const iteratePath = function* (
+export const iteratePath = function* (target, pathArray, opts) {
+  const { entry, matches } = getPathValue(target, pathArray, opts)
+
+  if (matches) {
+    yield entry
+  }
+}
+
+const getPathValue = function (
   target,
   pathArray,
   { missing: missingOpt, entries },
 ) {
   const { value, missing } = getDeepValue(target, pathArray)
 
-  if (!missing || missingOpt) {
-    yield entries ? { value, path: pathArray, missing } : value
+  if (missing && !missingOpt) {
+    return { matches: false }
   }
+
+  const entry = entries ? { value, path: pathArray, missing } : value
+  return { entry, matches: true }
 }
 
 const getDeepValue = function (value, pathArray) {
