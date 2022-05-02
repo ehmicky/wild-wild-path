@@ -43,5 +43,3 @@ jobs:
         run: npx gulp unit
       - name: Upload test coverage
         run: npx gulp uploadCoverage
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
