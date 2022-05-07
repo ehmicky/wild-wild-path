@@ -14,7 +14,7 @@ jobs:
         node: [16]
         include:
           - os: ubuntu-latest
-            node: 12.20.0
+            node: 14.18.0
       fail-fast: false
     runs-on: ${{ matrix.os }}
     # We do not use @actions/cache because restoring/saving cache currently
@@ -32,7 +32,7 @@ jobs:
       # installation
       - name: Install latest npm
         run: npm install -g npm
-        if: "${{ matrix.node == '12.20.0' }}"
+        if: "${{ matrix.node == '14.18.0' }}"
       - name: Install dependencies
         run: npm ci
       - name: Linting
