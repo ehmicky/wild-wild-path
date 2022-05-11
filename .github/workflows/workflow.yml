@@ -11,7 +11,7 @@ jobs:
       # We do not run each possible combination to make CI faster.
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        node: [16]
+        node: [18]
         include:
           - os: ubuntu-latest
             node: 14.18.0
