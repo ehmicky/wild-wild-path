@@ -435,7 +435,7 @@ get(target, 'colors', { entries: true, missing: true })
 
 list(target, '*') // [undefined]
 list(target, '*', { entries: true })
-// { value: undefined, path: ['name'], missing: false }
+// [{ value: undefined, path: ['name'], missing: false }]
 ```
 
 ## Options
