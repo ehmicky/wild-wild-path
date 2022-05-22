@@ -616,6 +616,13 @@ Those can still be matched by using their
 When `true`, inherited properties are not ignored, but not enumerable ones still
 are.
 
+# Related projects
+
+- [`wild-wild-utils`](https://github.com/ehmicky/wild-wild-utils): functional
+  utilities using `wild-wild-path`'s object property paths
+- [`wild-wild-parser`](https://github.com/ehmicky/wild-wild-parser): parser for
+  `wild-wild-path`'s object property paths
+
 # Support
 
 For any question, _don't hesitate_ to [submit an issue on GitHub](../../issues).
