@@ -48,7 +48,7 @@
   "dependencies": {
     "is-plain-obj": "^4.1.0",
     "moize": "^6.1.1",
-    "wild-wild-parser": "^3.0.0"
+    "wild-wild-parser": "^3.0.1"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.79",
