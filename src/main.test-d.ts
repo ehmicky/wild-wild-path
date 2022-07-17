@@ -1,3 +1,5 @@
+import { expectType, expectNotType, expectError } from 'tsd'
+
 import {
   has,
   get,
@@ -10,8 +12,7 @@ import {
   Query,
   Options,
   Entry,
-} from 'wild-wild-path'
-import { expectType, expectNotType, expectError } from 'tsd'
+} from './main.js'
 
 const targetObj: Target = { one: 1 }
 const targetArray: Target = [1]
