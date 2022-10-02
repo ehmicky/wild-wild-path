@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Features
+
+- Reduce npm package size by 91%, from ~1170KB to ~106KB
+
 # 3.1.0
 
 ## Features
