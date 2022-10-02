@@ -1,4 +1,3 @@
-import moize from 'moize'
 import { normalizePath, normalizeQuery } from 'wild-wild-parser'
 
 import { getOptions } from './options.js'
@@ -55,18 +54,15 @@ export const get = function (target, query, opts) {
 
 const normalizeArgs = function (query, opts) {
   const optsA = getOptions(opts)
-  const { pathArray, queryArrays } = mNormalizePathOrQuery(query)
+  const { pathArray, queryArrays } = normalizePathOrQuery(query)
   return { opts: optsA, pathArray, queryArrays }
 }
 
 // Distinguish between queries that are paths or not
-const normalizePathOrQuery = function (query) {
+export const normalizePathOrQuery = function (query) {
   try {
     return { pathArray: normalizePath(query) }
   } catch {
     return { queryArrays: normalizeQuery(query) }
   }
 }
-
-// Due to memoization, `entry.path[*]` items should not be mutated by consumers
-const mNormalizePathOrQuery = moize(normalizePathOrQuery, { maxSize: 1e3 })
