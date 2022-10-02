@@ -24,7 +24,6 @@ testOutput(
   [{ name: 'isObject', method: isObject }],
   [
     // Values that are never considered objects
-    // eslint-disable-next-line unicorn/no-null
     { inputs: [true, null], outputs: [false, false] },
 
     // Values that are always considered objects
