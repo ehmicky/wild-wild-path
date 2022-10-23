@@ -24,4 +24,5 @@ testListOutput([
   { input: [[0, 1, 2, 3], ':'], output: [0, 1, 2, 3] },
   { input: [[], '0:5'], output: [] },
   { input: [{}, ':', { missing: true, entries: true }], output: [] },
+  { input: [[0, 1, 2, 3], '1:3', { shallowArrays: true }], output: [1, 2] },
 ])

@@ -53,4 +53,16 @@ testListOutput([
     input: [{ one: { two: 2 }, three: { four: 3 } }, '**.**', { leaves: true }],
     output: [2, 3],
   },
+  {
+    input: [{ one: [{ two: 2 }] }, '**', { shallowArrays: true, leaves: true }],
+    output: [[{ two: 2 }]],
+  },
+  {
+    input: [
+      { one: [{ two: 2 }] },
+      '**.0.two',
+      { shallowArrays: true, leaves: true },
+    ],
+    output: [2],
+  },
 ])

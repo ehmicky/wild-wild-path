@@ -18,4 +18,5 @@ testListOutput([
   },
   { input: [[undefined], '0'], output: [undefined] },
   { input: [{ 0: 1 }, '0'], output: [] },
+  { input: [[1, 2, 3], '0', { shallowArrays: true }], output: [1] },
 ])

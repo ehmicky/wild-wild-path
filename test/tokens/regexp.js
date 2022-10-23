@@ -7,4 +7,8 @@ testListOutput([
   { input: [{ one: 1, two: 2, three: 3 }, '/T/i'], output: [2, 3] },
   { input: [{ one: 1 }, '/a/', { missing: true, entries: true }], output: [] },
   { input: [[], '/a/', { missing: true, entries: true }], output: [] },
+  {
+    input: [[], '/a/', { missing: true, entries: true, shallowArrays: true }],
+    output: [],
+  },
 ])

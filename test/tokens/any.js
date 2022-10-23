@@ -16,6 +16,8 @@ testListOutput([
       { value: 2, path: [1], missing: false },
     ],
   },
+  { input: [[1, 2], '*', { shallowArrays: true }], output: [] },
+  { input: [[1, 2], '*.0', { shallowArrays: true }], output: [] },
   { input: [{}, '*', { missing: true, entries: true }], output: [] },
   { input: [[], '*', { missing: true, entries: true }], output: [] },
 ])
