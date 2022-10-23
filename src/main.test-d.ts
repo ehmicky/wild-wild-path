@@ -27,6 +27,7 @@ const optionsFull: Options = {
   sort: false,
   missing: false,
   entries: false,
+  shallowArrays: false,
   classes: false,
   inherited: false,
 }

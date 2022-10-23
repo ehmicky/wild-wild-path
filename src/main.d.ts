@@ -100,6 +100,29 @@ export interface Options {
   readonly entries?: boolean
 
   /**
+   * If `true`, wildcards do not recurse on arrays.
+   * Array items can still be matched by using indices or slices.
+   *
+   * @example
+   * ```js
+   * const target = [{ name: 'Alice' }, { name: 'Bob' }]
+   * list(target, '**')
+   * // [
+   * //   [{ name: 'Alice' }, { name: 'Bob' }],
+   * //   { name: 'Alice' },
+   * //   'Alice',
+   * //   { name: 'Bob' },
+   * //   'Bob',
+   * // ]
+   * list(target, '**', { shallowArrays: true })
+   * // [
+   * //   [{ name: 'Alice' }, { name: 'Bob' }],
+   * // ]
+   * ```
+   */
+  readonly shallowArrays?: boolean
+
+  /**
    * Unless `true`, wildcards and regexps ignore properties of objects that are
    * not plain objects (like class instances, errors or functions).
    * Those can still be matched by using their property name.

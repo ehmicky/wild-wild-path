@@ -582,6 +582,32 @@ list(target, 'user.**') // [{ name: 'Alice' }, 'Alice']
 list(target, 'user.**', { roots: true }) // [{ name: 'Alice' }]
 ```
 
+### shallowArrays
+
+_Methods_: all\
+_Type_: `boolean`\
+_Default_: `false`
+
+If `true`, [wildcards](#-wildcards) do not recurse on arrays. Array items can
+still be matched by using [indices](#-arrays-indices) or
+[slices](#%EF%B8%8F-array-slices).
+
+```js
+const target = [{ name: 'Alice' }, { name: 'Bob' }]
+list(target, '**')
+// [
+//   [{ name: 'Alice' }, { name: 'Bob' }],
+//   { name: 'Alice' },
+//   'Alice',
+//   { name: 'Bob' },
+//   'Bob',
+// ]
+list(target, '**', { shallowArrays: true })
+// [
+//   [{ name: 'Alice' }, { name: 'Bob' }],
+// ]
+```
+
 ### classes
 
 _Methods_: all\
