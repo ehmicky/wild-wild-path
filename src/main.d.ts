@@ -10,6 +10,8 @@ export interface Options {
    * This option decides whether the returned properties should be sorted from
    * children to parents, or the reverse.
    *
+   * @default false
+   *
    * @example
    * ```js
    * const target = { user: { name: 'Alice' } }
@@ -24,6 +26,8 @@ export interface Options {
    * and some of its children.
    * When `true`, only roots are matched. In other words, a matching property is
    * ignored if one of its parents also matches.
+   *
+   * @default false
    *
    * @example
    * ```js
@@ -40,6 +44,8 @@ export interface Options {
    * When `true`, only leaves are matched. In other words, a matching property
    * is ignored if one of its children also matches.
    *
+   * @default false
+   *
    * @example
    * ```js
    * const target = { user: { name: 'Alice' } }
@@ -53,6 +59,8 @@ export interface Options {
    * When returning sibling object properties, sort them by the lexigographic
    * order of their names (not values).
    *
+   * @default false
+   *
    * @example
    * ```js
    * const target = { lastName: 'Doe', firstName: 'John' }
@@ -64,6 +72,8 @@ export interface Options {
 
   /**
    * When `false`, properties not defined in the target are ignored.
+   *
+   * @default `false` with `list|iterate()`, `true` with `set()`
    *
    * @example
    * ```js
@@ -86,6 +96,8 @@ export interface Options {
    *  - `path` `Path`: property's full path
    *  - `missing` `boolean`: whether the property is missing from the target
    *
+   * @default false
+   *
    * @example
    * ```js
    * const target = { firstName: 'Alice', lastName: 'Smith' }
@@ -102,6 +114,8 @@ export interface Options {
   /**
    * If `true`, wildcards do not recurse on arrays.
    * Array items can still be matched by using indices or slices.
+   *
+   * @default false
    *
    * @example
    * ```js
@@ -127,6 +141,8 @@ export interface Options {
    * not plain objects (like class instances, errors or functions).
    * Those can still be matched by using their property name.
    *
+   * @default false
+   *
    * @example
    * ```js
    * const target = { user: new User({ name: 'Alice' }) }
@@ -142,12 +158,16 @@ export interface Options {
    * property name.
    * When `true`, inherited properties are not ignored, but not enumerable ones
    * still are.
+   *
+   * @default false
    */
   readonly inherited?: boolean
 
   /**
    * By default, the target is deeply cloned. When `true`, it is directly
    * mutated instead, which is faster but has side effects.
+   *
+   * @default false
    *
    * @example
    * ```js
