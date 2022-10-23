@@ -8,7 +8,7 @@ testListOutput([
   { input: [{ one: 1 }, '/a/', { missing: true, entries: true }], output: [] },
   { input: [[], '/a/', { missing: true, entries: true }], output: [] },
   {
-    input: [[], '/a/', { missing: true, entries: true, shallowArrays: true }],
+    input: [[], '/a/', { shallowArrays: true, missing: true, entries: true }],
     output: [],
   },
 ])
