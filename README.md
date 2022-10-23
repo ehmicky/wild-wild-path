@@ -175,7 +175,8 @@ library which provides with additional, higher-level methods:
 [`find()`](https://github.com/ehmicky/wild-wild-utils#findtarget-query-testfunction-options),
 [`pick()`](https://github.com/ehmicky/wild-wild-utils#picktarget-query-options),
 [`include()`](https://github.com/ehmicky/wild-wild-utils#includetarget-query-testfunction-options),
-[`exclude()`](https://github.com/ehmicky/wild-wild-utils#excludetarget-query-testfunction-options).
+[`exclude()`](https://github.com/ehmicky/wild-wild-utils#excludetarget-query-testfunction-options),
+[`flatten()`](https://github.com/ehmicky/wild-wild-utils#flattentarget-options).
 
 ## Target
 
