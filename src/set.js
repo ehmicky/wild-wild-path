@@ -11,7 +11,14 @@ export const set = function (
   target,
   query,
   value,
-  { mutate = false, missing = true, leaves = false, classes, inherited } = {},
+  {
+    mutate = false,
+    missing = true,
+    leaves = false,
+    shallowArrays,
+    classes,
+    inherited,
+  } = {},
 ) {
   validateClasses(classes, mutate)
   const setFunc = setEntry.bind(undefined, { value, mutate, missing, classes })
@@ -21,6 +28,7 @@ export const set = function (
     setFunc,
     missing,
     leaves,
+    shallowArrays,
     classes,
     inherited,
   })

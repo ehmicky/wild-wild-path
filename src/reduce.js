@@ -7,6 +7,7 @@ export const reduceParents = function ({
   setFunc,
   missing,
   leaves,
+  shallowArrays,
   classes,
   inherited,
 }) {
@@ -17,6 +18,7 @@ export const reduceParents = function ({
     sort: false,
     missing,
     entries: true,
+    shallowArrays,
     classes,
     inherited,
   })

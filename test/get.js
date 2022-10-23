@@ -63,6 +63,10 @@ testOutput(
     { input: [{ two: 2, one: 1 }, 'two one'], output: 2 },
     { input: [{ two: 2, one: 1 }, 'two one', { sort: true }], output: 1 },
 
+    // `shallowArrays` option
+    { input: [[0], '*'], output: 0 },
+    { input: [[0], '*', { shallowArrays: true }], output: undefined },
+
     // `classes` and `inherited` options
     { input: [child, 'ownEnum'], output: 'ownEnum' },
     { input: [child, 'ownNonEnum'], output: 'ownNonEnum' },

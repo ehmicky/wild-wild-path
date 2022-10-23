@@ -6,29 +6,30 @@ import { validateClasses } from './validate.js'
 export const remove = function (
   target,
   query,
-  { mutate = false, leaves = false, classes, inherited } = {},
+  { mutate = false, leaves = false, shallowArrays, classes, inherited } = {},
 ) {
   validateClasses(classes, mutate)
-  const setFunc = removeAnyEntry.bind(undefined, { mutate, classes })
+  const setFunc = removeAnyEntry.bind(undefined, mutate)
   return reduceParents({
     target,
     query,
     setFunc,
     missing: false,
     leaves,
+    shallowArrays,
     classes,
     inherited,
   })
 }
 
 // eslint-disable-next-line max-params
-const removeAnyEntry = function ({ mutate, classes }, target, path, index) {
+const removeAnyEntry = function (mutate, target, path, index) {
   return path.length === 0
     ? undefined
-    : removeEntry({ mutate, classes, target, path, index })
+    : removeEntry({ mutate, target, path, index })
 }
 
-const removeEntry = function ({ mutate, classes, target, path, index }) {
+const removeEntry = function ({ mutate, target, path, index }) {
   const prop = path[index]
 
   if (index === path.length - 1) {
@@ -37,7 +38,6 @@ const removeEntry = function ({ mutate, classes, target, path, index }) {
 
   const childTarget = target[prop]
   const childValue = removeEntry({
-    classes,
     mutate,
     target: childTarget,
     path,

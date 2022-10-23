@@ -16,6 +16,10 @@ testOutput(
     { input: [{ one: undefined }, 'one'], output: true },
     { input: [{ one: 1 }, [/one/u]], output: true },
 
+    // `shallowArrays` option
+    { input: [[0], '*'], output: true },
+    { input: [[0], '*', { shallowArrays: true }], output: false },
+
     // `classes` and `inherited` options
     { input: [child, 'ownEnum'], output: true },
     { input: [child, 'ownNonEnum'], output: true },

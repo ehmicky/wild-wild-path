@@ -42,6 +42,10 @@ testMutate(methods, [
     opts: { leaves: true },
     output: { one: {} },
   },
+
+  // `shallowArrays` option
+  { input: [[0], '*'], output: [] },
+  { input: [[0], '*', { shallowArrays: true }], output: [0] },
 ])
 
 testInherited(methods, [
