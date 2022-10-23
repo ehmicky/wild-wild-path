@@ -1,14 +1,18 @@
 // By using `for in`, we purposely exclude both symbols and inherited properties
-const iterate = function (value, token, inherited) {
-  return Array.isArray(value)
-    ? value.map((childValue, index) => ({
+const iterate = function (value, token, { inherited, shallowArrays }) {
+  if (!Array.isArray(value)) {
+    return getKeys(value, inherited).map((childKey) => ({
+      value: value[childKey],
+      prop: childKey,
+      missing: false,
+    }))
+  }
+
+  return shallowArrays
+    ? [{ value, missing: false }]
+    : value.map((childValue, index) => ({
         value: childValue,
         prop: index,
-        missing: false,
-      }))
-    : getKeys(value, inherited).map((childKey) => ({
-        value: value[childKey],
-        prop: childKey,
         missing: false,
       }))
 }

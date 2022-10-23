@@ -13,6 +13,7 @@ export const getOptions = function ({
   missing = false,
   entries = false,
   classes = false,
+  shallowArrays = false,
   inherited = false,
 } = {}) {
   const opts = {
@@ -23,6 +24,7 @@ export const getOptions = function ({
     missing,
     entries,
     classes,
+    shallowArrays,
     inherited,
   }
   validateInherited(opts)

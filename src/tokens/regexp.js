@@ -1,6 +1,6 @@
 import { getKeys } from './any.js'
 
-const iterate = function (value, token, inherited) {
+const iterate = function (value, token, { inherited }) {
   return getKeys(value, inherited)
     .filter((childKey) => token.test(childKey))
     .map((childKey) => ({

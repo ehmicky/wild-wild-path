@@ -18,7 +18,7 @@ const expandToken = function ({ queryArray, value, path }, index, opts) {
     .map(({ value: childValue, prop, missing: missingEntry }) => ({
       queryArray,
       value: childValue,
-      path: [...path, prop],
+      path: prop === undefined ? path : [...path, prop],
       missing: missingReturn.missing || missingEntry,
     }))
 }
@@ -37,17 +37,17 @@ const FORBIDDEN_PROPS = new Set(['__proto__', 'prototype', 'constructor'])
 const iterateToken = function (
   token,
   { tokenType, missing: missingParent, value },
-  { inherited, missing: includeMissing },
+  opts,
 ) {
-  if (includeMissing) {
-    return tokenType.iterate(value, token, inherited)
+  if (opts.missing) {
+    return tokenType.iterate(value, token, opts)
   }
 
   if (missingParent) {
     return []
   }
 
-  const childEntries = tokenType.iterate(value, token, inherited)
+  const childEntries = tokenType.iterate(value, token, opts)
   return childEntries.filter(isNotMissing)
 }
 
