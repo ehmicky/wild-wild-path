@@ -20,7 +20,17 @@
         "ideas",
         "doc"
       ]
+    },
+    {
+      "login": "maoosi",
+      "name": "Sylvain",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4679377?v=4",
+      "profile": "https://sylvainsimao.fr",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "commitConvention": "angular"
 }
