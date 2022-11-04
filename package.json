@@ -2,7 +2,10 @@
   "name": "wild-wild-path",
   "version": "3.3.0",
   "type": "module",
-  "exports": "./build/src/main.js",
+  "exports": {
+    "types": "./build/types/main.d.ts",
+    "default": "./build/src/main.js"
+  },
   "main": "./build/src/main.js",
   "types": "./build/types/main.d.ts",
   "files": [
