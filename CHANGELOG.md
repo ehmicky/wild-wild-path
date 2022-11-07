@@ -1,3 +1,9 @@
+# 3.4.0
+
+## Features
+
+- Add browser support
+
 # 3.3.0
 
 ## Features
