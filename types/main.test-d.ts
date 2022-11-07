@@ -12,7 +12,7 @@ import {
   Query,
   Options,
   Entry,
-} from './main.js'
+} from 'wild-wild-path'
 
 const targetObj: Target = { one: 1 }
 const targetArray: Target = [1]
