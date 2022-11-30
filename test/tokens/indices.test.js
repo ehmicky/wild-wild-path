@@ -1,4 +1,4 @@
-import { testListOutput } from '../helpers/list.js'
+import { testListOutput } from '../helpers/list.test.js'
 
 testListOutput([
   { input: [[1, 2, 3], '0'], output: [1] },

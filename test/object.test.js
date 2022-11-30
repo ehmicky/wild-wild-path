@@ -1,7 +1,7 @@
 import { isObject } from 'wild-wild-path'
 
-import { getChild } from './helpers/inherited.js'
-import { testOutput } from './helpers/output.js'
+import { getChild } from './helpers/inherited.test.js'
+import { testOutput } from './helpers/output.test.js'
 
 const child = getChild()
 

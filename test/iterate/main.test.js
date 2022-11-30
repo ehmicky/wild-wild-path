@@ -1,7 +1,7 @@
 import test from 'ava'
 import { list, iterate } from 'wild-wild-path'
 
-import { testListOutput, testListValidation } from '../helpers/list.js'
+import { testListOutput, testListValidation } from '../helpers/list.test.js'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)

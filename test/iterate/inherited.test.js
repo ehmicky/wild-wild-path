@@ -1,5 +1,5 @@
-import { getChild } from '../helpers/inherited.js'
-import { testListOutput } from '../helpers/list.js'
+import { getChild } from '../helpers/inherited.test.js'
+import { testListOutput } from '../helpers/list.test.js'
 
 const child = getChild()
 

@@ -1,4 +1,4 @@
-import { testListOutput } from '../helpers/list.js'
+import { testListOutput } from '../helpers/list.test.js'
 
 const selfObject = { one: 1, two: { three: 3 } }
 // eslint-disable-next-line fp/no-mutation
