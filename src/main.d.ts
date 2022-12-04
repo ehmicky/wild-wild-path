@@ -1,6 +1,6 @@
 import type { Query, PathArray } from 'wild-wild-parser'
 
-export type Target = object | any[]
+export type Target = object | unknown[]
 export type { Query }
 
 export interface Options {
@@ -182,7 +182,7 @@ export interface Options {
 }
 type OptionsWithEntries = Options & { readonly entries: true }
 
-type Value = any
+type Value = unknown
 
 /**
  * Property entry
@@ -326,4 +326,4 @@ export function set(
   options?: Options,
 ): Target
 
-export function isObject(value: any, classes: boolean): boolean
+export function isObject(value: unknown, classes: boolean): boolean

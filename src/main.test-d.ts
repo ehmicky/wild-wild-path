@@ -42,7 +42,7 @@ has({}, true)
 // @ts-expect-error
 has({}, 'prop', true)
 
-expectType<any | undefined>(get({}, 'prop'))
+expectType<unknown>(get({}, 'prop'))
 expectType<Entry | undefined>(get({}, 'prop', { entries: true }))
 expectNotType<Entry | undefined>(get({}, 'prop', { entries: false }))
 expectNotType<Entry | undefined>(get({}, 'prop', { sort: true }))
@@ -53,7 +53,7 @@ get({}, true)
 // @ts-expect-error
 get({}, 'prop', true)
 
-expectType<any[]>(list({}, 'prop'))
+expectType<unknown[]>(list({}, 'prop'))
 expectType<Entry[]>(list({}, 'prop', { entries: true }))
 expectNotType<Entry[]>(list({}, 'prop', { entries: false }))
 expectNotType<Entry[]>(list({}, 'prop', { sort: true }))
@@ -64,7 +64,7 @@ list({}, true)
 // @ts-expect-error
 list({}, 'prop', true)
 
-expectType<Generator<any>>(iterate({}, 'prop'))
+expectType<Generator>(iterate({}, 'prop'))
 
 // eslint-disable-next-line fp/no-loops
 for (const entry of iterate({}, 'prop', { entries: true })) {
