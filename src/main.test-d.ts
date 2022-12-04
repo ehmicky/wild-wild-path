@@ -1,4 +1,4 @@
-import { expectType, expectNotType } from 'tsd'
+import { expectType, expectNotType, expectAssignable } from 'tsd'
 
 import {
   has,
@@ -8,19 +8,19 @@ import {
   remove,
   set,
   isObject,
-  Target,
-  Query,
-  Options,
-  Entry,
+  type Target,
+  type Query,
+  type Options,
+  type Entry,
 } from 'wild-wild-path'
 
-const targetObj: Target = { one: 1 }
-const targetArray: Target = [1]
-const targetSpecialObj: Target = /regexp/
-const queryArray: Query = [{ type: 'any' }]
-const queryString: Query = '*'
-const optionsMin: Options = {}
-const optionsFull: Options = {
+expectAssignable<Target>({ one: 1 })
+expectAssignable<Target>([1])
+expectAssignable<Target>(/regexp/u)
+expectAssignable<Query>([{ type: 'any' }])
+expectAssignable<Query>('*')
+expectAssignable<Options>({})
+expectAssignable<Options>({
   childFirst: false,
   roots: false,
   leaves: false,
@@ -30,8 +30,8 @@ const optionsFull: Options = {
   shallowArrays: false,
   classes: false,
   inherited: false,
-}
-const entry: Entry = { value: 1, path: ['prop'], missing: false }
+})
+expectAssignable<Entry>({ value: 1, path: ['prop'], missing: false })
 
 expectType<boolean>(has({}, 'prop'))
 has({}, 'prop', { sort: true })
@@ -65,15 +65,22 @@ list({}, true)
 list({}, 'prop', true)
 
 expectType<Generator<any>>(iterate({}, 'prop'))
+
+// eslint-disable-next-line fp/no-loops
 for (const entry of iterate({}, 'prop', { entries: true })) {
   expectType<Entry>(entry)
 }
+
+// eslint-disable-next-line fp/no-loops
 for (const entry of iterate({}, 'prop', { entries: false })) {
   expectNotType<Entry>(entry)
 }
+
+// eslint-disable-next-line fp/no-loops
 for (const entry of iterate({}, 'prop', { sort: true })) {
   expectNotType<Entry>(entry)
 }
+
 // @ts-expect-error
 iterate(true, 'prop')
 // @ts-expect-error

@@ -183,6 +183,7 @@ export interface Options {
 type OptionsWithEntries = Options & { readonly entries: true }
 
 type Value = any
+
 /**
  * Property entry
  */
