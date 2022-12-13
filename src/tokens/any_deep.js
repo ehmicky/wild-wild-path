@@ -5,7 +5,7 @@ import { getTokenType as getTokenTypeName } from 'wild-wild-parser'
 //  - It can match 0 levels, i.e. the current object
 // It is the same as the union of . * *.* *.*.* and so on.
 // Using both * and ** can express minimum depth, e.g. *.** or *.*.**
-const recurse = function (queryArray, index) {
+const recurse = (queryArray, index) => {
   const parentQuery = queryArray.slice(0, index)
   const lastIndex = getLastIndex(queryArray, index)
   return [
@@ -15,12 +15,11 @@ const recurse = function (queryArray, index) {
 }
 
 // Squash consecutive ** into a single one
-const getLastIndex = function (queryArray, index) {
-  return index <= queryArray.length - 1 &&
-    getTokenTypeName(queryArray[index]) === 'anyDeep'
+const getLastIndex = (queryArray, index) =>
+  index <= queryArray.length - 1 &&
+  getTokenTypeName(queryArray[index]) === 'anyDeep'
     ? getLastIndex(queryArray, index + 1)
     : index - 1
-}
 
 export const ANY_DEEP_TOKEN = {
   name: 'anyDeep',

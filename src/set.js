@@ -6,8 +6,7 @@ import { validateClasses } from './validate.js'
 // Unless `mutate` is `true`, this returns a new copy
 //  - The value is returned in both cases so consumers can forward the `mutate`
 //    option without inspecting it
-// eslint-disable-next-line max-params
-export const set = function (
+export const set = (
   target,
   query,
   value,
@@ -19,7 +18,8 @@ export const set = function (
     classes,
     inherited,
   } = {},
-) {
+  // eslint-disable-next-line max-params
+) => {
   validateClasses(classes, mutate)
   const setFunc = setEntry.bind(undefined, { value, mutate, missing, classes })
   return reduceParents({
@@ -36,12 +36,7 @@ export const set = function (
 
 // Use positional arguments for performance
 // eslint-disable-next-line max-params
-const setEntry = function (
-  { value, mutate, missing, classes },
-  target,
-  path,
-  index,
-) {
+const setEntry = ({ value, mutate, missing, classes }, target, path, index) => {
   if (index === path.length) {
     return value
   }
@@ -58,13 +53,12 @@ const setEntry = function (
   return setValue({ target: defaultedTarget, prop, childValue, mutate })
 }
 
-export const setValue = function ({ target, prop, childValue, mutate }) {
-  return Array.isArray(target)
+export const setValue = ({ target, prop, childValue, mutate }) =>
+  Array.isArray(target)
     ? setArrayValue({ target, index: prop, childValue, mutate })
     : setObjectValue({ target, prop, childValue, mutate })
-}
 
-const setArrayValue = function ({ target, index, childValue, mutate }) {
+const setArrayValue = ({ target, index, childValue, mutate }) => {
   if (isSameArrayValue(target, index, childValue)) {
     return target
   }
@@ -77,14 +71,11 @@ const setArrayValue = function ({ target, index, childValue, mutate }) {
 
 // Setting an `undefined` value out-of-bound changes `Array.length`, i.e. should
 // not be skipped
-const isSameArrayValue = function (target, index, childValue) {
-  return (
-    target[index] === childValue &&
-    (childValue !== undefined || index < target.length)
-  )
-}
+const isSameArrayValue = (target, index, childValue) =>
+  target[index] === childValue &&
+  (childValue !== undefined || index < target.length)
 
-const setObjectValue = function ({ target, prop, childValue, mutate }) {
+const setObjectValue = ({ target, prop, childValue, mutate }) => {
   if (isSameObjectValue(target, prop, childValue)) {
     return target
   }
@@ -97,8 +88,5 @@ const setObjectValue = function ({ target, prop, childValue, mutate }) {
 
 // Do not set value if it has not changed.
 // We distinguish between `undefined` values with the property set and unset.
-const isSameObjectValue = function (target, prop, childValue) {
-  return (
-    target[prop] === childValue && (childValue !== undefined || prop in target)
-  )
-}
+const isSameObjectValue = (target, prop, childValue) =>
+  target[prop] === childValue && (childValue !== undefined || prop in target)

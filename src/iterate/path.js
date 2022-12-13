@@ -2,11 +2,11 @@ import { isAllowedProp } from './expand.js'
 import { MISSING_HANDLERS } from './missing.js'
 
 // Performance-optimized `iterate()` logic when the query is a path
-export const getPathValue = function (
+export const getPathValue = (
   target,
   pathArray,
   { missing: missingOpt, entries },
-) {
+) => {
   const { value, missing } = getDeepValue(target, pathArray)
 
   if (missing && !missingOpt) {
@@ -17,7 +17,7 @@ export const getPathValue = function (
   return { entry, matches: true }
 }
 
-const getDeepValue = function (value, pathArray) {
+const getDeepValue = (value, pathArray) => {
   // eslint-disable-next-line fp/no-loops
   for (const prop of pathArray) {
     // eslint-disable-next-line max-depth
@@ -32,7 +32,7 @@ const getDeepValue = function (value, pathArray) {
   return { value, missing: false }
 }
 
-const isPresent = function (value, prop) {
+const isPresent = (value, prop) => {
   if (typeof prop === 'string') {
     return isPresentProp(value) && prop in value
   }

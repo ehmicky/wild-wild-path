@@ -8,7 +8,7 @@ import { REGEXP_TOKEN } from './regexp.js'
 import { SLICE_TOKEN } from './slice.js'
 
 // Retrieve token type-specific logic
-export const getTokenType = function (token) {
+export const getTokenType = (token) => {
   const tokenTypeName = getTokenTypeName(token)
   return TOKEN_TYPES[tokenTypeName]
 }

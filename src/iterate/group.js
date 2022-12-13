@@ -1,6 +1,6 @@
 // Group an array of objects into an object of objects based on a property
 // TODO: replace by `Array.groupBy()` once supported by Node.js
-export const groupBy = function (array, getGroup) {
+export const groupBy = (array, getGroup) => {
   const groups = {}
 
   array.forEach((object, index) => {
@@ -12,7 +12,7 @@ export const groupBy = function (array, getGroup) {
 
 // We directly mutate `groups` for performance reasons
 // eslint-disable-next-line max-params
-const addGroup = function (object, index, groups, getGroup) {
+const addGroup = (object, index, groups, getGroup) => {
   const groupValue = getGroup(object, index)
   const group = String(groupValue)
 

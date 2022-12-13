@@ -3,17 +3,17 @@ import test from 'ava'
 import { each } from 'test-each'
 
 // Test multiple inputs with the `mutate` option either `true` or `false`
-export const testMutate = function (methods, inputs) {
+export const testMutate = (methods, inputs) => {
   each([false, true], methods, inputs, testMutateSingle)
 }
 
-// eslint-disable-next-line max-params
-const testMutateSingle = function (
+/* eslint-disable max-params */
+const testMutateSingle = (
   { title },
   mutate,
   { name, method },
   { input, input: [target], opts, output },
-) {
+) => {
   test(`${name}() output | ${title}`, (t) => {
     t.deepEqual(method(...input, { mutate, ...opts }), output)
 
@@ -22,3 +22,4 @@ const testMutateSingle = function (
     }
   })
 }
+/* eslint-enable max-params */

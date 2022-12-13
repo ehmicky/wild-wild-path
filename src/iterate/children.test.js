@@ -3,7 +3,7 @@ import { testListOutput } from '../helpers/list.test.js'
 
 const child = getChild()
 
-const functionObject = function () {}
+const functionObject = () => {}
 // eslint-disable-next-line fp/no-mutation
 functionObject.one = 1
 

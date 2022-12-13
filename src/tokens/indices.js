@@ -1,4 +1,4 @@
-const iterate = function (value, token) {
+const iterate = (value, token) => {
   const index = getArrayIndex(value, token)
   return [{ value: value[index], prop: index, missing: index >= value.length }]
 }
@@ -14,11 +14,8 @@ const iterate = function (value, token) {
 //          are handled
 //        - This allows appending with -0
 //        - This is better when setting values on arrays with varying sizes
-export const getArrayIndex = function (value, token) {
-  return token > 0 || Object.is(token, +0)
-    ? token
-    : Math.max(value.length + token, 0)
-}
+export const getArrayIndex = (value, token) =>
+  token > 0 || Object.is(token, +0) ? token : Math.max(value.length + token, 0)
 
 export const INDEX_TOKEN = {
   name: 'index',

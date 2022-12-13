@@ -2,14 +2,13 @@ import { handleMissingValue } from './missing.js'
 
 // Expand special tokens like *, **, regexps, slices into property names or
 // indices for a given value
-export const expandTokens = function (entries, index, opts) {
-  return entries
+export const expandTokens = (entries, index, opts) =>
+  entries
     .filter(({ queryArray }) => queryArray.length !== index)
     .flatMap((entry) => expandToken(entry, index, opts))
-}
 
 // Use the token to list entries against a target value.
-const expandToken = function ({ queryArray, value, path }, index, opts) {
+const expandToken = ({ queryArray, value, path }, index, opts) => {
   const token = queryArray[index]
   const missingReturn = handleMissingValue(value, token, opts.classes)
   const childEntriesA = iterateToken(token, missingReturn, opts)
@@ -23,22 +22,18 @@ const expandToken = function ({ queryArray, value, path }, index, opts) {
     }))
 }
 
-const isAllowedEntry = function ({ prop }) {
-  return isAllowedProp(prop)
-}
+const isAllowedEntry = ({ prop }) => isAllowedProp(prop)
 
 // Forbidden to avoid prototype pollution attacks
-export const isAllowedProp = function (prop) {
-  return !FORBIDDEN_PROPS.has(prop)
-}
+export const isAllowedProp = (prop) => !FORBIDDEN_PROPS.has(prop)
 
 const FORBIDDEN_PROPS = new Set(['__proto__', 'prototype', 'constructor'])
 
-const iterateToken = function (
+const iterateToken = (
   token,
   { tokenType, missing: missingParent, value },
   opts,
-) {
+) => {
   if (opts.missing) {
     return tokenType.iterate(value, token, opts)
   }
@@ -51,6 +46,4 @@ const iterateToken = function (
   return childEntries.filter(isNotMissing)
 }
 
-const isNotMissing = function ({ missing }) {
-  return !missing
-}
+const isNotMissing = ({ missing }) => !missing

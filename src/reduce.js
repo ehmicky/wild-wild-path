@@ -1,7 +1,7 @@
 import { list } from './iterate/main.js'
 
 // Modify a target object multiple times for each matched property.
-export const reduceParents = function ({
+export const reduceParents = ({
   target,
   query,
   setFunc,
@@ -10,7 +10,7 @@ export const reduceParents = function ({
   shallowArrays,
   classes,
   inherited,
-}) {
+}) => {
   const entries = list(target, query, {
     childFirst: false,
     roots: !leaves,

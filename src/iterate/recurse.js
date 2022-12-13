@@ -1,7 +1,7 @@
 import { getTokenType } from '../tokens/main.js'
 
 // Some tokens are recursive. Those are expanded iteratively at each level.
-export const expandRecursiveTokens = function (entries, index) {
+export const expandRecursiveTokens = (entries, index) => {
   const recurseFuncs = entries.map((entry) => getRecurseFunc(entry, index))
   return recurseFuncs.some(Boolean)
     ? entries.flatMap((entry, entryIndex) =>
@@ -10,12 +10,12 @@ export const expandRecursiveTokens = function (entries, index) {
     : entries
 }
 
-const getRecurseFunc = function (entry, index) {
+const getRecurseFunc = (entry, index) => {
   const token = entry.queryArray[index]
   return token === undefined ? undefined : getTokenType(token).recurse
 }
 
-const expandRecursiveToken = function (entry, recurseFunc, index) {
+const expandRecursiveToken = (entry, recurseFunc, index) => {
   if (recurseFunc === undefined) {
     return entry
   }

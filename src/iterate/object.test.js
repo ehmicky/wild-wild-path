@@ -5,20 +5,17 @@ import { isObject } from 'wild-wild-path'
 
 const child = getChild()
 
-const funcObj = function () {}
+const funcObj = () => {}
 
-const getAllInputs = function ({ inputs, outputs }) {
-  return inputs.flatMap((input) => getInputs(input, outputs))
-}
+const getAllInputs = ({ inputs, outputs }) =>
+  inputs.flatMap((input) => getInputs(input, outputs))
 
-const getInputs = function (input, [noClassesOutput, classesOutput]) {
-  return [
-    // Output when `classes` option is `false`
-    { input: [input, false], output: noClassesOutput },
-    // Or when it is `true`
-    { input: [input, true], output: classesOutput },
-  ]
-}
+const getInputs = (input, [noClassesOutput, classesOutput]) => [
+  // Output when `classes` option is `false`
+  { input: [input, false], output: noClassesOutput },
+  // Or when it is `true`
+  { input: [input, true], output: classesOutput },
+]
 
 testOutput(
   [{ name: 'isObject', method: isObject }],

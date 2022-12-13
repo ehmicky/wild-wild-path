@@ -3,15 +3,11 @@ import test from 'ava'
 import { each } from 'test-each'
 
 // Test the output of a specific method based on its input
-export const testOutput = function (methods, inputs) {
+export const testOutput = (methods, inputs) => {
   each(methods, inputs, testOutputSingle)
 }
 
-const testOutputSingle = function (
-  { title },
-  { name, method },
-  { input, output },
-) {
+const testOutputSingle = ({ title }, { name, method }, { input, output }) => {
   test(`${name}() output | ${title}`, (t) => {
     t.deepEqual(method(...input), output)
   })

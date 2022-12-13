@@ -27,7 +27,7 @@ export const iterate = function* (target, query, opts) {
 // Same but returned as an array.
 // We do not just use [...iterate(...)] to optimize for performance when
 // `query` is a path.
-export const list = function (target, query, opts) {
+export const list = (target, query, opts) => {
   const { opts: optsA, pathArray, queryArrays } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
@@ -41,7 +41,7 @@ export const list = function (target, query, opts) {
 // Same but only the first item.
 // We do not just use iterate(...).next().value to optimize for performance when
 // `query` is a path.
-export const get = function (target, query, opts) {
+export const get = (target, query, opts) => {
   const { opts: optsA, queryArrays, pathArray } = normalizeArgs(query, opts)
 
   if (pathArray === undefined) {
@@ -52,14 +52,14 @@ export const get = function (target, query, opts) {
   return matches ? entry : undefined
 }
 
-const normalizeArgs = function (query, opts) {
+const normalizeArgs = (query, opts) => {
   const optsA = getOptions(opts)
   const { pathArray, queryArrays } = normalizePathOrQuery(query)
   return { opts: optsA, pathArray, queryArrays }
 }
 
 // Distinguish between queries that are paths or not
-export const normalizePathOrQuery = function (query) {
+export const normalizePathOrQuery = (query) => {
   try {
     return { pathArray: normalizePath(query) }
   } catch {

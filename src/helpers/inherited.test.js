@@ -3,15 +3,15 @@ import test from 'ava'
 import { each } from 'test-each'
 
 // Test the `classes` and `inherited` options
-export const testInherited = function (methods, inputs) {
+export const testInherited = (methods, inputs) => {
   each(methods, inputs, testInheritedSingle)
 }
 
-const testInheritedSingle = function (
+const testInheritedSingle = (
   { title },
   { name, method },
   { input, output },
-) {
+) => {
   test(`${name}() handles non-enumerable and inherited properties | ${title}`, (t) => {
     const child = getChild()
     const { ownEnum, ownNonEnum, inheritedEnum, inheritedNonEnum } = method(
@@ -34,9 +34,7 @@ const testInheritedSingle = function (
 // Retrieve objects with both:
 //  - Enumerated and non-enumerated properties
 //  - Own and inherited properties
-export const getChild = function () {
-  return new Child()
-}
+export const getChild = () => new Child()
 
 /* eslint-disable fp/no-class, fp/no-this, fp/no-mutation,
    fp/no-mutating-methods */

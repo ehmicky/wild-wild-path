@@ -33,9 +33,8 @@ export const iterateChildEntries = function* ({
   return hasChildren
 }
 
-const shouldIterateChildren = function (entries, parentEntry, { roots }) {
-  return parentEntry === undefined || (entries.length !== 1 && !roots)
-}
+const shouldIterateChildren = (entries, parentEntry, { roots }) =>
+  parentEntry === undefined || (entries.length !== 1 && !roots)
 
 const iterateChildren = function* ({
   entries,
@@ -76,7 +75,7 @@ const iterateChildren = function* ({
 //  - This is useful for recursive logic which must often be applied in a
 //    specific parent-child order
 // We also sort siblings when `sort` is true`
-const groupSortChildEntries = function (childEntries, { sort }) {
+const groupSortChildEntries = (childEntries, { sort }) => {
   const childEntriesObj = groupBy(childEntries, getLastProp)
   return sort
     ? // eslint-disable-next-line fp/no-mutating-methods
@@ -86,6 +85,4 @@ const groupSortChildEntries = function (childEntries, { sort }) {
     : Object.values(childEntriesObj)
 }
 
-const getLastProp = function ({ path }) {
-  return path[path.length - 1]
-}
+const getLastProp = ({ path }) => path[path.length - 1]

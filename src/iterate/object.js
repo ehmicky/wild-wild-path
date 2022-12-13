@@ -18,11 +18,10 @@ import isPlainObj from 'is-plain-obj'
 // This is exported, but undocumented, for any consumers which might want to
 // recurse on the input|output and still be consistent with the `classes`
 // option.
-export const isObject = function (value, classes) {
-  return classes ? isWeakObject(value) : isPlainObj(value)
-}
+export const isObject = (value, classes) =>
+  classes ? isWeakObject(value) : isPlainObj(value)
 
-export const isWeakObject = function (value) {
+export const isWeakObject = (value) => {
   const typeofValue = typeof value
   return (
     (typeofValue === 'object' || typeofValue === 'function') && value !== null

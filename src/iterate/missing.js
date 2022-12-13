@@ -19,11 +19,10 @@ import { isObject, isWeakObject } from './object.js'
 //  - Also, even if they were ignored by the `prop` token type, the current
 //    `set()` logic would set them anyway, since missing entries are set by
 //    default
-export const getMissingValue = function (value, prop, { missing, classes }) {
-  return missing ? handleMissingValue(value, prop, classes).value : value
-}
+export const getMissingValue = (value, prop, { missing, classes }) =>
+  missing ? handleMissingValue(value, prop, classes).value : value
 
-export const handleMissingValue = function (value, token, classes) {
+export const handleMissingValue = (value, token, classes) => {
   const tokenType = getTokenType(token)
   const { isPresent, getDefaultValue } = MISSING_HANDLERS[tokenType.valueType]
   const missing = !isPresent(value, classes)
@@ -33,19 +32,14 @@ export const handleMissingValue = function (value, token, classes) {
 
 // New values must always be returned since those might be mutated either
 // by the `mutate` option or by the consumer
-const getDefaultObject = function () {
-  return {}
-}
+const getDefaultObject = () => ({})
 
-const getDefaultArray = function () {
-  return []
-}
+const getDefaultArray = () => []
 
 export const MISSING_HANDLERS = {
   objectArray: {
-    isPresent(value, classes) {
-      return isObject(value, classes) || Array.isArray(value)
-    },
+    isPresent: (value, classes) =>
+      isObject(value, classes) || Array.isArray(value),
     getDefaultValue: getDefaultObject,
   },
   array: {
@@ -53,9 +47,7 @@ export const MISSING_HANDLERS = {
     getDefaultValue: getDefaultArray,
   },
   strictObject: {
-    isPresent(value, classes) {
-      return isObject(value, classes)
-    },
+    isPresent: (value, classes) => isObject(value, classes),
     getDefaultValue: getDefaultObject,
   },
   weakObject: {

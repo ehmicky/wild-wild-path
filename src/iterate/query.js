@@ -9,14 +9,13 @@ export const iterateQuery = function* (target, queryArrays, opts) {
   yield* iterateLevel({ entries, index: 0, parents, opts })
 }
 
-const getRootEntries = function (target, queryArrays) {
-  return queryArrays.map((queryArray) => ({
+const getRootEntries = (target, queryArrays) =>
+  queryArrays.map((queryArray) => ({
     queryArray,
     value: target,
     path: [],
     missing: false,
   }))
-}
 
 // `parents` is used to prevent infinite recursions when using ** together with
 // a value that includes references to itself
@@ -67,22 +66,17 @@ const iterateToken = function* ({ entries, index, parents, opts }) {
   }
 }
 
-const getParentEntry = function (entries, index) {
-  return entries.find(({ queryArray }) => queryArray.length === index)
-}
+const getParentEntry = (entries, index) =>
+  entries.find(({ queryArray }) => queryArray.length === index)
 
-const normalizeEntry = function ({ value, path, missing }, { entries }) {
-  return entries ? { value, path, missing } : value
-}
+const normalizeEntry = ({ value, path, missing }, { entries }) =>
+  entries ? { value, path, missing } : value
 
-const shouldYieldParentFirst = function (parentEntry, { childFirst }) {
-  return parentEntry !== undefined && !childFirst
-}
+const shouldYieldParentFirst = (parentEntry, { childFirst }) =>
+  parentEntry !== undefined && !childFirst
 
-const shouldYieldParentLast = function (
+const shouldYieldParentLast = (
   parentEntry,
   hasChildren,
   { childFirst, leaves },
-) {
-  return parentEntry !== undefined && childFirst && !(leaves && hasChildren)
-}
+) => parentEntry !== undefined && childFirst && !(leaves && hasChildren)

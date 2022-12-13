@@ -4,11 +4,11 @@ import { testValidation } from './validate.test.js'
 import { list, iterate } from 'wild-wild-path'
 
 // Repeat the same tests for both `list()` and `iterate()`
-export const testListOutput = function (inputs) {
+export const testListOutput = (inputs) => {
   testOutput(listMethods, inputs)
 }
 
-export const testListValidation = function (inputs) {
+export const testListValidation = (inputs) => {
   testValidation(listMethods, inputs)
 }
 
@@ -16,8 +16,6 @@ const listMethods = [
   { name: 'list', method: list },
   {
     name: 'iterate',
-    method(...inputs) {
-      return [...iterate(...inputs)]
-    },
+    method: (...inputs) => [...iterate(...inputs)],
   },
 ]

@@ -3,11 +3,11 @@ import { setValue } from './set.js'
 import { validateClasses } from './validate.js'
 
 // Same as `set()` but removing a value
-export const remove = function (
+export const remove = (
   target,
   query,
   { mutate = false, leaves = false, shallowArrays, classes, inherited } = {},
-) {
+) => {
   validateClasses(classes, mutate)
   const setFunc = removeAnyEntry.bind(undefined, mutate)
   return reduceParents({
@@ -23,13 +23,10 @@ export const remove = function (
 }
 
 // eslint-disable-next-line max-params
-const removeAnyEntry = function (mutate, target, path, index) {
-  return path.length === 0
-    ? undefined
-    : removeEntry({ mutate, target, path, index })
-}
+const removeAnyEntry = (mutate, target, path, index) =>
+  path.length === 0 ? undefined : removeEntry({ mutate, target, path, index })
 
-const removeEntry = function ({ mutate, target, path, index }) {
+const removeEntry = ({ mutate, target, path, index }) => {
   const prop = path[index]
 
   if (index === path.length - 1) {
@@ -46,13 +43,12 @@ const removeEntry = function ({ mutate, target, path, index }) {
   return setValue({ target, prop, childValue, mutate })
 }
 
-const removeValue = function (target, prop, mutate) {
-  return Array.isArray(target, prop)
+const removeValue = (target, prop, mutate) =>
+  Array.isArray(target, prop)
     ? removeArrayValue(target, prop, mutate)
     : removeObjectValue(target, prop, mutate)
-}
 
-const removeArrayValue = function (target, index, mutate) {
+const removeArrayValue = (target, index, mutate) => {
   if (target[index] === undefined) {
     return target
   }
@@ -63,7 +59,7 @@ const removeArrayValue = function (target, index, mutate) {
   return trimUndefined(targetA, mutate)
 }
 
-const trimUndefined = function (target, mutate) {
+const trimUndefined = (target, mutate) => {
   if (target.some(isDefined)) {
     return target
   }
@@ -77,11 +73,9 @@ const trimUndefined = function (target, mutate) {
   return []
 }
 
-const isDefined = function (item) {
-  return item !== undefined
-}
+const isDefined = (item) => item !== undefined
 
-const removeObjectValue = function (target, prop, mutate) {
+const removeObjectValue = (target, prop, mutate) => {
   const targetA = mutate ? target : { ...target }
   // eslint-disable-next-line fp/no-delete
   delete targetA[prop]
@@ -94,7 +88,7 @@ const removeObjectValue = function (target, prop, mutate) {
 // In this case, we set the value to `undefined` instead.
 // This case can only happen when `mutate` is `true` since shallow copies remove
 // prototypes.
-const removeInheritedValue = function (target, prop, mutate) {
+const removeInheritedValue = (target, prop, mutate) => {
   if (mutate && prop in target) {
     // eslint-disable-next-line fp/no-mutation, no-param-reassign
     target[prop] = undefined

@@ -6,7 +6,7 @@ import { set } from 'wild-wild-path'
 
 const methods = [{ name: 'set', method: set }]
 
-const setArray = function (array, name, value) {
+const setArray = (array, name, value) => {
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   array[name] = value
   return array
