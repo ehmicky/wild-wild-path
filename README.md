@@ -18,6 +18,16 @@ Get/set object properties using:
 - 🏜️ [Slices](#%EF%B8%8F-array-slices): `foo.0:2`
 - 🚂 [Unions](#-unions): `foo bar baz`
 
+# Hire me
+
+Please
+[reach out](https://www.linkedin.com/feed/update/urn:li:activity:7018596298127781890/)
+if you're looking for a Node.js API or CLI engineer (10 years of experience).
+Most recently I have been [Netlify Build](https://github.com/netlify/build)'s
+and [Netlify Plugins](https://www.netlify.com/products/build/plugins/)'
+technical lead for 2.5 years. I am available for full-time remote positions in
+either US or EU time zones.
+
 # Install
 
 ```bash
