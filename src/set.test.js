@@ -1,8 +1,9 @@
+import { set } from 'wild-wild-path'
+
 import { testInherited } from './helpers/inherited.test.js'
 import { testMutate } from './helpers/mutate.test.js'
 import { testValidation } from './helpers/validate.test.js'
 
-import { set } from 'wild-wild-path'
 
 const methods = [{ name: 'set', method: set }]
 

@@ -1,11 +1,11 @@
 import test from 'ava'
+import { get, list, iterate } from 'wild-wild-path'
 
 import { getChild } from '../helpers/inherited.test.js'
 import { testListOutput, testListValidation } from '../helpers/list.test.js'
 import { testOutput } from '../helpers/output.test.js'
 import { testValidation } from '../helpers/validate.test.js'
 
-import { get, list, iterate } from 'wild-wild-path'
 
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
