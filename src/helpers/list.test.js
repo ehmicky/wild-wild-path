@@ -3,7 +3,6 @@ import { list, iterate } from 'wild-wild-path'
 import { testOutput } from './output.test.js'
 import { testValidation } from './validate.test.js'
 
-
 // Repeat the same tests for both `list()` and `iterate()`
 export const testListOutput = (inputs) => {
   testOutput(listMethods, inputs)

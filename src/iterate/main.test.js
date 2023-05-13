@@ -6,7 +6,6 @@ import { testListOutput, testListValidation } from '../helpers/list.test.js'
 import { testOutput } from '../helpers/output.test.js'
 import { testValidation } from '../helpers/validate.test.js'
 
-
 test('iterate() returns an iterator', (t) => {
   t.is(iterate(1, '.').next().value, 1)
 })
