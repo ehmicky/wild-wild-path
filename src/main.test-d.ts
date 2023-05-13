@@ -1,4 +1,5 @@
 import { expectType, expectNotType, expectAssignable } from 'tsd'
+
 import {
   has,
   get,
