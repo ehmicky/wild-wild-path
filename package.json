@@ -55,7 +55,7 @@
     "wild-wild-parser": "^4.0.0"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^2.0.90",
+    "@ehmicky/dev-tasks": "^2.0.91",
     "test-each": "^6.0.1"
   },
   "engines": {
