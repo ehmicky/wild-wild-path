@@ -42,7 +42,10 @@
   ],
   "license": "Apache-2.0",
   "homepage": "https://www.github.com/ehmicky/wild-wild-path",
-  "repository": "ehmicky/wild-wild-path",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/wild-wild-path.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/wild-wild-path/issues"
   },
