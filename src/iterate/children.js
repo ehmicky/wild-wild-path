@@ -85,4 +85,4 @@ const groupSortChildEntries = (childEntries, { sort }) => {
     : Object.values(childEntriesObj)
 }
 
-const getLastProp = ({ path }) => path[path.length - 1]
+const getLastProp = ({ path }) => path.at(-1)
