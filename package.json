@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "is-plain-obj": "^4.1.0",
-    "wild-wild-parser": "^4.0.0"
+    "wild-wild-parser": "^5.0.0"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^2.0.102",
