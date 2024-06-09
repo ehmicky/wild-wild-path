@@ -121,7 +121,8 @@ list(target, 'userOne.*', { entries: true })
 `target`: [`Target`](#target)\
 `query`: [`Query`](#queries)\
 `options`: [`Options?`](#options)\
-_Return value_: [`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
+_Return value_:
+[`Iterable<any>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols)
 
 Return all properties matching the `query`, as an
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#examples_using_the_iteration_protocols).
@@ -467,7 +468,8 @@ _Type_: `boolean`\
 _Default_: `false`
 
 By default, the [target](#target) is deeply cloned.\
-When `true`, it is directly mutated instead, which is faster but has side effects.
+When `true`, it is directly mutated instead, which is faster but has side
+effects.
 
 ```js
 const target = {}
