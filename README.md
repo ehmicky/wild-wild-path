@@ -33,7 +33,7 @@ technical lead for 2.5 years. I am available for full-time remote positions.
 npm install wild-wild-path
 ```
 
-This package works in both Node.js >=18.20.0 and
+This package works in both Node.js >=18.18.0 and
 [browsers](https://raw.githubusercontent.com/ehmicky/dev-tasks/main/src/browserslist).
 
 This is an ES module. It must be loaded using
