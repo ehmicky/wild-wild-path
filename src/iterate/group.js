@@ -22,6 +22,5 @@ const addGroup = (object, index, groups, getGroup) => {
     return
   }
 
-  // eslint-disable-next-line fp/no-mutating-methods
   groups[group].push(object)
 }

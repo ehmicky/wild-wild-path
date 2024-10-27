@@ -36,8 +36,7 @@ const testInheritedSingle = (
 //  - Own and inherited properties
 export const getChild = () => new Child()
 
-/* eslint-disable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods */
+/* eslint-disable fp/no-class, fp/no-this, fp/no-mutation */
 class Parent {}
 
 Parent.prototype.inheritedEnum = 'inheritedEnum'
@@ -52,5 +51,4 @@ class Child extends Parent {
     Object.defineProperty(this, 'ownNonEnum', { value: 'ownNonEnum' })
   }
 }
-/* eslint-enable fp/no-class, fp/no-this, fp/no-mutation,
-   fp/no-mutating-methods */
+/* eslint-enable fp/no-class, fp/no-this, fp/no-mutation */

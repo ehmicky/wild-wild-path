@@ -65,7 +65,6 @@ const trimUndefined = (target, mutate) => {
   }
 
   if (mutate) {
-    // eslint-disable-next-line fp/no-mutating-methods
     target.splice(0)
     return target
   }

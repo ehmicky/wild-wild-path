@@ -78,8 +78,7 @@ const iterateChildren = function* ({
 const groupSortChildEntries = (childEntries, { sort }) => {
   const childEntriesObj = groupBy(childEntries, getLastProp)
   return sort
-    ? // eslint-disable-next-line fp/no-mutating-methods
-      Object.keys(childEntriesObj)
+    ? Object.keys(childEntriesObj)
         .sort()
         .map((prop) => childEntriesObj[prop])
     : Object.values(childEntriesObj)
