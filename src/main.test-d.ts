@@ -1,17 +1,17 @@
-import { expectType, expectNotType, expectAssignable } from 'tsd'
+import { expectAssignable, expectNotType, expectType } from 'tsd'
 
 import {
-  has,
   get,
-  list,
+  has,
+  isObject,
   iterate,
+  list,
   remove,
   set,
-  isObject,
-  type Target,
-  type Query,
-  type Options,
   type Entry,
+  type Options,
+  type Query,
+  type Target,
 } from 'wild-wild-path'
 
 expectAssignable<Target>({ one: 1 })

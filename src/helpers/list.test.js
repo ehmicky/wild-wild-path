@@ -1,7 +1,7 @@
 import { testOutput } from './output.test.js'
 import { testValidation } from './validate.test.js'
 
-import { list, iterate } from 'wild-wild-path'
+import { iterate, list } from 'wild-wild-path'
 
 // Repeat the same tests for both `list()` and `iterate()`
 export const testListOutput = (inputs) => {

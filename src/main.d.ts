@@ -1,4 +1,4 @@
-import type { Query, PathArray } from 'wild-wild-parser'
+import type { PathArray, Query } from 'wild-wild-parser'
 
 export type Target = object | unknown[]
 export type { Query }
