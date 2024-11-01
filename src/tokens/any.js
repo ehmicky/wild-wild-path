@@ -26,6 +26,7 @@ export const getKeys = (value, inherited) => {
 
   // eslint-disable-next-line fp/no-loops, guard-for-in
   for (const key in value) {
+    // eslint-disable-next-line fp/no-mutating-methods
     keys.push(key)
   }
 

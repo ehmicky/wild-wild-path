@@ -40,6 +40,7 @@ export const getChild = () => new Child()
 class Parent {}
 
 Parent.prototype.inheritedEnum = 'inheritedEnum'
+// eslint-disable-next-line fp/no-mutating-methods
 Object.defineProperty(Parent.prototype, 'inheritedNonEnum', {
   value: 'inheritedNonEnum',
 })
@@ -48,6 +49,7 @@ class Child extends Parent {
   constructor() {
     super()
     this.ownEnum = 'ownEnum'
+    // eslint-disable-next-line fp/no-mutating-methods
     Object.defineProperty(this, 'ownNonEnum', { value: 'ownNonEnum' })
   }
 }
