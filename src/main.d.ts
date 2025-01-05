@@ -319,6 +319,7 @@ export function remove(target: Target, query: Query, options?: Options): Target
  * set({}, 'user.0.color', 'red', { missing: false }) // {}
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/max-params
 export function set(
   target: Target,
   query: Query,
