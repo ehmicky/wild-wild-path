@@ -15,6 +15,11 @@ testOutput(
     { input: [{ one: 1 }, 'two'], output: false },
     { input: [{ one: undefined }, 'one'], output: true },
     { input: [{ one: 1 }, [/one/u]], output: true },
+    { input: [{ one: 1, __proto__: { two: 2 } }, 'two'], output: true },
+    {
+      input: [{ one: 1, __proto__: { two: 2 } }, '__proto__.two'],
+      output: false,
+    },
 
     // `shallowArrays` option
     { input: [[0], '*'], output: true },

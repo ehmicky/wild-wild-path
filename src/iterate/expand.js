@@ -11,8 +11,8 @@ export const expandTokens = (entries, index, opts) =>
 const expandToken = ({ queryArray, value, path }, index, opts) => {
   const token = queryArray[index]
   const missingReturn = handleMissingValue(value, token, opts.classes)
-  const childEntriesA = iterateToken(token, missingReturn, opts)
-  return childEntriesA
+  const childEntries = iterateToken(token, missingReturn, opts)
+  return childEntries
     .filter(isAllowedEntry)
     .map(({ value: childValue, prop, missing: missingEntry }) => ({
       queryArray,

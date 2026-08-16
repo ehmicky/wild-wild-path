@@ -19,6 +19,9 @@ testListOutput([
     output: [1, { three: 1 }],
   },
 
+  // Forbidden properties
+  { input: [{ __proto__: { one: 1 } }, [['__proto__']]], output: [] },
+
   // `leaves` option
   {
     input: [{ one: { two: 1 } }, 'one . one.two', { leaves: true }],

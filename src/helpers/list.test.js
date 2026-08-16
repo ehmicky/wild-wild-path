@@ -14,8 +14,5 @@ export const testListValidation = (inputs) => {
 
 const listMethods = [
   { name: 'list', method: list },
-  {
-    name: 'iterate',
-    method: (...inputs) => [...iterate(...inputs)],
-  },
+  { name: 'iterate', method: (...inputs) => [...iterate(...inputs)] },
 ]

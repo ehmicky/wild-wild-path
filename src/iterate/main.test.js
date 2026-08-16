@@ -41,8 +41,24 @@ testListOutput([
 
   // Forbidden properties
   { input: [{ __proto__: {} }, '__proto__'], output: [] },
+  {
+    input: [{ __proto__: {} }, '__proto__', { entries: true, missing: true }],
+    output: [],
+  },
   { input: [{ prototype: {} }, 'prototype'], output: [] },
+  {
+    input: [{ prototype: {} }, 'prototype', { entries: true, missing: true }],
+    output: [],
+  },
   { input: [{ constructor: () => {} }, 'constructor'], output: [] },
+  {
+    input: [
+      { constructor: () => {} },
+      'constructor',
+      { entries: true, missing: true },
+    ],
+    output: [],
+  },
 ])
 
 testListValidation([

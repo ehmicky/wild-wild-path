@@ -29,6 +29,12 @@ testMutate(methods, [
   { input: [{ one: undefined }, 'one'], output: {} },
   { input: [{ one: 1 }, 'one'], output: {} },
 
+  // Forbidden properties
+  {
+    input: [{ one: 1, __proto__: { two: 2 } }, '__proto__.two'],
+    output: { one: 1, __proto__: {} },
+  },
+
   // Missing values
   { input: [{}, '0'], output: {} },
   { input: [{ one: {} }, 'one.0'], output: { one: {} } },

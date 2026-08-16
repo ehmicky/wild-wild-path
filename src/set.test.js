@@ -35,6 +35,12 @@ testMutate(methods, [
   { input: [{ one: undefined }, 'one', undefined], output: { one: undefined } },
   { input: [{ one: 1 }, 'one', 1], output: { one: 1 } },
 
+  // Forbidden properties
+  {
+    input: [{ one: 1 }, '__proto__.two', 2],
+    output: { one: 1, __proto__: { two: 2 } },
+  },
+
   // `missing` option
   { input: [{}, 'one', 1], output: { one: 1 } },
   {
