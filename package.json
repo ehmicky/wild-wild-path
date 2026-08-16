@@ -1,6 +1,6 @@
 {
   "name": "wild-wild-path",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "type": "module",
   "exports": {
     "types": "./build/src/main.d.ts",
