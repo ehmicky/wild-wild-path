@@ -1,3 +1,9 @@
+# 5.0.2
+
+## Security
+
+- Prevent setting prototype
+
 # 5.0.1
 
 ## Documentation
