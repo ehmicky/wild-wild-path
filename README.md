@@ -686,8 +686,9 @@ If you would like to help us fix a bug or add a new feature, please check our
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://fosstodon.org/@ehmicky"><img src="https://avatars2.githubusercontent.com/u/8136211?v=4?s=100" width="100px;" alt="ehmicky"/><br /><sub><b>ehmicky</b></sub></a><br /><a href="https://github.com/ehmicky/wild-wild-path/commits?author=ehmicky" title="Code">💻</a> <a href="#design-ehmicky" title="Design">🎨</a> <a href="#ideas-ehmicky" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ehmicky/wild-wild-path/commits?author=ehmicky" title="Documentation">📖</a></td>
-      <td align="center"><a href="https://sylvainsimao.fr"><img src="https://avatars.githubusercontent.com/u/4679377?v=4?s=100" width="100px;" alt="Sylvain"/><br /><sub><b>Sylvain</b></sub></a><br /><a href="#ideas-maoosi" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://fosstodon.org/@ehmicky"><img src="https://avatars2.githubusercontent.com/u/8136211?v=4?s=100" width="100px;" alt="ehmicky"/><br /><sub><b>ehmicky</b></sub></a><br /><a href="https://github.com/ehmicky/wild-wild-path/commits?author=ehmicky" title="Code">💻</a> <a href="#design-ehmicky" title="Design">🎨</a> <a href="#ideas-ehmicky" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ehmicky/wild-wild-path/commits?author=ehmicky" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://sylvainsimao.fr"><img src="https://avatars.githubusercontent.com/u/4679377?v=4?s=100" width="100px;" alt="Sylvain"/><br /><sub><b>Sylvain</b></sub></a><br /><a href="#ideas-maoosi" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fish121187"><img src="https://avatars.githubusercontent.com/u/42272899?v=4?s=100" width="100px;" alt="fish"/><br /><sub><b>fish</b></sub></a><br /><a href="#security-fish121187" title="Security">🛡️</a></td>
     </tr>
   </tbody>
 </table>
